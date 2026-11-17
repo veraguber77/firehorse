@@ -1,3 +1,4 @@
+import { Link } from 'react-router'
 import './Footer.css'
 import logoForLight from '../assets/logo-sky-blue-dark.png'
 import logoForDark from '../assets/logo-deep-blue-light.png'
@@ -6,8 +7,8 @@ const columns = [
   {
     title: 'Competition',
     links: [
-      { label: 'Categories', href: '#categories' },
-      { label: 'Timeline', href: '#timeline' },
+      { label: 'Categories', to: '/categories' },
+      { label: 'Timeline', to: '/timeline' },
       { label: 'Prizes', href: '#prizes' },
       { label: 'Judges', href: '#judges' },
     ],
@@ -16,7 +17,7 @@ const columns = [
     title: 'Info',
     links: [
       { label: 'About', href: '#about' },
-      { label: 'FAQ', href: '#faq' },
+      { label: 'FAQ', to: '/faq' },
       { label: 'Past Winners', href: '#past-winners' },
       { label: 'Press', href: '#press' },
     ],
@@ -52,9 +53,15 @@ export default function Footer() {
               <ul className="footer__list">
                 {column.links.map((link) => (
                   <li key={link.label}>
-                    <a className="footer__link" href={link.href}>
-                      {link.label}
-                    </a>
+                    {link.to ? (
+                      <Link className="footer__link" to={link.to}>
+                        {link.label}
+                      </Link>
+                    ) : (
+                      <a className="footer__link" href={link.href}>
+                        {link.label}
+                      </a>
+                    )}
                   </li>
                 ))}
               </ul>

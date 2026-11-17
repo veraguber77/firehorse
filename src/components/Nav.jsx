@@ -1,14 +1,10 @@
+import { Link } from 'react-router'
 import './Nav.css'
+import { navLinks } from '../routes.js'
 import logoForLight from '../assets/logo-red-dark.png'
 import logoForDark from '../assets/logo-red-light.png'
 import gearForLight from '../assets/gear-dark.svg'
 import gearForDark from '../assets/gear-light.svg'
-
-const links = [
-  { id: 'categories', label: 'Categories', href: '#categories' },
-  { id: 'timeline', label: 'Timeline', href: '#timeline' },
-  { id: 'faq', label: 'FAQ', href: '#faq' },
-]
 
 /**
  * Site nav — Figma component "Nav" (262:4567 light, 322:10208 dark).
@@ -17,21 +13,21 @@ const links = [
 export default function Nav({ current = 'home', onOpenSettings, settingsOpen = false }) {
   return (
     <header className="nav">
-      <a className="nav__logo" href="#" aria-label="Firehorse — home">
+      <Link className="nav__logo" to="/" aria-label="Firehorse — home">
         <img className="nav__logo-img theme-light-only" src={logoForLight} alt="" />
         <img className="nav__logo-img theme-dark-only" src={logoForDark} alt="" />
-      </a>
+      </Link>
 
       <nav className="nav__links" aria-label="Main">
-        {links.map((link) => (
-          <a
+        {navLinks.map((link) => (
+          <Link
             key={link.id}
             className="nav__link"
-            href={link.href}
+            to={link.path}
             aria-current={current === link.id ? 'page' : undefined}
           >
             {link.label}
-          </a>
+          </Link>
         ))}
       </nav>
 

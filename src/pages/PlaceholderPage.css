@@ -1,0 +1,21 @@
+.placeholder-page {
+  padding: var(--spacing-80) var(--spacing-64);
+}
+
+.placeholder-page__title {
+  font-family: var(--font-display);
+  font-size: 72px;
+  font-weight: 900;
+  line-height: 1;
+  color: var(--text-brand-primary);
+}
+
+@media (max-width: 900px) {
+  .placeholder-page {
+    padding: var(--spacing-48) var(--spacing-24);
+  }
+
+  .placeholder-page__title {
+    font-size: 48px;
+  }
+}
