@@ -18,7 +18,7 @@ export default function App() {
   const activeRoute = routes.find((route) => route.path === normalizedPath)
 
   useEffect(() => {
-    window.scrollTo(0, 0)
+    window.scrollTo({ top: 0, behavior: 'instant' })
     document.title = activeRoute && activeRoute.id !== 'home' ? `${activeRoute.label} — Firehorse` : 'Firehorse'
   }, [activeRoute])
 

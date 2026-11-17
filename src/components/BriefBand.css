@@ -1,0 +1,178 @@
+/*
+ * Follows the 1280 × 780 Figma frame. Like the picker, the brief column and
+ * the vertical rule are anchored to the right edge so the rule lines up with
+ * the picker's rule at any window width. Desktop only for now.
+ */
+.brief {
+  --brief-bg: var(--category-color);
+  --brief-ink: var(--color-cinder-600);
+  --brief-button-text: var(--text-static-cream);
+
+  position: relative;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  min-height: 780px;
+  padding: var(--spacing-96) var(--spacing-64);
+  overflow: clip;
+  background: var(--brief-bg);
+  color: var(--brief-ink);
+  scroll-margin-top: 0;
+}
+
+.brief[data-ink='cream'] {
+  --brief-ink: var(--text-static-cream);
+  --brief-button-text: var(--color-cinder-600);
+}
+
+/* Cinder is the dark page background, so the Motion band goes black there (as in the dark Figma set). */
+[data-theme='dark'] .brief[data-category='motion'] {
+  --brief-bg: var(--color-neutral-900);
+}
+
+/* Gradient background (centre sits 701.28px from the right, 302.1px from the top) */
+.brief__gradient {
+  position: absolute;
+  top: -390.66px;
+  right: -189.41px;
+  width: 1781.382px;
+  height: 1385.513px;
+  rotate: 40.98deg;
+  scale: 1 -1;
+  pointer-events: none;
+}
+
+.brief__gradient img {
+  position: absolute;
+  top: -6.86%;
+  left: -5.33%;
+  display: block;
+  width: 109.13%;
+  height: 114.07%;
+  max-width: none;
+}
+
+/* Big index number */
+.brief__index {
+  position: relative;
+  flex: none;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 247px;
+  font-family: var(--font-heading);
+  font-size: 240px;
+  font-weight: 700;
+  line-height: 0.8;
+  white-space: nowrap;
+}
+
+.brief__body {
+  position: relative;
+  flex: none;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--spacing-24);
+  width: 466px;
+}
+
+/* Firehorse/Heading 1 */
+.brief__title {
+  font-family: var(--font-heading);
+  font-size: 64px;
+  font-weight: 700;
+  line-height: 0.78;
+  letter-spacing: -0.06em;
+  text-transform: uppercase;
+}
+
+/* Firehorse/Body Large */
+.brief__tagline {
+  font-size: 18px;
+  font-weight: 500;
+  line-height: normal;
+  opacity: 0.8;
+}
+
+.brief__requirements {
+  align-self: stretch;
+  margin: 0;
+  padding: var(--spacing-16) 0 0;
+  list-style: none;
+}
+
+.brief__row {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--spacing-16);
+  padding: 18px 0;
+  border-top: 1px solid var(--brief-ink);
+}
+
+.brief__row:last-child {
+  border-bottom: 1px solid var(--brief-ink);
+}
+
+/* Inter Extra Bold in Figma; Inter isn't in the font project, so this uses the body face. */
+.brief__row-number {
+  flex: none;
+  width: 64px;
+  font-size: 32px;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.brief__row-text {
+  flex: 1 0 0;
+  min-width: 1px;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-4);
+}
+
+/* Firehorse/Button-UI */
+.brief__row-label {
+  font-family: var(--font-body);
+  font-size: 14px;
+  font-weight: 700;
+  line-height: normal;
+  text-transform: uppercase;
+}
+
+/* Firehorse/Body */
+.brief__row-detail {
+  font-size: 16px;
+  font-weight: 400;
+  line-height: normal;
+  opacity: 0.8;
+}
+
+.brief__actions {
+  padding-top: var(--spacing-16);
+}
+
+.brief__button {
+  display: flex;
+  align-items: center;
+  height: 52px;
+  padding: 0 28px;
+  background: var(--brief-ink);
+  color: var(--brief-button-text);
+  font-size: 14px;
+  font-weight: 700;
+  line-height: normal;
+  text-transform: uppercase;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+/* Same position and width as the picker's rule, so they read as one line. */
+.brief__rule {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 578px;
+  width: 8px;
+  background: var(--brief-ink);
+}
