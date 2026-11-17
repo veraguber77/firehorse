@@ -176,7 +176,9 @@
   display: flex;
   align-items: stretch;
   gap: var(--spacing-24);
-  height: 900px;
+  /* One screen tall (900px frame in Figma). The min-height fits the shortest red bar. */
+  height: 100vh;
+  min-height: 643px;
   padding: var(--spacing-96) var(--spacing-64) var(--spacing-80);
 }
 
@@ -255,7 +257,9 @@
 
 .home-bars__item--now .home-bars__fill {
   width: 248px;
-  height: 680px;
+  /* 680px in Figma; shrinks so the bar and its label fit the section:
+     100vh minus 96px + 80px padding and the 27px label row. */
+  height: clamp(440px, 100vh - 203px, 680px);
   background: var(--color-inferno-600);
 }
 
@@ -289,7 +293,9 @@
 
 .home-bars__item--now .home-bars__year-box {
   left: 42px;
-  top: 272px;
+  /* Pinned to the bottom (22px up, as in Figma) so it stays put when the bar shortens. */
+  top: auto;
+  bottom: 22px;
   width: 131px;
   height: 386px;
 }
