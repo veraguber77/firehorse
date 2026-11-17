@@ -69,3 +69,9 @@ a {
   outline: 2px solid var(--border-focus);
   outline-offset: 2px;
 }
+
+/* Theme-specific assets: render both, show the one for the active theme. */
+[data-theme='dark'] .theme-light-only,
+:root:not([data-theme='dark']) .theme-dark-only {
+  display: none;
+}
