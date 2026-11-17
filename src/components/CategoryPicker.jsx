@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import './CategoryPicker.css'
 import { allCategories, categories, categoryVars, getCategory } from '../categories.js'
 import gradient from '../assets/picker/gradient.svg'
@@ -8,11 +9,63 @@ import hubDiscForDark from '../assets/picker/hub-disc-dark.svg'
 import innerDiscForLight from '../assets/picker/inner-disc-light.svg'
 import innerDiscForDark from '../assets/picker/inner-disc-dark.svg'
 
-// Spokes sit 20° apart. The pointer is the horizontal line through the hub,
-// and with no rotation the second spoke (Web App) rests on it, as in Figma.
+// Spokes sit 20° apart. The pointer is the horizontal line through the hub
+// (0°); positive angles point down. "All" rests with the second spoke
+// (Web App) on the pointer, as in Figma.
 const SPOKE_STEP = 20
 const REST_INDEX = 1
-const spokeAngle = (index) => (index - REST_INDEX) * SPOKE_STEP
+
+// Geometry of the 800px-tall section, used to keep labels off its edges.
+const SECTION_HEIGHT = 800
+const HUB_Y = 440
+const LABEL_START = 244 // px from the hub centre to where a label starts
+const LABEL_CHAR_WIDTH = 17.5 // approx. advance per character at 28px
+const LABEL_HALF_HEIGHT = 14
+const EDGE_MARGIN = 24
+
+/** Index of the spoke that sits on the pointer for a selection ('all' rests on Web App). */
+function pointerIndex(id) {
+  const index = categories.findIndex((category) => category.id === id)
+  return index === -1 ? REST_INDEX : index
+}
+
+/** Would this label reach the top or bottom edge of the section at this angle? */
+function touchesEdge(category, angle) {
+  const reach = LABEL_START + category.name.length * LABEL_CHAR_WIDTH
+  const y = HUB_Y + reach * Math.sin((angle * Math.PI) / 180)
+  return y + LABEL_HALF_HEIGHT > SECTION_HEIGHT - EDGE_MARGIN || y - LABEL_HALF_HEIGHT < EDGE_MARGIN
+}
+
+/**
+ * Resting angle for each spoke. Spokes fan out 20° apart around the selected
+ * one; a spoke whose label would touch the section edge wraps round to the
+ * other end of the fan, like a wheel (only happens with Poster selected).
+ */
+function restingAngles(id) {
+  const pointer = pointerIndex(id)
+  const fan = categories.length * SPOKE_STEP
+  return categories.map((category, index) => {
+    const angle = (index - pointer) * SPOKE_STEP
+    if (!touchesEdge(category, angle)) return angle
+    return angle > 0 ? angle - fan : angle + fan
+  })
+}
+
+/**
+ * Angles to animate to when the selection changes. Each spoke keeps turning
+ * the same way as the wheel, so a wrapping spoke goes round the back of the
+ * hub (off the left edge) instead of sweeping across the other labels.
+ */
+function nextAngles(previous, id) {
+  const direction = Math.sign(pointerIndex(previous.id) - pointerIndex(id))
+  return restingAngles(id).map((target, index) => {
+    const from = previous.angles[index]
+    let angle = target + 360 * Math.round((from - target) / 360)
+    if (direction > 0 && angle < from - 0.001) angle += 360
+    if (direction < 0 && angle > from + 0.001) angle -= 360
+    return angle
+  })
+}
 
 /**
  * Categories picker wheel — Figma "Categories / Picker" (262:4412 light, 322:10427 dark).
@@ -21,8 +74,11 @@ const spokeAngle = (index) => (index - REST_INDEX) * SPOKE_STEP
 export default function CategoryPicker({ selected, onSelect }) {
   const current = getCategory(selected) ?? allCategories
   const isAll = current.id === allCategories.id
-  const selectedIndex = categories.findIndex((category) => category.id === current.id)
-  const wheelRotation = isAll ? 0 : -spokeAngle(selectedIndex)
+
+  const [wheel, setWheel] = useState(() => ({ id: current.id, angles: restingAngles(current.id) }))
+  if (wheel.id !== current.id) {
+    setWheel({ id: current.id, angles: nextAngles(wheel, current.id) })
+  }
 
   return (
     <section className="picker" style={categoryVars(current)}>
@@ -42,7 +98,7 @@ export default function CategoryPicker({ selected, onSelect }) {
       </div>
 
       <div className="picker__controls" role="group" aria-label="Choose a category">
-        <div className="picker__wheel" style={{ '--wheel-rotation': `${wheelRotation}deg` }}>
+        <div className="picker__wheel">
           {categories.map((category, index) => {
             const isSelected = category.id === current.id
             return (
@@ -50,7 +106,7 @@ export default function CategoryPicker({ selected, onSelect }) {
                 key={category.id}
                 className="picker__spoke"
                 data-state={isSelected ? 'selected' : isAll ? 'all' : 'idle'}
-                style={{ '--spoke-angle': `${spokeAngle(index)}deg`, ...categoryVars(category) }}
+                style={{ '--spoke-angle': `${wheel.angles[index]}deg`, ...categoryVars(category) }}
               >
                 <button
                   type="button"

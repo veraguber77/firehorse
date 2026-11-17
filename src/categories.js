@@ -13,7 +13,7 @@ export const categories = [
     id: 'poster',
     index: '01',
     name: 'Poster',
-    tagline: 'Single-sheet design for print or screen.',
+    tagline: 'Print-ready or digital poster design, any medium.',
     color: 'var(--cat-poster)', // Inferno
     onColor: 'var(--text-on-accent)',
   },
@@ -29,7 +29,7 @@ export const categories = [
     id: 'mobile-app',
     index: '03',
     name: 'Mobile App',
-    tagline: 'Designed interface for a phone-based product.',
+    tagline: 'iOS or Android app UI, single screen or full flow.',
     color: 'var(--cat-mobile-app)', // Blaze
     onColor: 'var(--text-on-accent)',
   },
@@ -37,7 +37,7 @@ export const categories = [
     id: 'illustration',
     index: '04',
     name: 'Illustration',
-    tagline: 'Original image-making in any medium.',
+    tagline: 'Original vector or raster illustration, any subject.',
     color: 'var(--cat-illustration)', // Afterglow
     onColor: 'var(--text-static-cream)',
   },
@@ -45,7 +45,7 @@ export const categories = [
     id: 'motion',
     index: '05',
     name: 'Motion',
-    tagline: 'Design that moves: animation, titles or motion graphics.',
+    tagline: 'Looping or narrative animation, any duration.',
     color: 'var(--cat-motion)', // Cinder
     onColor: 'var(--text-static-cream)',
     accent: 'var(--text-brand-primary)',

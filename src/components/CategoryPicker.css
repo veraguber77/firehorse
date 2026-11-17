@@ -68,8 +68,6 @@
   top: 440px;
   width: 0;
   height: 0;
-  rotate: var(--wheel-rotation, 0deg);
-  transition: rotate var(--picker-turn);
 }
 
 .picker__spoke {
@@ -84,6 +82,7 @@
   height: 48px;
   transform-origin: 0 50%;
   rotate: var(--spoke-angle);
+  transition: rotate var(--picker-turn);
   pointer-events: none;
 }
 
