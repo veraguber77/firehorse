@@ -1,4 +1,6 @@
 import Nav from './components/Nav.jsx'
+import Footer from './components/Footer.jsx'
+import './App.css'
 
 // Temporary until the settings drawer exists.
 function toggleTheme() {
@@ -14,13 +16,14 @@ function toggleTheme() {
 
 export default function App() {
   return (
-    <>
+    <div className="app">
       <Nav current="categories" />
-      <main style={{ padding: 'var(--spacing-64)' }}>
+      <main className="app__main">
         <button type="button" onClick={toggleTheme}>
           Toggle theme (temporary)
         </button>
       </main>
-    </>
+      <Footer />
+    </div>
   )
 }
