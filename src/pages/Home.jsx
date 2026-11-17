@@ -62,6 +62,7 @@ export default function Home() {
       <section className="home-hero">
         <Gradient
           src={gradientHero}
+          frame={[1280, 800]}
           x={698.66}
           y={535.48}
           width={1666.886}

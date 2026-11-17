@@ -133,12 +133,13 @@
   gap: var(--spacing-12);
 }
 
-/* ---------- Full-bleed beats (intro, your turn, closing) ---------- */
+/* ---------- Full-bleed punchline beats: one screen tall (600px frames in Figma) ---------- */
 .home-beat {
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 600px;
+  height: 100vh;
+  min-height: 480px;
 }
 
 .home-beat--inferno {

@@ -1,16 +1,37 @@
+/* Fills the section and measures it. */
 .gradient {
   position: absolute;
-  left: calc(50% + var(--gradient-x));
-  top: var(--gradient-y);
-  width: var(--gradient-w);
-  height: var(--gradient-h);
-  translate: -50% -50%;
-  rotate: var(--gradient-rotate);
-  scale: 1 var(--gradient-flip);
+  inset: 0;
+  container-type: size;
   pointer-events: none;
 }
 
-.gradient img {
+/* The Figma frame, scaled to cover the section and centred in it. */
+.gradient__frame {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: max(100cqw, 100cqh * var(--frame-w) / var(--frame-h));
+  aspect-ratio: var(--frame-w) / var(--frame-h);
+  translate: -50% -50%;
+  container-type: inline-size;
+}
+
+/* One Figma pixel, at the frame's current scale. */
+.gradient__layer {
+  --px: calc(100cqw / var(--frame-w));
+
+  position: absolute;
+  left: calc(var(--layer-x) * var(--px));
+  top: calc(var(--layer-y) * var(--px));
+  width: calc(var(--layer-w) * var(--px));
+  height: calc(var(--layer-h) * var(--px));
+  translate: -50% -50%;
+  rotate: var(--layer-rotate);
+  scale: 1 var(--layer-flip);
+}
+
+.gradient__layer img {
   position: absolute;
   display: block;
   max-width: none;
