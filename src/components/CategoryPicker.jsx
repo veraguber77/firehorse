@@ -1,4 +1,3 @@
-import { useState } from 'react'
 import './CategoryPicker.css'
 import { allCategories, categories, categoryVars, getCategory } from '../categories.js'
 import gradient from '../assets/picker/gradient.svg'
@@ -29,42 +28,31 @@ function pointerIndex(id) {
   return index === -1 ? REST_INDEX : index
 }
 
-/** Would this label reach the top or bottom edge of the section at this angle? */
-function touchesEdge(category, angle) {
+/** Steepest angle (degrees from the pointer) at which a label still clears the section edge. */
+function steepestAngle(category, room) {
   const reach = LABEL_START + category.name.length * LABEL_CHAR_WIDTH
-  const y = HUB_Y + reach * Math.sin((angle * Math.PI) / 180)
-  return y + LABEL_HALF_HEIGHT > SECTION_HEIGHT - EDGE_MARGIN || y - LABEL_HALF_HEIGHT < EDGE_MARGIN
+  const ratio = (room - EDGE_MARGIN - LABEL_HALF_HEIGHT) / reach
+  return ratio >= 1 ? 90 : (Math.asin(ratio) * 180) / Math.PI
 }
 
 /**
- * Resting angle for each spoke. Spokes fan out 20° apart around the selected
- * one; a spoke whose label would touch the section edge wraps round to the
- * other end of the fan, like a wheel (only happens with Poster selected).
+ * Angle of each spoke for a selection. The wheel turns as one piece: the
+ * selected spoke sits on the pointer and the rest keep their order above and
+ * below it, 20° apart. If a label on one side would reach the section edge
+ * (only below the pointer, with Poster selected), that side's spacing tightens
+ * just enough for every label to fit.
  */
-function restingAngles(id) {
+function spokeAngles(id) {
   const pointer = pointerIndex(id)
-  const fan = categories.length * SPOKE_STEP
-  return categories.map((category, index) => {
-    const angle = (index - pointer) * SPOKE_STEP
-    if (!touchesEdge(category, angle)) return angle
-    return angle > 0 ? angle - fan : angle + fan
-  })
-}
+  const sideStep = (room, onSide) =>
+    categories.reduce((step, category, index) => {
+      const offset = Math.abs(index - pointer)
+      return onSide(index) ? Math.min(step, steepestAngle(category, room) / offset) : step
+    }, SPOKE_STEP)
 
-/**
- * Angles to animate to when the selection changes. Each spoke keeps turning
- * the same way as the wheel, so a wrapping spoke goes round the back of the
- * hub (off the left edge) instead of sweeping across the other labels.
- */
-function nextAngles(previous, id) {
-  const direction = Math.sign(pointerIndex(previous.id) - pointerIndex(id))
-  return restingAngles(id).map((target, index) => {
-    const from = previous.angles[index]
-    let angle = target + 360 * Math.round((from - target) / 360)
-    if (direction > 0 && angle < from - 0.001) angle += 360
-    if (direction < 0 && angle > from + 0.001) angle -= 360
-    return angle
-  })
+  const stepAbove = sideStep(HUB_Y, (index) => index < pointer)
+  const stepBelow = sideStep(SECTION_HEIGHT - HUB_Y, (index) => index > pointer)
+  return categories.map((_, index) => (index - pointer) * (index < pointer ? stepAbove : stepBelow))
 }
 
 /**
@@ -75,10 +63,7 @@ export default function CategoryPicker({ selected, onSelect }) {
   const current = getCategory(selected) ?? allCategories
   const isAll = current.id === allCategories.id
 
-  const [wheel, setWheel] = useState(() => ({ id: current.id, angles: restingAngles(current.id) }))
-  if (wheel.id !== current.id) {
-    setWheel({ id: current.id, angles: nextAngles(wheel, current.id) })
-  }
+  const angles = spokeAngles(current.id)
 
   return (
     <section className="picker" style={categoryVars(current)}>
@@ -106,7 +91,7 @@ export default function CategoryPicker({ selected, onSelect }) {
                 key={category.id}
                 className="picker__spoke"
                 data-state={isSelected ? 'selected' : isAll ? 'all' : 'idle'}
-                style={{ '--spoke-angle': `${wheel.angles[index]}deg`, ...categoryVars(category) }}
+                style={{ '--spoke-angle': `${angles[index]}deg`, ...categoryVars(category) }}
               >
                 <button
                   type="button"
