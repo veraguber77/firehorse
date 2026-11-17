@@ -157,7 +157,7 @@ export default function Home() {
 
       {/* Category reel */}
       <section className="home-reel" style={categoryVars(reelCategory)}>
-        <p className="home-reel__lead">Enter with a ...</p>
+        <p className="home-reel__lead">Enter with a</p>
         <div className="home-reel__window">
           <p className="home-reel__word">{reelCategory.name}</p>
         </div>

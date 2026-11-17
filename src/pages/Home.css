@@ -389,16 +389,13 @@
   padding: var(--spacing-64);
 }
 
-/* Firehorse/Body Large */
+/* Firehorse/Button-UI, in Ember (changed from Figma's Body Large on request) */
 .home-reel__lead {
-  font-size: 18px;
-  font-weight: 500;
+  font-size: 14px;
+  font-weight: 700;
   line-height: normal;
-  color: var(--text-secondary);
-}
-
-[data-theme='dark'] .home-reel__lead {
-  color: var(--text-static-cream);
+  text-transform: uppercase;
+  color: var(--accent-secondary);
 }
 
 .home-reel__window {
