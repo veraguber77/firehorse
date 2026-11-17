@@ -1,0 +1,293 @@
+/*
+ * Layout follows the 1280 × 800 Figma frame. The wheel hugs the left edge and
+ * the heading, rule, readout and gradient are anchored to the right edge, so
+ * wider windows just open up space in the middle. Desktop only for now.
+ */
+.picker {
+  /* --category-accent / --category-on-accent come from the selected category. */
+  --picker-accent: var(--category-accent);
+  --picker-on-accent: var(--category-on-accent);
+  --picker-idle-label: var(--color-neutral-500);
+  --picker-idle-line: var(--border-default);
+  --picker-turn: 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
+  --picker-fade: 0.3s ease;
+  /* Browsers set Avant Garde ~0.1em lower than Figma at 0.78 line height. */
+  --picker-tight-shift: -0.1em;
+
+  position: relative;
+  height: 800px;
+  overflow: clip;
+  background: var(--background-primary);
+}
+
+[data-theme='dark'] .picker {
+  --picker-idle-label: var(--text-static-cream);
+  --picker-idle-line: var(--text-static-cream);
+}
+
+/* Background gradient (centre sits 371.94px from the right, 230.97px from the top) */
+.picker__gradient {
+  position: absolute;
+  top: -461.79px;
+  right: -485.43px;
+  width: 1714.74px;
+  height: 1385.513px;
+  rotate: -139.95deg;
+  scale: 1 -1;
+  pointer-events: none;
+}
+
+.picker__gradient img {
+  position: absolute;
+  top: -10.49%;
+  left: -5.68%;
+  display: block;
+  width: 114.2%;
+  height: 121.33%;
+  max-width: none;
+}
+
+/* Wheel — centre at 40px, 440px */
+.picker__ring {
+  position: absolute;
+  left: -520px;
+  top: -120px;
+  max-width: none;
+}
+
+.picker__hub-disc {
+  position: absolute;
+  left: -140px;
+  top: 260px;
+  max-width: none;
+}
+
+.picker__wheel {
+  position: absolute;
+  left: 40px;
+  top: 440px;
+  width: 0;
+  height: 0;
+  rotate: var(--wheel-rotation, 0deg);
+  transition: rotate var(--picker-turn);
+}
+
+.picker__spoke {
+  --spoke-ink: var(--picker-idle-label);
+  --spoke-line: var(--picker-idle-line);
+  --spoke-line-width: 1px;
+
+  position: absolute;
+  left: 0;
+  top: -24px;
+  width: 700px;
+  height: 48px;
+  transform-origin: 0 50%;
+  rotate: var(--spoke-angle);
+  pointer-events: none;
+}
+
+.picker__spoke[data-state='selected'],
+.picker__spoke[data-state='all'] {
+  --spoke-ink: var(--category-accent);
+  --spoke-line: var(--category-accent);
+  --spoke-line-width: 3px;
+}
+
+/* In the dark frame the All state keeps the spokes cream, with heavier lines. */
+[data-theme='dark'] .picker__spoke[data-state='all'] {
+  --spoke-ink: var(--text-static-cream);
+  --spoke-line: var(--text-static-cream);
+}
+
+.picker__spoke-button {
+  position: absolute;
+  left: 110px;
+  top: 0;
+  display: flex;
+  align-items: flex-start;
+  height: 48px;
+  padding: 6px 8px 0 134px;
+  border: 0;
+  background: none;
+  cursor: pointer;
+  pointer-events: auto;
+}
+
+.picker__spoke-line {
+  position: absolute;
+  left: 0;
+  top: 50%;
+  width: 110px;
+  height: var(--spoke-line-width);
+  translate: 0 -50%;
+  background: var(--spoke-line);
+  transition: background-color var(--picker-fade);
+}
+
+/* Firehorse/Heading 4 */
+.picker__spoke-label {
+  display: block;
+  font-family: var(--font-heading);
+  font-size: 28px;
+  font-weight: 700;
+  line-height: 0.78;
+  letter-spacing: -0.06em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  color: var(--spoke-ink);
+  transition: color var(--picker-fade);
+  translate: 0 var(--picker-tight-shift);
+}
+
+/* All hub — five-colour ring with hard stops, in spoke order */
+.picker__hub {
+  position: absolute;
+  left: -60px;
+  top: 340px;
+  width: 200px;
+  height: 200px;
+  padding: 0;
+  border: 0;
+  border-radius: 100px;
+  background: conic-gradient(
+    from -20deg,
+    var(--cat-poster) 0deg 44deg,
+    var(--cat-web-app) 44deg 88deg,
+    var(--cat-mobile-app) 88deg 132deg,
+    var(--cat-illustration) 132deg 176deg,
+    var(--cat-motion) 176deg 290deg,
+    var(--cat-poster) 290deg 360deg
+  );
+  cursor: pointer;
+}
+
+.picker__hub-inner {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  translate: -50% -50%;
+  max-width: none;
+}
+
+.picker__hub-label {
+  position: absolute;
+  left: 69.01px;
+  top: 90.21px;
+  font-family: var(--font-heading);
+  font-size: 38.4px;
+  font-weight: 700;
+  line-height: 0.78;
+  letter-spacing: -0.06em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  color: var(--text-brand-primary);
+  translate: 0 var(--picker-tight-shift);
+}
+
+/* Vertical rule under the pointer */
+.picker__rule {
+  position: absolute;
+  top: 452px;
+  bottom: 0;
+  right: 578px;
+  width: 8px;
+  background: var(--picker-accent);
+  transition: background-color var(--picker-fade);
+}
+
+/* Heading */
+.picker__heading {
+  position: absolute;
+  top: 72px;
+  right: var(--spacing-64);
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-16);
+  width: 466px;
+}
+
+/* Firehorse/Display */
+.picker__title {
+  font-family: var(--font-display);
+  font-size: 108px;
+  font-weight: 900;
+  line-height: 90px;
+  text-transform: uppercase;
+  color: var(--text-brand-primary);
+}
+
+.picker__title-accent {
+  display: block;
+  color: var(--picker-accent);
+  transition: color var(--picker-fade);
+}
+
+/* Firehorse/Body Large */
+.picker__lede {
+  font-size: 18px;
+  font-weight: 500;
+  line-height: normal;
+  color: var(--text-secondary);
+}
+
+/* Readout */
+.picker__readout {
+  position: absolute;
+  top: 520px;
+  right: var(--spacing-64);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 14px;
+  width: 466px;
+  padding-top: var(--spacing-24);
+  border-top: 2px solid var(--picker-accent);
+  transition: border-color var(--picker-fade);
+}
+
+/* Firehorse/Heading 3 */
+.picker__readout-name {
+  font-family: var(--font-heading);
+  font-size: 36px;
+  font-weight: 700;
+  line-height: 0.78;
+  letter-spacing: -0.06em;
+  text-transform: uppercase;
+  color: var(--text-brand-primary);
+  translate: 0 var(--picker-tight-shift);
+}
+
+/* Firehorse/Body */
+.picker__readout-tagline {
+  font-size: 16px;
+  font-weight: 400;
+  line-height: normal;
+  color: var(--text-secondary);
+}
+
+/* Firehorse/Button-UI */
+.picker__readout-button {
+  display: flex;
+  align-items: center;
+  height: 48px;
+  padding: 0 var(--spacing-24);
+  background: var(--picker-accent);
+  color: var(--picker-on-accent);
+  font-size: 14px;
+  font-weight: 700;
+  line-height: normal;
+  text-transform: uppercase;
+  text-decoration: none;
+  white-space: nowrap;
+  transition:
+    background-color var(--picker-fade),
+    color var(--picker-fade);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .picker {
+    --picker-turn: 0s;
+    --picker-fade: 0s;
+  }
+}

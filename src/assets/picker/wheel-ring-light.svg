@@ -1,0 +1,15 @@
+<svg preserveAspectRatio="none" overflow="visible" style="display: block;" width="1120" height="1120" viewBox="0 0 1120 1120" fill="none" xmlns="http://www.w3.org/2000/svg">
+<circle id="Wheel ring" cx="560" cy="560" r="558.5" fill="#FAFAF6" stroke-width="3" stroke="url(#paint0_linear_0_5)"/>
+<defs>
+<linearGradient id="paint0_linear_0_5" x1="560" y1="920" x2="560" y2="120" gradientUnits="userSpaceOnUse">
+<stop stop-color="#5459DD"/>
+<stop offset="0.2499" stop-color="#5459DD"/>
+<stop offset="0.25" stop-color="#839AFD"/>
+<stop offset="0.4999" stop-color="#839AFD"/>
+<stop offset="0.5" stop-color="#FD9609"/>
+<stop offset="0.7499" stop-color="#FD9609"/>
+<stop offset="0.75" stop-color="#FE4B0D"/>
+<stop offset="1" stop-color="#FE4B0D"/>
+</linearGradient>
+</defs>
+</svg>
