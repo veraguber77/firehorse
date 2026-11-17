@@ -161,6 +161,11 @@
   cursor: pointer;
 }
 
+/* Dark frame: cream inside stroke around the All hub, as in Figma. */
+[data-theme='dark'] .picker__hub {
+  box-shadow: inset 0 0 0 2px var(--text-static-cream);
+}
+
 .picker__hub-inner {
   position: absolute;
   left: 50%;
