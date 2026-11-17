@@ -8,8 +8,9 @@ import './Gradient.css'
  * its size before rotation, the rotation, and the image inset Figma puts around the
  * SVG ([top, right, bottom, left] in %).
  *
- * The Figma frame is scaled to cover the section, like `background-size: cover`,
- * so the composition holds when the section is taller or wider than in Figma.
+ * The Figma frame stays centred in the section at its Figma size, growing only
+ * to match a wider section. The art runs past the frame, so taller sections
+ * show more of it instead of zooming in.
  */
 export default function Gradient({ src, frame = [1280, 600], x, y, width, height, rotate, inset, flip = true }) {
   const [frameWidth, frameHeight] = frame

@@ -1,6 +1,7 @@
 import { Link } from 'react-router'
 import Gradient from '../components/Gradient.jsx'
 import { categories, categoryVars, getCategory } from '../categories.js'
+import { stages as milestones } from '../timeline.js'
 import gradientHero from '../assets/home/gradient-hero.svg'
 import gradientIntro from '../assets/home/gradient-intro.svg'
 import gradientBeat from '../assets/home/gradient-beat.svg'
@@ -33,13 +34,6 @@ const yearBars = [
   { year: '1966', label: 'Missed It', tone: 'past' },
   { year: '2026', label: 'Your Turn', tone: 'now' },
   { year: '2086', label: 'Too Late', tone: 'future' },
-]
-
-const milestones = [
-  { id: 'open', name: 'Submissions Open', color: 'var(--color-inferno-600)' },
-  { id: 'deadline', name: 'Entry Deadline', color: 'var(--color-ember-600)' },
-  { id: 'judging', name: 'Judging Period', color: 'var(--color-blaze-600)' },
-  { id: 'winners', name: 'Winners Announced', color: 'var(--color-afterglow-600)' },
 ]
 
 const questions = [

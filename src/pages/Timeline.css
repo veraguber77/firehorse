@@ -1,0 +1,256 @@
+/*
+ * Timeline page — follows the 1280px-wide Figma frame. Each band splits into a
+ * 580px rail and the content column. Desktop only for now.
+ */
+/* Zero specificity, so each band's own layout rules win. */
+:where(.timeline section) {
+  position: relative;
+  display: flex;
+  align-items: stretch;
+  overflow: clip;
+}
+
+/* Content sits above the gradient layers (zero specificity, so element rules still win). */
+:where(.timeline section > *) {
+  position: relative;
+}
+
+/* Shared: Firehorse/Button-UI */
+.timeline-intro__row-date,
+.timeline-stage__button,
+.timeline-closing__button {
+  font-family: var(--font-body);
+  font-size: 14px;
+  font-weight: 700;
+  line-height: normal;
+  text-transform: uppercase;
+  white-space: nowrap;
+  text-decoration: none;
+}
+
+/* ---------- Intro ---------- */
+.timeline-intro {
+  height: 800px;
+}
+
+.timeline-intro__rail,
+.timeline-stage__rail {
+  flex: none;
+  display: flex;
+  flex-direction: column;
+  width: 580px;
+  padding: var(--spacing-64) 50px var(--spacing-64) var(--spacing-64);
+}
+
+.timeline-intro__rail {
+  justify-content: flex-end;
+}
+
+/* Firehorse/Display */
+.timeline-intro__title {
+  width: 466px;
+  font-family: var(--font-display);
+  font-size: 108px;
+  font-weight: 900;
+  line-height: 90px;
+  text-transform: uppercase;
+}
+
+/* Cinder in light mode; black in dark mode, where it sits on the white glow. */
+.timeline-intro__title-the {
+  color: var(--text-brand-primary);
+}
+
+[data-theme='dark'] .timeline-intro__title-the {
+  color: var(--text-inverse);
+}
+
+.timeline-intro__title-accent {
+  color: var(--accent-primary);
+}
+
+.timeline-intro__content,
+.timeline-stage__content {
+  flex: 1 0 0;
+  min-width: 1px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: var(--spacing-64) var(--spacing-64) var(--spacing-64) 72px;
+}
+
+.timeline-intro__content {
+  justify-content: flex-end;
+  gap: var(--spacing-40);
+}
+
+/* Firehorse/Body Large */
+.timeline-intro__lede {
+  width: 520px;
+  font-size: 18px;
+  font-weight: 500;
+  line-height: normal;
+  color: var(--text-secondary);
+}
+
+.timeline-intro__list {
+  width: 564px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  border-top: 2px solid var(--text-brand-primary);
+  white-space: nowrap;
+}
+
+.timeline-intro__row {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  padding: var(--spacing-16) 0;
+  border-bottom: 3px solid var(--row-color);
+}
+
+/* Firehorse/Body */
+.timeline-intro__row-name {
+  font-size: 16px;
+  font-weight: 400;
+  line-height: normal;
+  color: var(--text-brand-primary);
+  text-decoration: none;
+}
+
+.timeline-intro__row-date {
+  color: var(--text-secondary);
+}
+
+/* ---------- Stage bands: one screen tall (800px frames in Figma) ---------- */
+.timeline-stage {
+  --stage-ink: var(--color-cinder-600);
+
+  height: 100vh;
+  min-height: 600px;
+  background: var(--stage-color);
+  color: var(--stage-ink);
+  scroll-margin-top: 0;
+}
+
+.timeline-stage[data-ink='cream'] {
+  --stage-ink: var(--text-static-cream);
+}
+
+.timeline-stage__rail {
+  justify-content: center;
+  gap: var(--spacing-16);
+  margin: 0;
+  list-style: none;
+}
+
+/* Firehorse/Heading 3 */
+.timeline-stage__rail-item {
+  width: 466px;
+  font-family: var(--font-heading);
+  font-size: 36px;
+  font-weight: 700;
+  line-height: 0.78;
+  letter-spacing: -0.06em;
+  text-transform: uppercase;
+  opacity: 0.55;
+}
+
+.timeline-stage__rail-item[aria-current='step'] {
+  opacity: 1;
+}
+
+.timeline-stage__content {
+  justify-content: center;
+  gap: var(--spacing-24);
+}
+
+/* Firehorse/Heading 4 */
+.timeline-stage__date {
+  font-family: var(--font-heading);
+  font-size: 28px;
+  font-weight: 700;
+  line-height: 0.78;
+  letter-spacing: -0.06em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+/* Firehorse/Heading 1 */
+.timeline-stage__title {
+  width: 564px;
+  font-size: 64px;
+  font-weight: 700;
+  line-height: 0.78;
+  letter-spacing: -0.06em;
+  text-transform: uppercase;
+}
+
+/* Firehorse/Body Large */
+.timeline-stage__body {
+  width: 520px;
+  font-size: 18px;
+  font-weight: 500;
+  line-height: normal;
+  opacity: 0.85;
+}
+
+.timeline-stage__button {
+  padding: var(--spacing-12) var(--spacing-24);
+  background: var(--color-cinder-600);
+  color: var(--text-static-cream);
+}
+
+/* ---------- Closing tagline: one screen tall (600px frame in Figma) ---------- */
+.timeline-closing {
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-24);
+  height: 100vh;
+  min-height: 480px;
+  padding: 72px;
+  background: var(--color-cinder-600);
+  color: var(--text-static-cream);
+}
+
+/* Firehorse/Heading 2 */
+.timeline-closing__title {
+  max-width: 760px;
+  font-family: var(--font-heading);
+  font-size: 48px;
+  font-weight: 700;
+  line-height: 0.78;
+  letter-spacing: -0.06em;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+/* Firehorse/Body */
+.timeline-closing__text {
+  font-size: 16px;
+  font-weight: 400;
+  line-height: normal;
+  white-space: nowrap;
+}
+
+.timeline-closing__buttons {
+  display: flex;
+  gap: var(--spacing-12);
+}
+
+.timeline-closing__button {
+  padding: var(--spacing-12) var(--spacing-24);
+}
+
+.timeline-closing__button--solid {
+  background: var(--text-static-cream);
+  color: var(--color-cinder-600);
+}
+
+.timeline-closing__button--outline {
+  padding: 11px 23px;
+  border: 1px solid var(--text-static-cream);
+  color: var(--text-static-cream);
+}

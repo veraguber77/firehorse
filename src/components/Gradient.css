@@ -6,12 +6,16 @@
   pointer-events: none;
 }
 
-/* The Figma frame, scaled to cover the section and centred in it. */
+/*
+ * The Figma frame, centred in the section. It keeps its Figma size, and only
+ * grows when the section is wider than the frame. The gradient art runs well
+ * past the frame, so taller sections show more of it rather than zooming in.
+ */
 .gradient__frame {
   position: absolute;
   left: 50%;
   top: 50%;
-  width: max(100cqw, 100cqh * var(--frame-w) / var(--frame-h));
+  width: max(100cqw, var(--frame-w) * 1px);
   aspect-ratio: var(--frame-w) / var(--frame-h);
   translate: -50% -50%;
   container-type: inline-size;
