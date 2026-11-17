@@ -1,0 +1,17 @@
+.gradient {
+  position: absolute;
+  left: calc(50% + var(--gradient-x));
+  top: var(--gradient-y);
+  width: var(--gradient-w);
+  height: var(--gradient-h);
+  translate: -50% -50%;
+  rotate: var(--gradient-rotate);
+  scale: 1 var(--gradient-flip);
+  pointer-events: none;
+}
+
+.gradient img {
+  position: absolute;
+  display: block;
+  max-width: none;
+}

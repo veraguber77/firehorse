@@ -1,0 +1,904 @@
+/*
+ * Homepage — follows the 1280px-wide Figma frame. Sections are full-bleed;
+ * content keeps the 64px side margins. Desktop only for now.
+ */
+.home {
+  /* Browsers set Avant Garde ~0.1em lower than Figma at tight line heights (as on the picker). */
+  --home-tight-shift: -0.1em;
+}
+
+.home section {
+  position: relative;
+  overflow: clip;
+}
+
+/* Content sits above the gradient layers (zero specificity, so element rules still win). */
+:where(.home section > *) {
+  position: relative;
+}
+
+/* Shared: Firehorse/Overline */
+.home-hero__overline,
+.home-categories__overline,
+.home-timeline__overline {
+  font-family: var(--font-body);
+  font-size: 11px;
+  font-weight: 500;
+  line-height: normal;
+}
+
+/* Shared: Firehorse/Button-UI */
+.home-button,
+.home-card__more,
+.home-faq__all,
+.home-faq__card-prompt,
+.home-faq__ask {
+  font-family: var(--font-body);
+  font-size: 14px;
+  font-weight: 700;
+  line-height: normal;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.home-button {
+  display: inline-block;
+  padding: var(--spacing-12) var(--spacing-24);
+  text-decoration: none;
+}
+
+.home-button--primary {
+  background: var(--accent-primary);
+  color: var(--text-static-cream);
+}
+
+.home-button--outline {
+  border: 1px solid var(--text-primary);
+  color: var(--text-brand-primary);
+}
+
+/* ---------- Hero ---------- */
+.home-hero {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: flex-start;
+  gap: var(--spacing-16);
+  height: 800px;
+  padding: var(--spacing-80) var(--spacing-64);
+}
+
+.home-hero__rule {
+  position: absolute;
+  top: 60px;
+  left: 64px;
+  width: 64px;
+  height: 4px;
+  background: var(--accent-secondary);
+}
+
+.home-hero__overline {
+  position: absolute;
+  top: 80px;
+  left: 64px;
+  white-space: nowrap;
+  color: var(--text-secondary);
+}
+
+/* Mirrored horse head, hugging the right edge and running off it. */
+.home-hero__horse {
+  position: absolute;
+  top: 200px;
+  right: -137.735px;
+  width: 605.735px;
+  height: 600px;
+  max-width: none;
+  scale: -1 1;
+}
+
+/* Firehorse/Display */
+.home-hero__title {
+  width: 780px;
+  font-family: var(--font-display);
+  font-size: 108px;
+  font-weight: 900;
+  line-height: 90px;
+  text-transform: uppercase;
+  color: var(--text-primary);
+}
+
+.home-hero__year {
+  color: var(--accent-secondary);
+}
+
+.home-hero__accent {
+  color: var(--accent-primary);
+}
+
+/* Firehorse/Subtitle */
+.home-hero__subtitle {
+  width: 520px;
+  font-family: var(--font-heading);
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 0.78;
+  letter-spacing: -0.06em;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+}
+
+.home-hero__ctas {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-12);
+}
+
+/* ---------- Full-bleed beats (intro, your turn, closing) ---------- */
+.home-beat {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 600px;
+}
+
+.home-beat--inferno {
+  background: var(--color-inferno-600);
+}
+
+.home-beat--ember {
+  background: var(--color-ember-600);
+}
+
+.home-beat--blaze {
+  background: var(--color-blaze-600);
+}
+
+.home-beat--afterglow {
+  background: var(--color-afterglow-600);
+}
+
+/* Firehorse/Heading 3 */
+.home-beat__text {
+  max-width: 660px;
+  font-family: var(--font-heading);
+  font-size: 36px;
+  font-weight: 700;
+  line-height: 0.78;
+  letter-spacing: -0.06em;
+  text-align: center;
+  text-transform: uppercase;
+  color: var(--text-static-cream);
+}
+
+/* ---------- About: once every sixty years ---------- */
+.home-about {
+  display: flex;
+  align-items: stretch;
+  gap: var(--spacing-24);
+  height: 900px;
+  padding: var(--spacing-96) var(--spacing-64) var(--spacing-80);
+}
+
+.home-about__headline-col {
+  flex: none;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 564px;
+}
+
+/* Firehorse/Heading 1 */
+.home-about__headline {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 520px;
+  height: 122px;
+  font-size: 64px;
+  font-weight: 700;
+  line-height: 0.78;
+  letter-spacing: -0.06em;
+  text-transform: uppercase;
+  color: var(--text-brand-primary);
+}
+
+.home-about__headline-accent {
+  color: var(--color-afterglow-600);
+}
+
+[data-theme='dark'] .home-about__headline-accent {
+  color: var(--color-blaze-600);
+}
+
+/* Inter Regular 18/1.6 in Figma; Inter isn't in the font project, so this uses the body face. */
+.home-about__body {
+  width: 400px;
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 1.6;
+  color: var(--text-secondary);
+}
+
+[data-theme='dark'] .home-about__body {
+  color: var(--text-static-cream);
+}
+
+.home-bars {
+  flex: 1 0 0;
+  min-width: 1px;
+  display: flex;
+  align-items: flex-end;
+  gap: var(--spacing-16);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.home-bars__item {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--spacing-12);
+}
+
+.home-bars__fill {
+  position: relative;
+  width: 152px;
+  height: 306px;
+  overflow: clip;
+}
+
+.home-bars__item--past .home-bars__fill {
+  background: var(--color-afterglow-600);
+}
+
+.home-bars__item--now .home-bars__fill {
+  width: 248px;
+  height: 680px;
+  background: var(--color-inferno-600);
+}
+
+.home-bars__item--future .home-bars__fill {
+  background: var(--color-blaze-600);
+}
+
+/* The year reads bottom-to-top inside its bar. */
+.home-bars__year-box {
+  position: absolute;
+  left: 40px;
+  top: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 78px;
+  height: 248px;
+}
+
+.home-bars__year {
+  flex: none;
+  rotate: -90deg;
+  font-family: var(--font-heading);
+  font-size: 108px;
+  font-weight: 700;
+  line-height: 78px;
+  letter-spacing: -0.06em;
+  white-space: nowrap;
+  color: var(--text-static-cream);
+}
+
+.home-bars__item--now .home-bars__year-box {
+  left: 42px;
+  top: 272px;
+  width: 131px;
+  height: 386px;
+}
+
+.home-bars__item--now .home-bars__year {
+  font-size: 168px;
+  line-height: 0.78;
+  color: var(--text-inverse);
+}
+
+/* Firehorse/Caption-Label */
+.home-bars__label {
+  font-size: 12px;
+  font-weight: 400;
+  line-height: normal;
+  white-space: nowrap;
+  color: var(--text-secondary);
+}
+
+.home-bars__item--now .home-bars__label {
+  font-weight: 700;
+  color: var(--text-brand-primary);
+}
+
+/* ---------- Statement band ---------- */
+.home-statement {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  gap: var(--spacing-32);
+  height: 520px;
+  padding: var(--spacing-96) var(--spacing-64);
+  background: var(--color-afterglow-600);
+}
+
+/* Fire graphic, upside down in the top-right corner. */
+.home-statement__fire {
+  position: absolute;
+  top: -30px;
+  right: -30.017px;
+  width: 700.033px;
+  height: 312px;
+  max-width: none;
+  rotate: 180deg;
+}
+
+/* Firehorse/Heading 2 */
+.home-statement__title {
+  width: 900px;
+  font-size: 48px;
+  font-weight: 700;
+  line-height: 0.78;
+  letter-spacing: -0.06em;
+  text-transform: uppercase;
+  color: var(--color-neutral-0);
+}
+
+/* Firehorse/Body Large */
+.home-statement__text,
+.home-statement__dates {
+  font-size: 18px;
+  font-weight: 500;
+  line-height: normal;
+  color: var(--color-neutral-0);
+}
+
+.home-statement__text {
+  width: 560px;
+  color: var(--color-neutral-300);
+}
+
+.home-statement__dates {
+  white-space: nowrap;
+}
+
+[data-theme='dark'] .home-statement__title {
+  color: var(--text-static-cream);
+}
+
+[data-theme='dark'] .home-statement__text {
+  color: var(--color-neutral-0);
+}
+
+/* ---------- Category reel ---------- */
+.home-reel {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--spacing-4);
+  padding: var(--spacing-64);
+}
+
+/* Firehorse/Body Large */
+.home-reel__lead {
+  font-size: 18px;
+  font-weight: 500;
+  line-height: normal;
+  color: var(--text-secondary);
+}
+
+[data-theme='dark'] .home-reel__lead {
+  color: var(--text-static-cream);
+}
+
+.home-reel__window {
+  align-self: stretch;
+  height: 128px;
+  overflow: clip;
+}
+
+.home-reel__word {
+  font-family: var(--font-reel);
+  font-size: 104px;
+  font-weight: 400;
+  line-height: 128px;
+  text-transform: uppercase;
+  white-space: nowrap;
+  color: var(--category-color);
+}
+
+.home-reel__rule {
+  align-self: stretch;
+  height: 3px;
+  background: var(--accent-primary);
+}
+
+/* ---------- Open categories ---------- */
+.home-categories {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-32);
+  padding: var(--spacing-64);
+}
+
+.home-categories__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  white-space: nowrap;
+}
+
+.home-categories__overline {
+  color: var(--color-neutral-500);
+}
+
+/* Firehorse/Caption-Label */
+.home-categories__meta {
+  font-size: 12px;
+  font-weight: 400;
+  line-height: normal;
+  color: var(--color-neutral-600);
+}
+
+[data-theme='dark'] .home-categories__overline,
+[data-theme='dark'] .home-categories__meta {
+  color: var(--text-static-cream);
+}
+
+.home-categories__grid {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  gap: var(--spacing-24);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* Category card — Figma "Category card" (262:4550) */
+.home-card {
+  --card-ink: var(--text-on-accent);
+  --card-icon-bg: rgb(255 255 255 / 0.6);
+
+  border-radius: var(--radius-lg);
+  background: var(--category-color);
+  color: var(--card-ink);
+}
+
+.home-card[data-ink='cream'] {
+  --card-ink: var(--color-neutral-0);
+  --card-icon-bg: rgb(255 255 255 / 0.15);
+}
+
+/* Cinder is the dark page background, so the Motion card gets a cream outline there. */
+[data-theme='dark'] .home-card[data-category='motion'] {
+  box-shadow: inset 0 0 0 1.5px var(--text-static-cream);
+}
+
+.home-card--third {
+  grid-column: span 4;
+}
+
+.home-card--half {
+  grid-column: span 6;
+}
+
+.home-card--wide {
+  --card-ink: var(--color-cinder-600);
+
+  grid-column: 1 / -1;
+  background: var(--color-kindling-600);
+}
+
+.home-card__link {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: space-between;
+  height: 284px;
+  padding: var(--spacing-32);
+  border-radius: inherit;
+  color: inherit;
+  text-decoration: none;
+}
+
+.home-card--wide .home-card__link {
+  flex-direction: row;
+  align-items: center;
+  height: 108px;
+  padding: 28px var(--spacing-32);
+}
+
+.home-card__left {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-24);
+}
+
+.home-card__icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 52px;
+  height: 52px;
+  border-radius: var(--radius-md);
+  background: var(--card-icon-bg);
+}
+
+.home-card__icon img {
+  display: block;
+}
+
+.home-card__text {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-8);
+  width: 100%;
+}
+
+.home-card--wide .home-card__text {
+  gap: var(--spacing-4);
+  width: auto;
+  white-space: nowrap;
+}
+
+/* Firehorse/Subtitle */
+.home-card__title {
+  font-family: var(--font-heading);
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 0.78;
+  letter-spacing: -0.06em;
+  text-transform: uppercase;
+}
+
+/* Firehorse/Body */
+.home-card__tagline {
+  font-size: 16px;
+  font-weight: 400;
+  line-height: normal;
+}
+
+/* ---------- Timeline teaser ---------- */
+.home-timeline {
+  --timeline-overline: var(--color-neutral-500);
+  --timeline-muted: var(--color-neutral-600);
+  --timeline-strong: var(--color-neutral-800);
+
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-80);
+  height: 800px;
+  padding: var(--spacing-64);
+}
+
+[data-theme='dark'] .home-timeline {
+  --timeline-overline: var(--text-static-cream);
+  --timeline-muted: var(--text-static-cream);
+  --timeline-strong: var(--text-static-cream);
+}
+
+.home-timeline__progress {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-24);
+}
+
+.home-timeline__overline {
+  white-space: nowrap;
+  color: var(--timeline-overline);
+}
+
+.home-timeline__bars {
+  flex: 1 0 0;
+  min-width: 1px;
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-8);
+}
+
+.home-timeline__bar {
+  flex: 1 0 0;
+  min-width: 1px;
+  height: 2px;
+  background: var(--milestone-color);
+  opacity: 0.3;
+}
+
+.home-timeline__bar[data-active='true'] {
+  height: 4px;
+  opacity: 1;
+}
+
+.home-timeline__detail {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.home-timeline__text {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--spacing-12);
+  width: 564px;
+}
+
+/* Firehorse/Caption-Label. Figma has an 8px spacer below it, between two 12px gaps. */
+.home-timeline__date {
+  margin-bottom: 20px;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: normal;
+  white-space: nowrap;
+  color: var(--timeline-muted);
+}
+
+/* Firehorse/Heading 2 */
+.home-timeline__title {
+  font-size: 48px;
+  font-weight: 700;
+  line-height: 0.78;
+  letter-spacing: -0.06em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  color: var(--timeline-strong);
+}
+
+/* Firehorse/Body */
+.home-timeline__body {
+  font-size: 16px;
+  font-weight: 400;
+  line-height: normal;
+  color: var(--timeline-muted);
+}
+
+/* Inter Semi Bold in Figma; Inter isn't in the font project, so this uses the body face. */
+.home-timeline__button {
+  /* Figma: a 12px spacer between two 12px gaps */
+  margin-top: var(--spacing-24);
+  padding: 15px var(--spacing-24);
+  border-radius: var(--radius-xs);
+  background: var(--accent-primary);
+  color: var(--text-on-accent);
+  font-size: 14px;
+  font-weight: 700;
+  line-height: normal;
+  letter-spacing: 0.04em;
+  white-space: nowrap;
+  text-decoration: none;
+}
+
+.home-timeline__number {
+  position: absolute;
+  top: calc(50% + 33.72px);
+  right: -53.13px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 302px;
+  height: 276px;
+  translate: 0 calc(-50% + var(--home-tight-shift));
+  font-family: var(--font-heading);
+  font-size: 256px;
+  font-weight: 700;
+  line-height: 0.78;
+  letter-spacing: -0.06em;
+  color: var(--color-inferno-600);
+}
+
+.home-timeline__milestones {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-32);
+  margin: auto 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* Firehorse/Caption-Label */
+.home-timeline__milestone {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-8);
+  font-size: 12px;
+  font-weight: 400;
+  line-height: normal;
+  white-space: nowrap;
+  color: var(--timeline-muted);
+}
+
+.home-timeline__milestone[data-active='true'] {
+  color: var(--timeline-strong);
+}
+
+.home-timeline__marker {
+  width: 24px;
+  height: 4px;
+  border-radius: 2px;
+  background: var(--milestone-color);
+}
+
+/* ---------- FAQ teaser ---------- */
+.home-faq {
+  --faq-card-bg: var(--color-inferno-600);
+  --faq-ask-bg: var(--accent-secondary);
+  --faq-all-bg: var(--color-neutral-0);
+  --faq-all-border: var(--color-blaze-600);
+  --faq-all-text: var(--text-brand-primary);
+
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  height: 820px;
+  padding: 0 var(--spacing-64) 0 62px;
+}
+
+[data-theme='dark'] .home-faq {
+  --faq-card-bg: var(--color-afterglow-600);
+  --faq-ask-bg: var(--accent-primary);
+  --faq-all-bg: transparent;
+  --faq-all-border: var(--text-static-cream);
+  --faq-all-text: var(--text-static-cream);
+}
+
+.home-faq__list-col {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 564px;
+  padding-top: 118px;
+}
+
+/* Questions? title is 118px from the top, the list 254px. */
+.home-faq__title {
+  margin-bottom: calc(254px - 118px - 81.03px);
+  font-family: var(--font-display);
+  font-size: 97.236px;
+  font-weight: 900;
+  line-height: 81.03px;
+  text-transform: uppercase;
+  white-space: nowrap;
+  color: var(--color-inferno-600);
+}
+
+.home-faq__list {
+  align-self: stretch;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.home-faq__question {
+  display: flex;
+  align-items: center;
+  padding: 20px 0;
+  border-top: 1px solid var(--color-neutral-300);
+  font-family: var(--font-heading);
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--color-neutral-500);
+}
+
+.home-faq__question:last-child {
+  border-bottom: 1px solid var(--color-neutral-300);
+}
+
+/* Firehorse/Heading 4 */
+.home-faq__number {
+  flex: none;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 48px;
+  height: 27px;
+  font-size: 28px;
+  line-height: 0.78;
+  letter-spacing: -0.06em;
+}
+
+/* Firehorse/Subtitle */
+.home-faq__question-text {
+  flex: 1 0 0;
+  min-width: 1px;
+  font-size: 20px;
+  line-height: 0.78;
+  letter-spacing: -0.06em;
+}
+
+.home-faq__question[data-selected='true'] .home-faq__number {
+  color: var(--color-inferno-600);
+}
+
+.home-faq__question[data-selected='true'] .home-faq__question-text {
+  color: var(--text-brand-primary);
+}
+
+.home-faq__all {
+  display: flex;
+  align-items: center;
+  height: 48px;
+  margin-top: var(--spacing-32);
+  padding: 0 var(--spacing-24);
+  border: 1.5px solid var(--faq-all-border);
+  background: var(--faq-all-bg);
+  color: var(--faq-all-text);
+  text-decoration: none;
+}
+
+.home-faq__card {
+  flex: none;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 564px;
+  height: 692px;
+  margin-top: var(--spacing-64);
+  padding: 56px var(--spacing-48) var(--spacing-48);
+  background: var(--faq-card-bg);
+}
+
+.home-faq__card-number {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 111px;
+  font-family: var(--font-heading);
+  font-size: 120px;
+  font-weight: 700;
+  line-height: 0.8;
+  color: var(--color-neutral-0);
+  translate: 0 var(--home-tight-shift);
+}
+
+.home-faq__answer {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  align-self: stretch;
+  padding-top: var(--spacing-40);
+  font-family: var(--font-heading);
+  font-weight: 700;
+  line-height: 0.78;
+  text-transform: uppercase;
+}
+
+/* Firehorse/Heading 4 */
+.home-faq__answer-question {
+  font-size: 28px;
+  font-weight: 700;
+  letter-spacing: -0.06em;
+  color: var(--text-brand-primary);
+}
+
+/* Firehorse/Heading 2 */
+.home-faq__answer-text {
+  font-size: 48px;
+  letter-spacing: -0.06em;
+  color: var(--color-neutral-0);
+}
+
+.home-faq__card-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  align-self: stretch;
+  margin-top: auto;
+  padding-top: 28px;
+  border-top: 1px solid rgb(0 0 0 / 0.25);
+}
+
+.home-faq__card-prompt {
+  color: var(--text-brand-primary);
+}
+
+.home-faq__ask {
+  height: 48px;
+  padding: 0 var(--spacing-24);
+  border: 0;
+  background: var(--faq-ask-bg);
+  color: var(--text-brand-primary);
+  cursor: pointer;
+}
