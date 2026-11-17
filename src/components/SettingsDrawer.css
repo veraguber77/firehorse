@@ -1,0 +1,229 @@
+.drawer {
+  position: fixed;
+  inset: 0 0 0 auto;
+  width: 236px;
+  max-width: 100vw;
+  height: 100vh;
+  height: 100dvh;
+  max-height: none;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  border-left: 1px solid var(--border-default);
+  background: var(--surface-elevated);
+  color: var(--text-primary);
+  overflow-y: auto;
+
+  /* Slide in from the right; browsers without @starting-style just show it. */
+  transform: translateX(100%);
+  transition:
+    transform 0.25s ease,
+    overlay 0.25s allow-discrete,
+    display 0.25s allow-discrete;
+}
+
+.drawer[open] {
+  transform: translateX(0);
+}
+
+@starting-style {
+  .drawer[open] {
+    transform: translateX(100%);
+  }
+}
+
+/* Scrim behind the drawer — not in the Figma frame. */
+.drawer::backdrop {
+  background: rgb(1 2 15 / 0);
+  transition:
+    background-color 0.25s ease,
+    overlay 0.25s allow-discrete,
+    display 0.25s allow-discrete;
+}
+
+.drawer[open]::backdrop {
+  background: rgb(1 2 15 / 0.4);
+}
+
+@starting-style {
+  .drawer[open]::backdrop {
+    background: rgb(1 2 15 / 0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .drawer,
+  .drawer::backdrop {
+    transition: none;
+  }
+}
+
+.drawer__panel {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  min-height: 100%;
+  padding: 20px var(--spacing-24);
+}
+
+/* Header */
+.drawer__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* Firehorse/Heading 4 */
+.drawer__title {
+  font-family: var(--font-heading);
+  font-size: 28px;
+  font-weight: 700;
+  line-height: 0.78;
+  letter-spacing: -0.06em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  color: var(--text-primary);
+}
+
+.drawer__close {
+  flex: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  border: 1px solid var(--border-default);
+  border-radius: 22px;
+  background: none;
+  color: var(--text-primary);
+  cursor: pointer;
+}
+
+/* The close SVG is black; used as a mask so it follows the theme's text colour. */
+.drawer__close-icon {
+  width: 18px;
+  height: 18px;
+  background: currentColor;
+  -webkit-mask: url('../assets/close.svg') center / 18px 18px no-repeat;
+  mask: url('../assets/close.svg') center / 18px 18px no-repeat;
+}
+
+.drawer__divider {
+  flex: none;
+  height: 1px;
+  background: var(--border-default);
+}
+
+/* Appearance */
+.drawer__section {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--spacing-12);
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+/* Firehorse/Body */
+.drawer__label {
+  float: left; /* lets the legend take part in the flex layout */
+  width: 100%;
+  padding: 0;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: normal;
+  white-space: nowrap;
+  color: var(--text-primary);
+}
+
+.drawer__tiles {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--spacing-12);
+}
+
+.drawer__tile {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--spacing-8);
+  cursor: pointer;
+}
+
+/* Real radio input, visually hidden; the swatch shows its state. */
+.drawer__radio {
+  position: absolute;
+  width: 88px;
+  height: 88px;
+  margin: 0;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.drawer__swatch {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 88px;
+  height: 88px;
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-md);
+}
+
+.drawer__swatch--light {
+  background: var(--color-kindling-300);
+}
+
+.drawer__swatch--dark {
+  background: var(--color-cinder-600);
+}
+
+.drawer__radio:checked + .drawer__swatch {
+  border: 2px solid var(--accent-primary);
+}
+
+.drawer__radio:focus-visible + .drawer__swatch {
+  outline: 2px solid var(--border-focus);
+  outline-offset: 2px;
+}
+
+/* Check badge */
+.drawer__check {
+  position: absolute;
+  top: 4px;
+  right: 4px;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  border-radius: 10px;
+  background: var(--accent-primary);
+}
+
+.drawer__radio:checked + .drawer__swatch .drawer__check {
+  display: flex;
+}
+
+/* Firehorse/Button-UI */
+.drawer__tile-label {
+  font-size: 14px;
+  font-weight: 700;
+  line-height: normal;
+  text-transform: uppercase;
+  white-space: nowrap;
+  color: var(--text-primary);
+}
+
+/* Firehorse/Caption-Label */
+.drawer__hint {
+  font-size: 12px;
+  font-weight: 400;
+  line-height: normal;
+  color: var(--text-secondary);
+}

@@ -7,6 +7,10 @@
   --font-display: 'rl-folklor', sans-serif;
   --font-heading: 'itc-avant-garde-gothic-pro', sans-serif;
   --font-body: 'neue-haas-grotesk-text', sans-serif;
+
+  /* Logo size shared by nav and footer (Figma: 92.7x56.7 nav, 80.6x49.3 footer). */
+  --logo-width: 104.727px;
+  --logo-height: 64px;
 }
 
 *,

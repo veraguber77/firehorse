@@ -1,29 +1,25 @@
+import { useState } from 'react'
 import Nav from './components/Nav.jsx'
 import Footer from './components/Footer.jsx'
+import SettingsDrawer from './components/SettingsDrawer.jsx'
+import { useTheme } from './theme.js'
 import './App.css'
 
-// Temporary until the settings drawer exists.
-function toggleTheme() {
-  const root = document.documentElement
-  const next = root.dataset.theme === 'dark' ? 'light' : 'dark'
-  root.dataset.theme = next
-  try {
-    localStorage.setItem('firehorse-theme', next)
-  } catch {
-    // Storage unavailable — theme still applies for this page view.
-  }
-}
-
 export default function App() {
+  const [theme, setTheme] = useTheme()
+  const [settingsOpen, setSettingsOpen] = useState(false)
+
   return (
     <div className="app">
-      <Nav current="categories" />
-      <main className="app__main">
-        <button type="button" onClick={toggleTheme}>
-          Toggle theme (temporary)
-        </button>
-      </main>
+      <Nav current="categories" settingsOpen={settingsOpen} onOpenSettings={() => setSettingsOpen(true)} />
+      <main className="app__main" />
       <Footer />
+      <SettingsDrawer
+        open={settingsOpen}
+        onClose={() => setSettingsOpen(false)}
+        theme={theme}
+        onThemeChange={setTheme}
+      />
     </div>
   )
 }

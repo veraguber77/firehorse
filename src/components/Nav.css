@@ -31,8 +31,8 @@
 .nav__logo {
   position: relative;
   flex: none;
-  width: 92.736px;
-  height: 56.672px;
+  width: var(--logo-width);
+  height: var(--logo-height);
   overflow: hidden;
 }
 
