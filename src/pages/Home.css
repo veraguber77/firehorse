@@ -231,6 +231,8 @@
   min-width: 1px;
   display: flex;
   align-items: flex-end;
+  /* Hug the right margin, so wider windows don't leave the bars mid-page. */
+  justify-content: flex-end;
   gap: var(--spacing-16);
   margin: 0;
   padding: 0;
