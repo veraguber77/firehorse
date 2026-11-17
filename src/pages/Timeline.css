@@ -16,7 +16,7 @@
 }
 
 /* Shared: Firehorse/Button-UI */
-.timeline-intro__row-date,
+.timeline-ticket__date,
 .timeline-stage__button,
 .timeline-closing__button {
   font-family: var(--font-body);
@@ -97,33 +97,85 @@
 }
 
 .timeline-intro__list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
   width: 564px;
   margin: 0;
   padding: 0;
   list-style: none;
-  border-top: 2px solid var(--text-brand-primary);
   white-space: nowrap;
 }
 
-.timeline-intro__row {
-  display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
-  padding: var(--spacing-16) 0;
-  border-bottom: 3px solid var(--row-color);
-}
+/* Stage ticket */
+.timeline-ticket {
+  --ticket-bg: var(--color-kindling-100);
+  --ticket-ink: var(--color-cinder-600);
+  --ticket-stub-ink: var(--color-cinder-600);
+  --ticket-shadow: rgb(3 6 37 / 0.08);
 
-/* Firehorse/Body */
-.timeline-intro__row-name {
-  font-size: 16px;
-  font-weight: 400;
-  line-height: normal;
-  color: var(--text-brand-primary);
+  display: flex;
+  height: 68px;
+  overflow: clip;
+  border: 1.5px solid var(--ticket-color);
+  border-radius: 10px;
+  filter: drop-shadow(0 2px 0 var(--ticket-shadow));
   text-decoration: none;
 }
 
-.timeline-intro__row-date {
-  color: var(--text-secondary);
+.timeline-ticket[data-ink='cream'] {
+  --ticket-stub-ink: var(--text-static-cream);
+}
+
+[data-theme='dark'] .timeline-ticket {
+  --ticket-bg: var(--color-cinder-700);
+  --ticket-ink: var(--text-static-cream);
+  --ticket-shadow: rgb(0 0 0 / 0.25);
+}
+
+.timeline-ticket__body {
+  flex: 1 0 0;
+  min-width: 1px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: var(--spacing-4);
+  padding: 0 var(--spacing-16) 0 20px;
+  border-left: 8px solid var(--ticket-color);
+  border-radius: 10px 0 0 10px;
+  background: var(--ticket-bg);
+  color: var(--ticket-ink);
+}
+
+/* Firehorse/Overline */
+.timeline-ticket__stage {
+  font-size: 11px;
+  font-weight: 500;
+  line-height: normal;
+}
+
+/* Dark Figma sets it bolder and letter-spaced (Inter Bold, +10%); Inter isn't in the font project. */
+[data-theme='dark'] .timeline-ticket__stage {
+  font-weight: 700;
+  letter-spacing: 0.1em;
+}
+
+/* Firehorse/Body */
+.timeline-ticket__name {
+  font-size: 16px;
+  font-weight: 400;
+  line-height: normal;
+}
+
+/* Firehorse/Button-UI */
+.timeline-ticket__date {
+  flex: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 208px;
+  background: var(--ticket-color);
+  color: var(--ticket-stub-ink);
 }
 
 /* ---------- Stage bands: one screen tall (800px frames in Figma) ---------- */

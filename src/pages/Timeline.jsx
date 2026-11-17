@@ -45,13 +45,22 @@ export default function Timeline() {
             Firehorse runs in four stages. Submissions are open now and close on November 14, 2026. Judging and
             the winners’ reveal follow.
           </p>
+          {/* Stage tickets: body on the left, coloured date stub on the right. */}
           <ol className="timeline-intro__list">
-            {stages.map((stage) => (
-              <li key={stage.id} className="timeline-intro__row" style={{ '--row-color': stage.listColor }}>
-                <a className="timeline-intro__row-name" href={`#stage-${stage.id}`}>
-                  {stage.name}
+            {stages.map((stage, index) => (
+              <li key={stage.id}>
+                <a
+                  className="timeline-ticket"
+                  href={`#stage-${stage.id}`}
+                  data-ink={stage.ink}
+                  style={{ '--ticket-color': stage.color }}
+                >
+                  <span className="timeline-ticket__body">
+                    <span className="timeline-ticket__stage">STAGE {String(index + 1).padStart(2, '0')}</span>
+                    <span className="timeline-ticket__name">{stage.name}</span>
+                  </span>
+                  <span className="timeline-ticket__date">{stage.listDate}</span>
                 </a>
-                <span className="timeline-intro__row-date">{stage.listDate}</span>
               </li>
             ))}
           </ol>
