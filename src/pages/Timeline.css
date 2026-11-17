@@ -69,10 +69,13 @@
   color: var(--accent-primary);
 }
 
+/* Figma's 700px content column, pinned to the right edge so wider windows
+   open up space in the middle instead of leaving the text mid-page. */
 .timeline-intro__content,
 .timeline-stage__content {
-  flex: 1 0 0;
-  min-width: 1px;
+  flex: none;
+  width: 700px;
+  margin-left: auto;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
