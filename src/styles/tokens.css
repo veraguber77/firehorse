@@ -1,0 +1,149 @@
+/* Firehorse design tokens — exported from Figma Variables (Nov 16, 2026) */
+
+/* Primitives */
+:root {
+  --color-inferno-900: #661E05;
+  --color-inferno-800: #982D08;
+  --color-inferno-700: #CB3C0A;
+  --color-inferno-600: #FE4B0D;
+  --color-inferno-500: #FE6F3D;
+  --color-inferno-400: #FE936E;
+  --color-inferno-300: #FFB79E;
+  --color-inferno-200: #FFDBCF;
+  --color-inferno-100: #FFEDE7;
+  --color-ember-900: #653C04;
+  --color-ember-800: #985A05;
+  --color-ember-700: #CA7807;
+  --color-ember-600: #FD9609;
+  --color-ember-500: #FDAB3A;
+  --color-ember-400: #FEC06B;
+  --color-ember-300: #FED59D;
+  --color-ember-200: #FFEACE;
+  --color-ember-100: #FFF4E6;
+  --color-kindling-900: #5D5C53;
+  --color-kindling-800: #8B897D;
+  --color-kindling-700: #BAB7A6;
+  --color-kindling-600: #E8E5D0;
+  --color-kindling-500: #EDEAD9;
+  --color-kindling-400: #F1EFE3;
+  --color-kindling-300: #F6F5EC;
+  --color-kindling-200: #FAFAF6;
+  --color-kindling-100: #FDFCFA;
+  --color-blaze-900: #343E65;
+  --color-blaze-800: #4F5C98;
+  --color-blaze-700: #697BCA;
+  --color-blaze-600: #839AFD;
+  --color-blaze-500: #9CAEFD;
+  --color-blaze-400: #B5C2FE;
+  --color-blaze-300: #CDD7FE;
+  --color-blaze-200: #E6EBFF;
+  --color-blaze-100: #F3F5FF;
+  --color-afterglow-900: #222458;
+  --color-afterglow-800: #323585;
+  --color-afterglow-700: #4347B1;
+  --color-afterglow-600: #5459DD;
+  --color-afterglow-500: #767AE4;
+  --color-afterglow-400: #989BEB;
+  --color-afterglow-300: #BBBDF1;
+  --color-afterglow-200: #DDDEF8;
+  --color-afterglow-100: #EEEEFC;
+  --color-cinder-900: #01020F;
+  --color-cinder-800: #020416;
+  --color-cinder-700: #02051E;
+  --color-cinder-600: #030625;
+  --color-cinder-500: #353851;
+  --color-cinder-400: #686A7C;
+  --color-cinder-300: #9A9BA8;
+  --color-cinder-200: #CDCDD3;
+  --color-cinder-100: #E6E6E9;
+  --color-neutral-0: #FFFFFF;
+  --color-neutral-100: #F2F2F2;
+  --color-neutral-200: #E6E6E6;
+  --color-neutral-300: #CCCCCC;
+  --color-neutral-400: #B3B3B3;
+  --color-neutral-500: #7F7F7F;
+  --color-neutral-600: #4D4D4D;
+  --color-neutral-700: #333333;
+  --color-neutral-800: #1A1A1A;
+  --color-neutral-900: #000000;
+  --spacing-0: 0px;
+  --spacing-4: 4px;
+  --spacing-8: 8px;
+  --spacing-12: 12px;
+  --spacing-16: 16px;
+  --spacing-24: 24px;
+  --spacing-32: 32px;
+  --spacing-40: 40px;
+  --spacing-48: 48px;
+  --spacing-64: 64px;
+  --spacing-80: 80px;
+  --spacing-96: 96px;
+  --spacing-120: 120px;
+  --spacing-160: 160px;
+  --radius-none: 0px;
+  --radius-xs: 4px;
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-xl: 24px;
+}
+
+/* Semantic — Light (default) */
+:root, [data-theme="light"] {
+  --background-primary: var(--color-kindling-300);
+  --background-secondary: var(--color-kindling-500);
+  --surface-default: var(--color-kindling-200);
+  --surface-elevated: var(--color-neutral-0);
+  --surface-hover: var(--color-kindling-400);
+  --surface-disabled: var(--color-kindling-500);
+  --text-primary: var(--color-neutral-900);
+  --text-brand-primary: var(--color-cinder-600);
+  --text-secondary: var(--color-neutral-700);
+  --text-inverse: var(--color-neutral-0);
+  --text-inverse-secondary: var(--color-neutral-300);
+  --text-on-accent: var(--color-cinder-900);
+  --text-static-cream: var(--color-kindling-100);
+  --text-disabled: var(--color-kindling-800);
+  --accent-primary: var(--color-inferno-600);
+  --accent-primary-hover: var(--color-inferno-700);
+  --accent-primary-pressed: var(--color-inferno-800);
+  --accent-secondary: var(--color-ember-600);
+  --accent-tertiary: var(--color-blaze-600);
+  --border-default: var(--color-kindling-600);
+  --border-strong: var(--color-kindling-800);
+  --border-focus: var(--color-afterglow-600);
+}
+
+/* Semantic — Dark */
+[data-theme="dark"] {
+  --background-primary: var(--color-cinder-600);
+  --background-secondary: var(--color-cinder-900);
+  --surface-default: var(--color-cinder-700);
+  --surface-elevated: var(--color-cinder-500);
+  --surface-hover: var(--color-cinder-500);
+  --surface-disabled: var(--color-cinder-700);
+  --text-primary: var(--color-neutral-0);
+  --text-brand-primary: var(--color-kindling-100);
+  --text-secondary: var(--color-neutral-300);
+  --text-inverse: var(--color-neutral-900);
+  --text-inverse-secondary: var(--color-neutral-700);
+  --text-on-accent: var(--color-cinder-900);
+  --text-static-cream: var(--color-kindling-100);
+  --text-disabled: var(--color-cinder-400);
+  --accent-primary: var(--color-inferno-600);
+  --accent-primary-hover: var(--color-inferno-700);
+  --accent-primary-pressed: var(--color-inferno-800);
+  --accent-secondary: var(--color-ember-600);
+  --accent-tertiary: var(--color-blaze-600);
+  --border-default: var(--color-cinder-500);
+  --border-strong: var(--color-cinder-300);
+  --border-focus: var(--color-blaze-600);
+}
+/* Category color map (bento, picker, brief bands) */
+:root {
+  --cat-poster: var(--color-inferno-600);       /* text: dark */
+  --cat-web-app: var(--color-ember-600);        /* text: dark */
+  --cat-mobile-app: var(--color-blaze-600);     /* text: dark */
+  --cat-illustration: var(--color-afterglow-600); /* text: cream */
+  --cat-motion: var(--color-cinder-600);        /* text: cream */
+}

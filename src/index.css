@@ -1,0 +1,71 @@
+@import './styles/tokens.css';
+
+/* Font stacks — family names come from the Adobe Fonts project (jhd2bcu).
+   Available weights: rl-folklor 900 · itc-avant-garde-gothic-pro 300/700 (+ italics)
+   · neue-haas-grotesk-text 400/700 (+ italics) */
+:root {
+  --font-display: 'rl-folklor', sans-serif;
+  --font-heading: 'itc-avant-garde-gothic-pro', sans-serif;
+  --font-body: 'neue-haas-grotesk-text', sans-serif;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  color-scheme: light;
+  -webkit-text-size-adjust: 100%;
+}
+
+html[data-theme='dark'] {
+  color-scheme: dark;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: var(--background-primary);
+  color: var(--text-primary);
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
+  margin: 0;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+button {
+  font-family: var(--font-heading);
+}
+
+button {
+  font-size: inherit;
+  color: inherit;
+}
+
+a {
+  color: inherit;
+}
+
+:focus-visible {
+  outline: 2px solid var(--border-focus);
+  outline-offset: 2px;
+}
