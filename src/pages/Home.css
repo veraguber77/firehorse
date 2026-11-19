@@ -915,7 +915,7 @@
   --button-bg: var(--surface-default);
   --button-ink: var(--text-on-accent);
   --button-hover-bg: var(--color-kindling-100);
-  --button-hover-ink: var(--color-cinder-800); /* on-accent is Cinder 900 */
+  --button-hover-ink: var(--color-cinder-500); /* same visible step as the other dark labels */
 
   padding: 15px var(--spacing-24);
   letter-spacing: 0.04em;
