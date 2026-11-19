@@ -295,7 +295,7 @@
   --button-ink: var(--text-on-accent);
   --button-line: var(--shadow-button-accent);
   --button-hover-bg: var(--color-neutral-0);
-  --button-hover-ink: var(--color-cinder-500); /* same visible step as the other dark labels */
+  --button-hover-ink: var(--color-cinder-400); /* Kindling fill: one shade lighter than the other dark labels */
 
   height: 48px;
   padding: 0 var(--spacing-24);

@@ -102,7 +102,7 @@
   --button-ink: var(--text-brand-primary);
   --button-line: var(--shadow-button-default);
   --button-hover-bg: var(--color-neutral-0); /* Kindling 100 is the lightest step; white is next */
-  --button-hover-ink: var(--color-cinder-500);
+  --button-hover-ink: var(--color-cinder-400); /* Kindling fill: one shade lighter than the other dark labels */
   --button-pressed-bg: var(--button-bg);
 }
 
@@ -141,7 +141,7 @@
   --button-bg: var(--color-kindling-100);
   --button-ink: var(--color-cinder-600);
   --button-hover-bg: var(--color-neutral-0);
-  --button-hover-ink: var(--color-cinder-500);
+  --button-hover-ink: var(--color-cinder-400); /* Kindling fill: one shade lighter than the other dark labels */
   --button-pressed-bg: var(--color-kindling-100);
   --palette-face: var(--button-bg);
   /*

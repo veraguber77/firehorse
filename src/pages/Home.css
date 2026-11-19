@@ -915,7 +915,7 @@
   --button-bg: var(--surface-default);
   --button-ink: var(--text-on-accent);
   --button-hover-bg: var(--color-kindling-100);
-  --button-hover-ink: var(--color-cinder-500); /* same visible step as the other dark labels */
+  --button-hover-ink: var(--color-cinder-400); /* Kindling fill: one shade lighter than the other dark labels */
 
   padding: 15px var(--spacing-24);
   letter-spacing: 0.04em;
@@ -924,6 +924,7 @@
 [data-theme='light'] .home-faq__all {
   --button-bg: var(--color-neutral-0);
   --button-hover-bg: var(--color-neutral-0); /* already white: nothing lighter */
+  --button-hover-ink: var(--color-cinder-500); /* white fill, not Kindling */
 
   height: 48px;
   padding: 0 var(--spacing-24);

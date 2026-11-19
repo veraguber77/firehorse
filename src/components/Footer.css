@@ -205,5 +205,5 @@
   --button-ink: var(--color-cinder-600);
   --button-line: var(--shadow-button-accent);
   --button-hover-bg: var(--color-kindling-100);
-  --button-hover-ink: var(--color-cinder-500);
+  --button-hover-ink: var(--color-cinder-400); /* Kindling fill: one shade lighter than the other dark labels */
 }
