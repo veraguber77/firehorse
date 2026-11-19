@@ -289,19 +289,14 @@
     color var(--picker-fade);
 }
 
-/*
- * Light-mode keycap (see styles/buttons.css), in the selected category's colour.
- * Shadow follows the spec's Auto rule: Ember on the red Poster button, Inferno elsewhere.
- * The All view uses the palette button instead.
- */
-[data-theme='light'] .picker__readout-button.button--category {
-  --button-bg: var(--picker-accent);
-  --button-ink: var(--picker-on-accent);
-  --button-line: var(--shadow-button-default);
-}
-
-[data-theme='light'] .picker[data-category='poster'] .picker__readout-button.button--category {
+/* Light-mode keycap (styles/buttons.css), as on the Figma picker. The All view uses the palette button. */
+[data-theme='light'] .picker__readout-button:not(.button--palette) {
+  --button-bg: var(--color-kindling-100);
+  --button-ink: var(--text-on-accent);
   --button-line: var(--shadow-button-accent);
+
+  height: 48px;
+  padding: 0 var(--spacing-24);
 }
 
 @media (prefers-reduced-motion: reduce) {

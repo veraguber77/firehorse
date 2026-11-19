@@ -177,3 +177,9 @@
   width: 8px;
   background: var(--brief-ink);
 }
+
+/* Light-mode keycap size, as on the Figma brief band (52px tall, 28px sides). */
+[data-theme='light'] .brief__button {
+  height: 52px;
+  padding: 0 28px;
+}

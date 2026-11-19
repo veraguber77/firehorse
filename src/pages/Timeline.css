@@ -260,8 +260,6 @@
 
 /* ---------- Closing tagline: one screen tall (600px frame in Figma) ---------- */
 .timeline-closing {
-  --section-color: var(--color-cinder-600);
-
   flex-direction: column;
   align-items: center;
   justify-content: center;
@@ -311,4 +309,9 @@
   padding: 11px 23px;
   border: 1px solid var(--text-static-cream);
   color: var(--text-static-cream);
+}
+
+/* The light Figma screen dropped the closing buttons; dark (322:9496) still has them. */
+[data-theme='light'] .timeline-closing__buttons {
+  display: none;
 }

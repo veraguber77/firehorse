@@ -41,7 +41,7 @@ export default function Footer() {
           <p className="footer__cta-text">
             Submissions close November 14, 2026 at 11:59 PM PT. Free to enter, open to everyone.
           </p>
-          <a className="footer__cta-button button button--primary" href="#submit">
+          <a className="footer__cta-button button" href="#submit">
             Submit an Entry
           </a>
         </div>

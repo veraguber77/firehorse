@@ -836,8 +836,6 @@
 }
 
 .home-faq__card {
-  --section-color: var(--faq-card-bg); /* on-section buttons take the card colour */
-
   flex: none;
   display: flex;
   flex-direction: column;
@@ -910,4 +908,29 @@
   background: var(--faq-ask-bg);
   color: var(--text-brand-primary);
   cursor: pointer;
+}
+
+/* ---------- Light-mode keycaps (styles/buttons.css), per the Figma Homepage ---------- */
+[data-theme='light'] .home-timeline__button {
+  --button-bg: var(--surface-default);
+  --button-ink: var(--text-on-accent);
+
+  padding: 15px var(--spacing-24);
+  letter-spacing: 0.04em;
+}
+
+[data-theme='light'] .home-faq__all {
+  --button-bg: var(--color-neutral-0);
+
+  height: 48px;
+  padding: 0 var(--spacing-24);
+}
+
+[data-theme='light'] .home-faq__ask {
+  --button-bg: var(--color-ember-600);
+  --button-ink: var(--color-cinder-600);
+  --button-line: var(--color-cinder-600);
+
+  height: 48px;
+  padding: 0 var(--spacing-24);
 }

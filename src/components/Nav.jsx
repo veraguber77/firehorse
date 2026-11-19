@@ -43,7 +43,7 @@ export default function Nav({ current = 'home', onOpenSettings, settingsOpen = f
         Settings
       </button>
 
-      <a className="nav__button nav__button--submit button button--primary" href="#submit">
+      <a className="nav__button nav__button--submit button" href="#submit">
         Submit
       </a>
     </header>

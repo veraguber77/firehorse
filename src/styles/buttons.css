@@ -7,7 +7,9 @@
  * mode each button keeps its own flat style (its page class) until the dark spec lands.
  *
  * Usage: class="button button--primary" (or --secondary, --on-section, --palette),
- * alongside the element's own page class.
+ * alongside the element's own page class. Where a Figma screen styles a button
+ * its own way, that component's CSS sets the --button-* custom properties
+ * (fill, ink, line) under [data-theme='light'], so the screens stay the source of truth.
  */
 
 [data-theme='light'] .button {
@@ -23,8 +25,8 @@
   justify-content: center;
   gap: var(--spacing-8);
   height: auto;
-  /* 15px × 24px in the spec, including the 2px outline vertically */
-  padding: 13px var(--spacing-24);
+  /* 12px × 24px inside the 2px outline, as on the Figma screens (46px tall) */
+  padding: var(--spacing-12) var(--spacing-24);
   border: 2px solid var(--button-line);
   border-radius: 6px;
   background: var(--button-bg);
@@ -80,23 +82,23 @@
   cursor: not-allowed;
 }
 
-/* Primary: the main action. Inferno fill; red buttons take the Ember shadow. */
+/* Primary: the main action. Inferno fill, Ember outline, cream label (as on the homepage hero). */
 [data-theme='light'] .button--primary {
   --button-bg: var(--accent-primary);
-  --button-ink: var(--text-on-accent);
+  --button-ink: var(--text-static-cream);
   --button-line: var(--shadow-button-accent);
   --button-hover-bg: var(--accent-primary-hover);
   --button-pressed-bg: var(--accent-primary-pressed);
   --button-pressed-ink: var(--text-static-cream);
 }
 
-/* Secondary: supporting action. Page-colour fill. */
+/* Secondary: supporting action. Kindling 100 fill (as on the screens), Inferno outline. */
 [data-theme='light'] .button--secondary {
-  --button-bg: var(--background-primary);
+  --button-bg: var(--color-kindling-100);
   --button-ink: var(--text-brand-primary);
   --button-line: var(--shadow-button-default);
   --button-hover-bg: var(--surface-hover);
-  --button-pressed-bg: var(--background-primary);
+  --button-pressed-bg: var(--button-bg);
 }
 
 /*

@@ -198,3 +198,10 @@
     text-align: right;
   }
 }
+
+/* Light-mode keycap (styles/buttons.css), as on Figma Footer / Light. */
+[data-theme='light'] .footer__cta-button {
+  --button-bg: var(--color-kindling-200);
+  --button-ink: var(--color-cinder-600);
+  --button-line: var(--shadow-button-accent);
+}

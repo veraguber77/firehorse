@@ -257,7 +257,7 @@ export default function Home() {
               The competition opens to all entrants worldwide. Create your account, read the brief, and start
               working. Entry is free.
             </p>
-            <Link className="home-timeline__button button button--primary" to="/timeline">
+            <Link className="home-timeline__button button button--secondary" to="/timeline">
               SEE THE FULL TIMELINE →
             </Link>
           </div>
@@ -326,7 +326,7 @@ export default function Home() {
           <div className="home-faq__card-footer">
             <p className="home-faq__card-prompt">Still wondering?</p>
             {/* TODO(ai-assistant): opens the Ask Firehorse AI assistant. */}
-            <button type="button" className="home-faq__ask button button--on-section">
+            <button type="button" className="home-faq__ask button">
               Ask Firehorse
             </button>
           </div>

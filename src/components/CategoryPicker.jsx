@@ -66,7 +66,7 @@ export default function CategoryPicker({ selected, onSelect }) {
   const angles = spokeAngles(current.id)
 
   return (
-    <section className="picker" data-category={current.id} style={categoryVars(current)}>
+    <section className="picker" style={categoryVars(current)}>
       <div className="picker__gradient" aria-hidden="true">
         <img src={gradient} alt="" />
       </div>
@@ -126,7 +126,7 @@ export default function CategoryPicker({ selected, onSelect }) {
         <h2 className="picker__readout-name">{current.name}</h2>
         <p className="picker__readout-tagline">{current.tagline}</p>
         <a
-          className={`picker__readout-button button ${isAll ? 'button--palette' : 'button--category'}`}
+          className={`picker__readout-button button${isAll ? ' button--palette' : ''}`}
           href={isAll ? '#briefs' : `#brief-${current.id}`}
         >
           {isAll ? 'See all five briefs' : `See the ${current.name} brief`}

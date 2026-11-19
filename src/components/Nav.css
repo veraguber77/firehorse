@@ -107,3 +107,15 @@
     padding: 0 var(--spacing-24);
   }
 }
+
+/* Light-mode keycaps (styles/buttons.css), as on the Figma Nav component. */
+[data-theme='light'] .nav__button--settings {
+  height: 42px;
+  padding: 0 var(--spacing-16);
+}
+
+[data-theme='light'] .nav__button--submit {
+  --button-bg: var(--color-afterglow-600);
+  --button-ink: var(--color-neutral-0);
+  --button-line: var(--color-blaze-600);
+}
