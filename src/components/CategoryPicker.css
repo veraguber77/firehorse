@@ -295,6 +295,7 @@
   --button-ink: var(--text-on-accent);
   --button-line: var(--shadow-button-accent);
   --button-hover-bg: var(--color-neutral-0);
+  --button-hover-ink: var(--color-cinder-800); /* on-accent is Cinder 900 */
 
   height: 48px;
   padding: 0 var(--spacing-24);
