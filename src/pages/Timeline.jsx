@@ -96,7 +96,10 @@ export default function Timeline() {
             </h2>
             <p className="timeline-stage__body">{stage.body}</p>
             {stage.cta && (
-              <a className="timeline-stage__button" href={stage.cta.href}>
+              <a
+                className={`timeline-stage__button button button--on-section${stage.ink === 'cream' ? ' button--on-dark' : ''}`}
+                href={stage.cta.href}
+              >
                 {stage.cta.label}
               </a>
             )}
@@ -118,10 +121,10 @@ export default function Timeline() {
         <p className="timeline-closing__title">Let your flame run wild.</p>
         <p className="timeline-closing__text">Submissions close November 14, 2026.</p>
         <div className="timeline-closing__buttons">
-          <a className="timeline-closing__button timeline-closing__button--solid" href="#submit">
+          <a className="timeline-closing__button timeline-closing__button--solid button button--on-section button--on-dark" href="#submit">
             Submit an Entry
           </a>
-          <Link className="timeline-closing__button timeline-closing__button--outline" to="/faq">
+          <Link className="timeline-closing__button timeline-closing__button--outline button button--on-section button--on-dark" to="/faq">
             Read the FAQ
           </Link>
         </div>

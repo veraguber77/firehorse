@@ -289,6 +289,21 @@
     color var(--picker-fade);
 }
 
+/*
+ * Light-mode keycap (see styles/buttons.css), in the selected category's colour.
+ * Shadow follows the spec's Auto rule: Ember on the red Poster button, Inferno elsewhere.
+ * The All view uses the palette button instead.
+ */
+[data-theme='light'] .picker__readout-button.button--category {
+  --button-bg: var(--picker-accent);
+  --button-ink: var(--picker-on-accent);
+  --button-line: var(--shadow-button-default);
+}
+
+[data-theme='light'] .picker[data-category='poster'] .picker__readout-button.button--category {
+  --button-line: var(--shadow-button-accent);
+}
+
 @media (prefers-reduced-motion: reduce) {
   .picker {
     --picker-turn: 0s;

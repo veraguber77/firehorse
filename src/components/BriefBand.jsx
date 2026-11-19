@@ -50,7 +50,10 @@ export default function BriefBand({ category, showGradient = false }) {
         </ol>
 
         <div className="brief__actions">
-          <a className="brief__button" href="#submit">
+          <a
+            className={`brief__button button button--on-section${category.ink === 'cream' ? ' button--on-dark' : ''}`}
+            href="#submit"
+          >
             Submit to {name}
           </a>
         </div>

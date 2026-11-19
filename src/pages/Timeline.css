@@ -181,6 +181,7 @@
 /* ---------- Stage bands: one screen tall (800px frames in Figma) ---------- */
 .timeline-stage {
   --stage-ink: var(--color-cinder-600);
+  --section-color: var(--stage-color); /* on-section buttons take the band colour */
 
   height: 100vh;
   min-height: 600px;
@@ -259,6 +260,8 @@
 
 /* ---------- Closing tagline: one screen tall (600px frame in Figma) ---------- */
 .timeline-closing {
+  --section-color: var(--color-cinder-600);
+
   flex-direction: column;
   align-items: center;
   justify-content: center;

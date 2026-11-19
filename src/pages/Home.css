@@ -836,6 +836,8 @@
 }
 
 .home-faq__card {
+  --section-color: var(--faq-card-bg); /* on-section buttons take the card colour */
+
   flex: none;
   display: flex;
   flex-direction: column;

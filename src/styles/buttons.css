@@ -1,0 +1,167 @@
+/*
+ * Buttons — Figma "Button" component (375:33) and "Button — States & specs" (405:2):
+ * "offset print" keycaps. A 2px outline and a hard 3px shadow share one colour.
+ * Hover lifts the button towards you, and press pushes it flat onto the page.
+ *
+ * Light mode only for now: every rule is scoped to [data-theme='light']. In dark
+ * mode each button keeps its own flat style (its page class) until the dark spec lands.
+ *
+ * Usage: class="button button--primary" (or --secondary, --on-section, --palette),
+ * alongside the element's own page class.
+ */
+
+[data-theme='light'] .button {
+  --button-bg: var(--background-primary);
+  --button-ink: var(--text-brand-primary);
+  --button-line: var(--shadow-button-default);
+  --button-hover-bg: var(--button-bg);
+  --button-pressed-bg: var(--button-bg);
+  --button-pressed-ink: var(--button-ink);
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-8);
+  height: auto;
+  /* 15px × 24px in the spec, including the 2px outline vertically */
+  padding: 13px var(--spacing-24);
+  border: 2px solid var(--button-line);
+  border-radius: 6px;
+  background: var(--button-bg);
+  box-shadow: 3px 3px 0 var(--button-line);
+  color: var(--button-ink);
+  /* Firehorse/Button-UI */
+  font-family: var(--font-body);
+  font-size: 14px;
+  font-weight: 700;
+  line-height: normal;
+  letter-spacing: 0;
+  text-transform: uppercase;
+  text-decoration: none;
+  white-space: nowrap;
+  cursor: pointer;
+  transition:
+    transform 120ms ease-out,
+    box-shadow 120ms ease-out,
+    background-color 120ms ease-out,
+    color 120ms ease-out;
+  /* TODO(motion): GSAP pass later, per the spec. */
+}
+
+/* Hover: lift −2px x/y, shadow grows to 5px. */
+[data-theme='light'] .button:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: 5px 5px 0 var(--button-line);
+  background: var(--button-hover-bg);
+}
+
+/* Pressed: push +3px x/y, shadow drops to 0 so the button sits flat. */
+[data-theme='light'] .button:active {
+  transform: translate(3px, 3px);
+  box-shadow: 0 0 0 var(--button-line);
+  background: var(--button-pressed-bg);
+  color: var(--button-pressed-ink);
+}
+
+/* Focus (keyboard only): outline and shadow switch to border/focus. */
+[data-theme='light'] .button:focus-visible {
+  --button-line: var(--border-focus);
+
+  outline: none;
+}
+
+/* Disabled: 40% opacity, no shadow, no hover or press. */
+[data-theme='light'] .button:is(:disabled, [aria-disabled='true']) {
+  opacity: 0.4;
+  transform: none;
+  box-shadow: none;
+  background: var(--button-bg);
+  color: var(--button-ink);
+  cursor: not-allowed;
+}
+
+/* Primary: the main action. Inferno fill; red buttons take the Ember shadow. */
+[data-theme='light'] .button--primary {
+  --button-bg: var(--accent-primary);
+  --button-ink: var(--text-on-accent);
+  --button-line: var(--shadow-button-accent);
+  --button-hover-bg: var(--accent-primary-hover);
+  --button-pressed-bg: var(--accent-primary-pressed);
+  --button-pressed-ink: var(--text-static-cream);
+}
+
+/* Secondary: supporting action. Page-colour fill. */
+[data-theme='light'] .button--secondary {
+  --button-bg: var(--background-primary);
+  --button-ink: var(--text-brand-primary);
+  --button-line: var(--shadow-button-default);
+  --button-hover-bg: var(--surface-hover);
+  --button-pressed-bg: var(--background-primary);
+}
+
+/*
+ * On coloured sections the button takes the section colour (set --section-color
+ * on the section). Cinder outline/shadow on Inferno, Ember and Blaze; add
+ * button--on-dark for Kindling 100 on Afterglow and Cinder.
+ */
+[data-theme='light'] .button--on-section {
+  --button-bg: var(--section-color, transparent);
+  --button-ink: var(--color-cinder-600);
+  --button-line: var(--color-cinder-600);
+}
+
+[data-theme='light'] .button--on-section.button--on-dark {
+  --button-ink: var(--text-static-cream);
+  --button-line: var(--color-kindling-100);
+}
+
+/* border/focus is Afterglow, which vanishes on an Afterglow section: use Blaze there,
+   the focus colour the dark theme already uses. */
+[data-theme='light'] .button--on-section.button--on-dark:focus-visible {
+  --button-line: var(--color-blaze-600);
+}
+
+/*
+ * Special palette button — used once, "See all five briefs" on Categories → All.
+ * Kindling 100 fill, Inferno outline, and a 5px 45° colour-blocked extrusion
+ * (Inferno → Ember → Blaze → Afterglow → Cinder) instead of the flat shadow.
+ */
+[data-theme='light'] .button--palette {
+  --button-bg: var(--color-kindling-100);
+  --button-ink: var(--color-cinder-600);
+  --button-line: var(--color-inferno-600);
+  --button-hover-bg: var(--color-kindling-100);
+  --button-pressed-bg: var(--color-kindling-100);
+
+  position: relative;
+  box-shadow: none;
+}
+
+/* The Figma extrusion art: only the band outside the button face, so it can sit on top. */
+[data-theme='light'] .button--palette::before {
+  content: '';
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  width: calc(100% + 4px + 5px);
+  height: calc(100% + 4px + 5px);
+  background: url('../assets/buttons/palette-extrude.svg') 0 0 / 100% 100% no-repeat;
+  pointer-events: none;
+  transition: opacity 120ms ease-out;
+}
+
+[data-theme='light'] .button--palette:hover,
+[data-theme='light'] .button--palette:focus-visible {
+  box-shadow: none;
+}
+
+[data-theme='light'] .button--palette:active::before {
+  opacity: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  [data-theme='light'] .button,
+  [data-theme='light'] .button--palette::before {
+    transition: none;
+  }
+}

@@ -33,7 +33,7 @@ export default function Nav({ current = 'home', onOpenSettings, settingsOpen = f
 
       <button
         type="button"
-        className="nav__button nav__button--settings"
+        className="nav__button nav__button--settings button button--secondary"
         onClick={onOpenSettings}
         aria-haspopup="dialog"
         aria-expanded={settingsOpen}
@@ -43,7 +43,7 @@ export default function Nav({ current = 'home', onOpenSettings, settingsOpen = f
         Settings
       </button>
 
-      <a className="nav__button nav__button--submit" href="#submit">
+      <a className="nav__button nav__button--submit button button--primary" href="#submit">
         Submit
       </a>
     </header>
