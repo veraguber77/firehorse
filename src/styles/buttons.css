@@ -16,6 +16,7 @@
   --button-bg: var(--background-primary);
   --button-ink: var(--text-brand-primary);
   --button-line: var(--shadow-button-default);
+  /* Hover fill: one shade lighter on the fill's colour scale. Set per button. */
   --button-hover-bg: var(--button-bg);
   --button-pressed-bg: var(--button-bg);
   --button-pressed-ink: var(--button-ink);
@@ -50,7 +51,7 @@
   /* TODO(motion): GSAP pass later, per the spec. */
 }
 
-/* Hover: lift −2px x/y, shadow grows to 5px. */
+/* Hover: lift −2px x/y, shadow grows to 5px, fill goes one shade lighter. */
 [data-theme='light'] .button:hover {
   transform: translate(-2px, -2px);
   box-shadow: 5px 5px 0 var(--button-line);
@@ -87,7 +88,7 @@
   --button-bg: var(--accent-primary);
   --button-ink: var(--text-static-cream);
   --button-line: var(--shadow-button-accent);
-  --button-hover-bg: var(--accent-primary-hover);
+  --button-hover-bg: var(--color-inferno-500);
   --button-pressed-bg: var(--accent-primary-pressed);
   --button-pressed-ink: var(--text-static-cream);
 }
@@ -97,7 +98,7 @@
   --button-bg: var(--color-kindling-100);
   --button-ink: var(--text-brand-primary);
   --button-line: var(--shadow-button-default);
-  --button-hover-bg: var(--surface-hover);
+  --button-hover-bg: var(--color-neutral-0); /* Kindling 100 is the lightest step; white is next */
   --button-pressed-bg: var(--button-bg);
 }
 
@@ -108,6 +109,7 @@
  */
 [data-theme='light'] .button--on-section {
   --button-bg: var(--section-color, transparent);
+  --button-hover-bg: var(--section-color-hover, var(--button-bg));
   --button-ink: var(--color-cinder-600);
   --button-line: var(--color-cinder-600);
 }
@@ -132,7 +134,7 @@
   --button-bg: var(--color-kindling-100);
   --button-ink: var(--color-cinder-600);
   --button-line: var(--color-inferno-600);
-  --button-hover-bg: var(--color-kindling-100);
+  --button-hover-bg: var(--color-neutral-0);
   --button-pressed-bg: var(--color-kindling-100);
 
   position: relative;

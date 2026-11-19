@@ -118,4 +118,5 @@
   --button-bg: var(--color-afterglow-600);
   --button-ink: var(--color-neutral-0);
   --button-line: var(--color-blaze-600);
+  --button-hover-bg: var(--color-afterglow-500);
 }

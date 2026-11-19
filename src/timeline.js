@@ -9,6 +9,7 @@
  *   body       stage band copy
  *   cta        optional button on the stage band
  *   color      the stage's colour: band background, intro ticket and homepage marker
+ *   hoverColor one shade lighter than `color`, for button hover fills
  *   ink        'dark' or 'cream': which text colour reads on `color`
  */
 export const stages = [
@@ -21,6 +22,7 @@ export const stages = [
     body: 'The competition opens to designers worldwide. Create an account, choose a category, read its brief and start making.',
     cta: { label: 'Create your account', href: '#create-account' },
     color: 'var(--color-inferno-600)',
+    hoverColor: 'var(--color-inferno-500)',
     ink: 'dark',
   },
   {
@@ -32,6 +34,7 @@ export const stages = [
     body: 'Upload your final files by 11:59 PM PT, with a short note on your process and any AI tools you used. After the deadline, entries are locked and handed to the judges.',
     cta: { label: 'Submit an Entry', href: '#submit' },
     color: 'var(--color-ember-600)',
+    hoverColor: 'var(--color-ember-500)',
     ink: 'dark',
   },
   {
@@ -42,6 +45,7 @@ export const stages = [
     title: 'The judges review',
     body: 'A panel of volunteer senior designers reviews every entry in all five categories, looking at the idea, the craft and how well it answers the brief. AI use is neither rewarded nor penalized.',
     color: 'var(--color-blaze-600)',
+    hoverColor: 'var(--color-blaze-500)',
     ink: 'dark',
   },
   {
@@ -52,6 +56,7 @@ export const stages = [
     title: 'Winners revealed',
     body: 'Winners in each category get $1,000 and a featured page on the Firehorse site until the next zodiac year, plus a feature on our social channels. Every entrant gets their results by email.',
     color: 'var(--color-afterglow-600)',
+    hoverColor: 'var(--color-afterglow-500)',
     ink: 'cream',
   },
 ]

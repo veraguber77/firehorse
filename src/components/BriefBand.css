@@ -6,6 +6,7 @@
 .brief {
   --brief-bg: var(--category-color);
   --section-color: var(--brief-bg); /* on-section buttons take the band colour */
+  --section-color-hover: var(--category-color-hover);
   --brief-ink: var(--color-cinder-600);
   --brief-button-text: var(--text-static-cream);
 

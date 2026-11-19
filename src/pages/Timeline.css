@@ -182,6 +182,7 @@
 .timeline-stage {
   --stage-ink: var(--color-cinder-600);
   --section-color: var(--stage-color); /* on-section buttons take the band colour */
+  --section-color-hover: var(--stage-color-hover);
 
   height: 100vh;
   min-height: 600px;

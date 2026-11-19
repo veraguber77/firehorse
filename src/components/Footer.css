@@ -204,4 +204,5 @@
   --button-bg: var(--color-kindling-200);
   --button-ink: var(--color-cinder-600);
   --button-line: var(--shadow-button-accent);
+  --button-hover-bg: var(--color-kindling-100);
 }

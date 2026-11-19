@@ -294,6 +294,7 @@
   --button-bg: var(--color-kindling-100);
   --button-ink: var(--text-on-accent);
   --button-line: var(--shadow-button-accent);
+  --button-hover-bg: var(--color-neutral-0);
 
   height: 48px;
   padding: 0 var(--spacing-24);

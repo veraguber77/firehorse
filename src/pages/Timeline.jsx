@@ -74,7 +74,7 @@ export default function Timeline() {
           id={`stage-${stage.id}`}
           className="timeline-stage"
           data-ink={stage.ink}
-          style={{ '--stage-color': stage.color }}
+          style={{ '--stage-color': stage.color, '--stage-color-hover': stage.hoverColor }}
           aria-labelledby={`stage-${stage.id}-title`}
         >
           <ol className="timeline-stage__rail" aria-label="Stages">
