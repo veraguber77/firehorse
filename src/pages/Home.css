@@ -923,7 +923,7 @@
 
 [data-theme='light'] .home-faq__all {
   --button-bg: var(--color-neutral-0);
-  --button-hover-bg: var(--color-neutral-0); /* already white: nothing lighter */
+  --button-hover-bg: var(--color-neutral-100); /* already white: one shade darker instead */
   --button-hover-ink: var(--color-cinder-500); /* white fill, not Kindling */
 
   height: 48px;

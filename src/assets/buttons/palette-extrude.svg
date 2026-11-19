@@ -3,14 +3,14 @@
 <defs>
 <linearGradient id="paint0_linear_0_25" x1="-21.4465" y1="26.5535" x2="79.5535" y2="-74.4465" gradientUnits="userSpaceOnUse">
 <stop stop-color="#FE4B0D"/>
-<stop offset="0.1999" stop-color="#FE4B0D"/>
-<stop offset="0.2" stop-color="#FD9609"/>
-<stop offset="0.3999" stop-color="#FD9609"/>
-<stop offset="0.4" stop-color="#839AFD"/>
-<stop offset="0.5999" stop-color="#839AFD"/>
-<stop offset="0.6" stop-color="#5459DD"/>
-<stop offset="0.7999" stop-color="#5459DD"/>
-<stop offset="0.8" stop-color="#030625"/>
+<stop offset="0.196" stop-color="#FE4B0D"/>
+<stop offset="0.204" stop-color="#FD9609"/>
+<stop offset="0.396" stop-color="#FD9609"/>
+<stop offset="0.404" stop-color="#839AFD"/>
+<stop offset="0.596" stop-color="#839AFD"/>
+<stop offset="0.604" stop-color="#5459DD"/>
+<stop offset="0.796" stop-color="#5459DD"/>
+<stop offset="0.804" stop-color="#030625"/>
 <stop offset="1" stop-color="#030625"/>
 </linearGradient>
 </defs>

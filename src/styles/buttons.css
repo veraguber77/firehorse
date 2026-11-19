@@ -145,22 +145,25 @@
   --button-pressed-bg: var(--color-kindling-100);
   --palette-face: var(--button-bg);
   /*
-   * The extrusion SVG's gradient, re-expressed for CSS: 45°, hard stops where
+   * The extrusion SVG's gradient, re-expressed for CSS: 45°, colour changes where
    * x − y = −7.6, 32.8, 73.2 and 113.6px in the button's border box. On a 48px-tall
-   * box those land 28.6 / 57.1 / 85.6 / 114.1px along the gradient line.
+   * box those land 28.6 / 57.1 / 85.6 / 114.1px along the gradient line. Each change
+   * is blended over 1px so the diagonals anti-alias instead of stair-stepping.
    */
   --palette-outline: linear-gradient(
     45deg,
-    var(--color-inferno-600) 28.6px,
-    var(--color-ember-600) 28.6px 57.1px,
-    var(--color-blaze-600) 57.1px 85.6px,
-    var(--color-afterglow-600) 85.6px 114.1px,
-    var(--color-cinder-600) 114.1px
+    var(--color-inferno-600) 28.1px,
+    var(--color-ember-600) 29.1px 56.6px,
+    var(--color-blaze-600) 57.6px 85.1px,
+    var(--color-afterglow-600) 86.1px 113.6px,
+    var(--color-cinder-600) 114.6px
   );
 
   position: relative;
-  height: 48px; /* fixed, so the outline's colour blocks meet the extrusion's */
-  padding: 0 var(--spacing-24);
+  /* Figma's exact 200 × 48, so the extrusion art sits 1:1 with no stretching */
+  width: 200px;
+  height: 48px;
+  padding: 0;
   border-color: transparent;
   box-shadow: none;
 }
@@ -184,14 +187,18 @@
   --palette-outline: linear-gradient(var(--border-focus), var(--border-focus));
 }
 
-/* The Figma extrusion art: only the band outside the button face, so it can sit on top. */
+/*
+ * The Figma extrusion art at its Figma size and position (0.24px up and left of the
+ * button's outer edge). It's only the band outside the button face, so it sits on top,
+ * and its bottom edge overlaps the outline by ~2px as in Figma, so the two join cleanly.
+ */
 [data-theme='light'] .button--palette::before {
   content: '';
   position: absolute;
-  top: -2px;
-  left: -2px;
-  width: calc(100% + 4px + 5px);
-  height: calc(100% + 4px + 5px);
+  top: -2.24px;
+  left: -2.24px;
+  width: 205.243px;
+  height: 51.243px;
   background: url('../assets/buttons/palette-extrude.svg') 0 0 / 100% 100% no-repeat;
   pointer-events: none;
   transition: opacity 120ms ease-out;
