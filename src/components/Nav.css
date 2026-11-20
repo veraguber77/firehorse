@@ -1,8 +1,4 @@
 .nav {
-  /* Settings button colours differ per theme and have no semantic token. */
-  --nav-settings-bg: var(--color-kindling-100);
-  --nav-settings-border: var(--color-blaze-600);
-
   display: flex;
   align-items: center;
   gap: var(--spacing-12);
@@ -20,11 +16,6 @@
   text-transform: uppercase;
   white-space: nowrap;
   color: var(--text-brand-primary);
-}
-
-[data-theme='dark'] .nav {
-  --nav-settings-bg: transparent;
-  --nav-settings-border: var(--text-static-cream);
 }
 
 /* Logo — the PNG has transparent padding, cropped as in Figma */
@@ -73,32 +64,9 @@
   background: var(--color-inferno-600);
 }
 
-/* Buttons */
+/* Buttons (components/Button) */
 .nav__button {
   flex: none;
-  display: flex;
-  align-items: center;
-  height: 42px;
-  font: inherit;
-  text-transform: inherit;
-  text-decoration: none;
-  border-radius: 0;
-  cursor: pointer;
-}
-
-.nav__button--settings {
-  gap: var(--spacing-8);
-  padding: 0 var(--spacing-16);
-  background: var(--nav-settings-bg);
-  border: 1px solid var(--nav-settings-border);
-  color: var(--text-brand-primary);
-}
-
-.nav__button--submit {
-  padding: 0 var(--spacing-24);
-  background: var(--color-afterglow-600);
-  border: 0;
-  color: var(--color-neutral-0);
 }
 
 /* No narrow-screen design yet: just tighten the side padding so nothing clips. */
@@ -106,17 +74,4 @@
   .nav {
     padding: 0 var(--spacing-24);
   }
-}
-
-/* Light-mode keycaps (styles/buttons.css), as on the Figma Nav component. */
-[data-theme='light'] .nav__button--settings {
-  height: 42px;
-  padding: 0 var(--spacing-16);
-}
-
-[data-theme='light'] .nav__button--submit {
-  --button-bg: var(--color-afterglow-600);
-  --button-ink: var(--color-neutral-0);
-  --button-line: var(--color-blaze-600);
-  --button-hover-bg: var(--color-afterglow-500);
 }

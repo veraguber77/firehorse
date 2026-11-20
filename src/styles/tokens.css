@@ -112,9 +112,6 @@
   --border-default: var(--color-kindling-600);
   --border-strong: var(--color-kindling-800);
   --border-focus: var(--color-afterglow-600);
-  /* Button outline + offset shadow (Figma shadow/button-*; light mode only so far) */
-  --shadow-button-default: var(--color-inferno-600);
-  --shadow-button-accent: var(--color-ember-600);
 }
 
 /* Semantic — Dark */

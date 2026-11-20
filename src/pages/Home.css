@@ -28,33 +28,14 @@
 }
 
 /* Shared: Firehorse/Button-UI */
-.home-button,
 .home-card__more,
-.home-faq__all,
-.home-faq__card-prompt,
-.home-faq__ask {
+.home-faq__card-prompt {
   font-family: var(--font-body);
   font-size: 14px;
   font-weight: 700;
   line-height: normal;
   text-transform: uppercase;
   white-space: nowrap;
-}
-
-.home-button {
-  display: inline-block;
-  padding: var(--spacing-12) var(--spacing-24);
-  text-decoration: none;
-}
-
-.home-button--primary {
-  background: var(--accent-primary);
-  color: var(--text-static-cream);
-}
-
-.home-button--outline {
-  border: 1px solid var(--text-primary);
-  color: var(--text-brand-primary);
 }
 
 /* ---------- Hero ---------- */
@@ -665,16 +646,6 @@
 .home-timeline__button {
   /* Figma: a 12px spacer between two 12px gaps */
   margin-top: var(--spacing-24);
-  padding: 15px var(--spacing-24);
-  border-radius: var(--radius-xs);
-  background: var(--accent-primary);
-  color: var(--text-on-accent);
-  font-size: 14px;
-  font-weight: 700;
-  line-height: normal;
-  letter-spacing: 0.04em;
-  white-space: nowrap;
-  text-decoration: none;
 }
 
 .home-timeline__number {
@@ -731,10 +702,6 @@
 /* ---------- FAQ teaser ---------- */
 .home-faq {
   --faq-card-bg: var(--color-inferno-600);
-  --faq-ask-bg: var(--accent-secondary);
-  --faq-all-bg: var(--color-neutral-0);
-  --faq-all-border: var(--color-blaze-600);
-  --faq-all-text: var(--text-brand-primary);
 
   display: flex;
   align-items: flex-start;
@@ -745,10 +712,6 @@
 
 [data-theme='dark'] .home-faq {
   --faq-card-bg: var(--color-afterglow-600);
-  --faq-ask-bg: var(--accent-primary);
-  --faq-all-bg: transparent;
-  --faq-all-border: var(--text-static-cream);
-  --faq-all-text: var(--text-static-cream);
 }
 
 .home-faq__list-col {
@@ -824,15 +787,7 @@
 }
 
 .home-faq__all {
-  display: flex;
-  align-items: center;
-  height: 48px;
   margin-top: var(--spacing-32);
-  padding: 0 var(--spacing-24);
-  border: 1.5px solid var(--faq-all-border);
-  background: var(--faq-all-bg);
-  color: var(--faq-all-text);
-  text-decoration: none;
 }
 
 .home-faq__card {
@@ -899,44 +854,4 @@
 
 .home-faq__card-prompt {
   color: var(--text-brand-primary);
-}
-
-.home-faq__ask {
-  height: 48px;
-  padding: 0 var(--spacing-24);
-  border: 0;
-  background: var(--faq-ask-bg);
-  color: var(--text-brand-primary);
-  cursor: pointer;
-}
-
-/* ---------- Light-mode keycaps (styles/buttons.css), per the Figma Homepage ---------- */
-[data-theme='light'] .home-timeline__button {
-  --button-bg: var(--surface-default);
-  --button-ink: var(--text-on-accent);
-  --button-hover-bg: var(--color-kindling-100);
-  --button-hover-ink: var(--color-cinder-400); /* Kindling fill: one shade lighter than the other dark labels */
-
-  padding: 15px var(--spacing-24);
-  letter-spacing: 0.04em;
-}
-
-[data-theme='light'] .home-faq__all {
-  --button-bg: var(--color-neutral-0);
-  --button-hover-bg: var(--color-neutral-100); /* already white: one shade darker instead */
-  --button-hover-ink: var(--color-cinder-500); /* white fill, not Kindling */
-
-  height: 48px;
-  padding: 0 var(--spacing-24);
-}
-
-[data-theme='light'] .home-faq__ask {
-  --button-bg: var(--color-ember-600);
-  --button-ink: var(--color-cinder-600);
-  --button-line: var(--color-cinder-600);
-  --button-hover-bg: var(--color-ember-500);
-  --button-hover-ink: var(--color-cinder-500);
-
-  height: 48px;
-  padding: 0 var(--spacing-24);
 }

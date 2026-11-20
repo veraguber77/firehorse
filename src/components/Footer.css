@@ -69,19 +69,6 @@
   opacity: var(--footer-muted-opacity);
 }
 
-/* Firehorse/Button-UI */
-.footer__cta-button {
-  padding: var(--spacing-12) var(--spacing-24);
-  background: var(--color-inferno-600);
-  color: var(--color-neutral-0);
-  font-size: 14px;
-  font-weight: 700;
-  line-height: normal;
-  text-transform: uppercase;
-  text-decoration: none;
-  white-space: nowrap;
-}
-
 /* Link columns */
 .footer__columns {
   flex: none;
@@ -197,13 +184,4 @@
     white-space: normal;
     text-align: right;
   }
-}
-
-/* Light-mode keycap (styles/buttons.css), as on Figma Footer / Light. */
-[data-theme='light'] .footer__cta-button {
-  --button-bg: var(--color-kindling-200);
-  --button-ink: var(--color-cinder-600);
-  --button-line: var(--shadow-button-accent);
-  --button-hover-bg: var(--color-kindling-100);
-  --button-hover-ink: var(--color-cinder-400); /* Kindling fill: one shade lighter than the other dark labels */
 }

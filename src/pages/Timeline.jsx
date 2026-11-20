@@ -1,4 +1,4 @@
-import { Link } from 'react-router'
+import Button from '../components/Button.jsx'
 import Gradient from '../components/Gradient.jsx'
 import { stages } from '../timeline.js'
 import gradientIntroA from '../assets/timeline/gradient-intro-a.svg'
@@ -74,7 +74,7 @@ export default function Timeline() {
           id={`stage-${stage.id}`}
           className="timeline-stage"
           data-ink={stage.ink}
-          style={{ '--stage-color': stage.color, '--stage-color-hover': stage.hoverColor }}
+          style={{ '--stage-color': stage.color }}
           aria-labelledby={`stage-${stage.id}-title`}
         >
           <ol className="timeline-stage__rail" aria-label="Stages">
@@ -96,12 +96,9 @@ export default function Timeline() {
             </h2>
             <p className="timeline-stage__body">{stage.body}</p>
             {stage.cta && (
-              <a
-                className={`timeline-stage__button button button--on-section${stage.ink === 'cream' ? ' button--on-dark' : ''}`}
-                href={stage.cta.href}
-              >
+              <Button color={stage.ink === 'cream' ? 'cream' : 'cinder'} href={stage.cta.href}>
                 {stage.cta.label}
-              </a>
+              </Button>
             )}
           </div>
         </section>
@@ -121,12 +118,12 @@ export default function Timeline() {
         <p className="timeline-closing__title">Let your flame run wild.</p>
         <p className="timeline-closing__text">Submissions close November 14, 2026.</p>
         <div className="timeline-closing__buttons">
-          <a className="timeline-closing__button timeline-closing__button--solid" href="#submit">
+          <Button color="cream" href="#submit">
             Submit an Entry
-          </a>
-          <Link className="timeline-closing__button timeline-closing__button--outline" to="/faq">
+          </Button>
+          <Button variant="text" to="/faq">
             Read the FAQ
-          </Link>
+          </Button>
         </div>
       </section>
     </div>

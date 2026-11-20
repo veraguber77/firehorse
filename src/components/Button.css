@@ -1,0 +1,233 @@
+/*
+ * Button — Figma "Button — Flat (Ember rise)" (414:1895).
+ * Flat fill, 8px radius, no border, no shadow. On hover a glow rises from the bottom
+ * edge: a ::before layer that slides up, so the fill itself never changes. Pressed drops
+ * the glow and pushes the button in (scale .97); it is never darker than at rest.
+ *
+ * Per-colour custom properties (primitives, so a button looks the same in both themes):
+ *   --btn-fill   background
+ *   --btn-label  label + icon colour (icons use currentColor)
+ *   --btn-glow   hover glow colour
+ *   --btn-ring   keyboard focus ring colour
+ * A page can override any of them on its own class (e.g. .x { --btn-label: ... }).
+ */
+
+.btn {
+  --btn-fill: var(--color-inferno-600);
+  --btn-label: var(--color-cinder-600);
+  --btn-glow: var(--color-ember-600);
+  --btn-ring: var(--color-afterglow-600);
+
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-8);
+  min-height: 48px;
+  padding: 16px 26px;
+  border: 0;
+  border-radius: 8px;
+  background: var(--btn-fill);
+  box-shadow: none;
+  color: var(--btn-label);
+  font-family: var(--font-heading);
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  text-decoration: none;
+  white-space: nowrap;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  transition: transform 0.15s ease-out;
+}
+
+/* Label and icon sit above the glow. */
+.btn > * {
+  position: relative;
+  z-index: 1;
+}
+
+.btn__icon {
+  display: inline-flex;
+  flex: none;
+}
+
+.btn__icon svg {
+  display: block;
+}
+
+/* ---------- Colours (fill / label / glow) ---------- */
+.btn--red {
+  --btn-fill: var(--color-inferno-600);
+  --btn-label: var(--color-cinder-600);
+  --btn-glow: var(--color-ember-600);
+}
+
+.btn--orange {
+  --btn-fill: var(--color-ember-600);
+  --btn-label: var(--color-cinder-600);
+  --btn-glow: var(--color-ember-300);
+}
+
+.btn--lightBlue {
+  --btn-fill: var(--color-blaze-600);
+  --btn-label: var(--color-cinder-600);
+  --btn-glow: var(--color-blaze-300);
+}
+
+/* White labels only on dark blue and Cinder. */
+.btn--darkBlue {
+  --btn-fill: var(--color-afterglow-600);
+  --btn-label: var(--color-kindling-100);
+  --btn-glow: var(--color-blaze-600);
+  --btn-ring: var(--color-cinder-600); /* an Afterglow ring would vanish on an Afterglow fill */
+}
+
+.btn--cinder {
+  --btn-fill: var(--color-cinder-600);
+  --btn-label: var(--color-kindling-100);
+  --btn-glow: var(--color-afterglow-600);
+}
+
+/* Not in the Figma set yet: a soft warm glow (pending sign-off). */
+.btn--cream {
+  --btn-fill: var(--color-kindling-100);
+  --btn-label: var(--color-cinder-600);
+  --btn-glow: var(--color-ember-300);
+}
+
+/* Dark mode: Blaze ring (Kindling 100 on dark blue, where Blaze is the hover glow). */
+[data-theme='dark'] .btn {
+  --btn-ring: var(--color-blaze-600);
+}
+
+[data-theme='dark'] .btn--darkBlue {
+  --btn-ring: var(--color-kindling-100);
+}
+
+/* ---------- Hover: Ember rise ---------- */
+.btn--solid::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background: radial-gradient(
+    130% 160% at 50% 130%,
+    var(--btn-glow) 0%,
+    var(--btn-glow) 25%,
+    transparent 75%
+  );
+  transform: translateY(100%);
+  transition: transform 0.45s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+@media (hover: hover) {
+  .btn--solid:not(:disabled, [aria-disabled='true']):hover::before {
+    transform: translateY(0);
+  }
+}
+
+/* ---------- Pressed: default flat fill, glow drops away, small push ---------- */
+.btn--solid:not(:disabled, [aria-disabled='true']):active {
+  transform: scale(0.97);
+}
+
+.btn--solid:not(:disabled, [aria-disabled='true']):active::before {
+  transform: translateY(100%);
+  transition-duration: 0.12s;
+}
+
+/* ---------- Focus (keyboard only) ---------- */
+.btn:focus {
+  outline: none;
+}
+
+.btn:focus-visible {
+  outline: 2px solid var(--btn-ring);
+  outline-offset: 3px;
+}
+
+/* ---------- Disabled: 40%, no glow, no push ---------- */
+.btn:is(:disabled, [aria-disabled='true']) {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.btn:is(:disabled, [aria-disabled='true'])::before {
+  content: none;
+}
+
+/* ---------- Text variant (e.g. "See all questions") ---------- */
+.btn--text {
+  --btn-label: var(--color-cinder-600);
+
+  overflow: visible;
+  padding: 16px 2px;
+  border-radius: 0;
+  background: none;
+}
+
+[data-theme='dark'] .btn--text {
+  --btn-label: var(--color-kindling-100);
+}
+
+.btn--text .btn__label {
+  padding-bottom: 6px;
+  background-image: linear-gradient(var(--color-inferno-600), var(--color-inferno-600));
+  background-repeat: no-repeat;
+  background-position: 0 100%;
+  background-size: 100% 2px;
+  transition: background-size 0.3s ease-out;
+}
+
+@media (hover: hover) {
+  .btn--text:not(:disabled, [aria-disabled='true']):hover .btn__label {
+    background-image: linear-gradient(
+      90deg,
+      var(--color-inferno-600),
+      var(--color-ember-600),
+      var(--color-blaze-600),
+      var(--color-afterglow-600)
+    );
+    background-size: 100% 3px;
+  }
+}
+
+.btn--text:not(:disabled, [aria-disabled='true']):active {
+  opacity: 0.7;
+}
+
+/* ---------- Reduced motion: glow still shows, but fades in place; no slide, no push ---------- */
+@media (prefers-reduced-motion: reduce) {
+  .btn,
+  .btn--text .btn__label {
+    transition: none;
+  }
+
+  .btn--solid::before {
+    transform: none;
+    opacity: 0;
+    transition: opacity 0.15s linear;
+  }
+
+  @media (hover: hover) {
+    .btn--solid:not(:disabled, [aria-disabled='true']):hover::before {
+      transform: none;
+      opacity: 1;
+    }
+  }
+
+  .btn--solid:not(:disabled, [aria-disabled='true']):active {
+    transform: none;
+  }
+
+  .btn--solid:not(:disabled, [aria-disabled='true']):active::before {
+    transform: none;
+    opacity: 0;
+  }
+}

@@ -15,10 +15,8 @@
   position: relative;
 }
 
-/* Shared: Firehorse/Button-UI */
-.timeline-ticket__date,
-.timeline-stage__button,
-.timeline-closing__button {
+/* Firehorse/Button-UI */
+.timeline-ticket__date {
   font-family: var(--font-body);
   font-size: 14px;
   font-weight: 700;
@@ -181,8 +179,6 @@
 /* ---------- Stage bands: one screen tall (800px frames in Figma) ---------- */
 .timeline-stage {
   --stage-ink: var(--color-cinder-600);
-  --section-color: var(--stage-color); /* on-section buttons take the band colour */
-  --section-color-hover: var(--stage-color-hover);
 
   height: 100vh;
   min-height: 600px;
@@ -253,12 +249,6 @@
   opacity: 0.85;
 }
 
-.timeline-stage__button {
-  padding: var(--spacing-12) var(--spacing-24);
-  background: var(--color-cinder-600);
-  color: var(--text-static-cream);
-}
-
 /* ---------- Closing tagline: one screen tall (600px frame in Figma) ---------- */
 .timeline-closing {
   flex-direction: column;
@@ -294,22 +284,8 @@
 
 .timeline-closing__buttons {
   display: flex;
+  align-items: center;
   gap: var(--spacing-12);
-}
-
-.timeline-closing__button {
-  padding: var(--spacing-12) var(--spacing-24);
-}
-
-.timeline-closing__button--solid {
-  background: var(--text-static-cream);
-  color: var(--color-cinder-600);
-}
-
-.timeline-closing__button--outline {
-  padding: 11px 23px;
-  border: 1px solid var(--text-static-cream);
-  color: var(--text-static-cream);
 }
 
 /* The light Figma screen dropped the closing buttons; dark (322:9496) still has them. */

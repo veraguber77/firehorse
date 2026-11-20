@@ -1,4 +1,5 @@
 import { Link } from 'react-router'
+import Button from './Button.jsx'
 import './Footer.css'
 import logoForLight from '../assets/logo-sky-blue-dark.png'
 import logoForDark from '../assets/logo-deep-blue-light.png'
@@ -41,9 +42,9 @@ export default function Footer() {
           <p className="footer__cta-text">
             Submissions close November 14, 2026 at 11:59 PM PT. Free to enter, open to everyone.
           </p>
-          <a className="footer__cta-button button" href="#submit">
+          <Button color="red" className="footer__cta-button" href="#submit">
             Submit an Entry
-          </a>
+          </Button>
         </div>
 
         <div className="footer__columns">

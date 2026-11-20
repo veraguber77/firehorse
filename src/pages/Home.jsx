@@ -1,4 +1,5 @@
 import { Link } from 'react-router'
+import Button from '../components/Button.jsx'
 import Gradient from '../components/Gradient.jsx'
 import { categories, categoryVars, getCategory } from '../categories.js'
 import { stages as milestones } from '../timeline.js'
@@ -76,12 +77,12 @@ export default function Home() {
           Five open categories. Judged by senior designers. Submissions close November 14.
         </p>
         <div className="home-hero__ctas">
-          <a className="home-button home-button--primary button button--primary" href="#submit">
+          <Button color="red" href="#submit">
             Submit an Entry
-          </a>
-          <a className="home-button home-button--outline button button--secondary" href="#open-categories">
+          </Button>
+          <Button color="lightBlue" href="#open-categories">
             View Categories ↓
-          </a>
+          </Button>
         </div>
       </section>
 
@@ -257,9 +258,9 @@ export default function Home() {
               The competition opens to all entrants worldwide. Create your account, read the brief, and start
               working. Entry is free.
             </p>
-            <Link className="home-timeline__button button button--secondary" to="/timeline">
-              SEE THE FULL TIMELINE →
-            </Link>
+            <Button color="lightBlue" className="home-timeline__button" to="/timeline">
+              See the full timeline →
+            </Button>
           </div>
           <p className="home-timeline__number" aria-hidden="true">
             01
@@ -310,9 +311,9 @@ export default function Home() {
               </li>
             ))}
           </ol>
-          <Link className="home-faq__all button button--secondary" to="/faq">
+          <Button variant="text" className="home-faq__all" to="/faq">
             See all questions
-          </Link>
+          </Button>
         </div>
 
         <div className="home-faq__card">
@@ -326,9 +327,7 @@ export default function Home() {
           <div className="home-faq__card-footer">
             <p className="home-faq__card-prompt">Still wondering?</p>
             {/* TODO(ai-assistant): opens the Ask Firehorse AI assistant. */}
-            <button type="button" className="home-faq__ask button">
-              Ask Firehorse
-            </button>
+            <Button color="orange">Ask Firehorse</Button>
           </div>
         </div>
       </section>
