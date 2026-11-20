@@ -648,6 +648,21 @@
   margin-top: var(--spacing-24);
 }
 
+/* The button takes the active step's colour; when the step changes the fill and label ease
+   across (the hover glow just follows --btn-glow). */
+.home-timeline .home-timeline__button {
+  transition:
+    transform 0.15s ease-out,
+    background-color 0.3s ease-out,
+    color 0.3s ease-out;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .home-timeline .home-timeline__button {
+    transition: none;
+  }
+}
+
 .home-timeline__number {
   position: absolute;
   top: calc(50% + 33.72px);

@@ -1,0 +1,55 @@
+/*
+ * Theme-dependent Button colours.
+ *
+ * <Button color="..."> uses primitive colours, so a button looks the same in both themes.
+ * Where a Figma screen gives a button a different colour in Dark, add one of these classes:
+ *
+ *   <Button color="cinder" className="btn-dark-cream">View categories ↓</Button>
+ *
+ * It swaps the button's --btn-fill / --btn-label / --btn-glow (and focus ring) only under
+ * <html data-theme="dark">. Pure CSS: it switches with the theme, no re-render.
+ * The values mirror the colour table in components/Button.css; keep the two in step.
+ * Specificity (0,3,0) beats Button's own .btn--{color} (0,1,0) and dark ring rules (0,2,0).
+ */
+
+[data-theme='dark'] .btn.btn-dark-red {
+  --btn-fill: var(--color-inferno-600);
+  --btn-label: var(--color-cinder-600);
+  --btn-glow: var(--color-ember-600);
+  --btn-ring: var(--color-blaze-600);
+}
+
+[data-theme='dark'] .btn.btn-dark-orange {
+  --btn-fill: var(--color-ember-600);
+  --btn-label: var(--color-cinder-600);
+  --btn-glow: var(--color-ember-300);
+  --btn-ring: var(--color-blaze-600);
+}
+
+[data-theme='dark'] .btn.btn-dark-lightBlue {
+  --btn-fill: var(--color-blaze-600);
+  --btn-label: var(--color-cinder-600);
+  --btn-glow: var(--color-blaze-300);
+  --btn-ring: var(--color-blaze-600);
+}
+
+[data-theme='dark'] .btn.btn-dark-darkBlue {
+  --btn-fill: var(--color-afterglow-600);
+  --btn-label: var(--color-kindling-100);
+  --btn-glow: var(--color-blaze-600);
+  --btn-ring: var(--color-kindling-100);
+}
+
+[data-theme='dark'] .btn.btn-dark-cinder {
+  --btn-fill: var(--color-cinder-600);
+  --btn-label: var(--color-kindling-100);
+  --btn-glow: var(--color-afterglow-600);
+  --btn-ring: var(--color-blaze-600);
+}
+
+[data-theme='dark'] .btn.btn-dark-cream {
+  --btn-fill: var(--color-kindling-100);
+  --btn-label: var(--color-cinder-600);
+  --btn-glow: var(--color-ember-300);
+  --btn-ring: var(--color-blaze-600);
+}

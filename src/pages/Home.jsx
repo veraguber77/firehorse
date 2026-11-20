@@ -47,6 +47,11 @@ const questions = [
 
 /** Homepage — Figma "Homepage" (light 262:4137, dark 322:9254). Desktop only for now. */
 export default function Home() {
+  // TODO(motion): steps advance through the four milestones. Static on step 1 for now; the
+  // bars, markers and the button colour all follow this index once it cycles.
+  const activeStep = 0
+  const activeMilestone = milestones[activeStep]
+
   // TODO(motion): the reel cycles through the five category names in code.
   // Static for now, showing Web App as in Figma.
   const reelCategory = getCategory('web-app')
@@ -80,7 +85,7 @@ export default function Home() {
           <Button color="red" href="#submit">
             Submit an Entry
           </Button>
-          <Button color="lightBlue" href="#open-categories">
+          <Button color="cinder" className="btn-dark-cream" href="#open-categories">
             View Categories ↓
           </Button>
         </div>
@@ -240,14 +245,13 @@ export default function Home() {
               <span
                 key={milestone.id}
                 className="home-timeline__bar"
-                data-active={index === 0}
+                data-active={index === activeStep}
                 style={{ '--milestone-color': milestone.color }}
               />
             ))}
           </div>
         </div>
 
-        {/* TODO(motion): steps advance through the four milestones. Static on step 1 for now. */}
         <div className="home-timeline__detail">
           <div className="home-timeline__text">
             <p className="home-timeline__date">Oct 1, 2026</p>
@@ -258,7 +262,7 @@ export default function Home() {
               The competition opens to all entrants worldwide. Create your account, read the brief, and start
               working. Entry is free.
             </p>
-            <Button color="lightBlue" className="home-timeline__button" to="/timeline">
+            <Button color={activeMilestone.buttonColor} className="home-timeline__button" to="/timeline">
               See the full timeline →
             </Button>
           </div>
@@ -272,7 +276,7 @@ export default function Home() {
             <li
               key={milestone.id}
               className="home-timeline__milestone"
-              data-active={index === 0}
+              data-active={index === activeStep}
               style={{ '--milestone-color': milestone.color }}
             >
               <span className="home-timeline__marker" aria-hidden="true" />
@@ -311,7 +315,7 @@ export default function Home() {
               </li>
             ))}
           </ol>
-          <Button variant="text" className="home-faq__all" to="/faq">
+          <Button color="red" className="home-faq__all btn-dark-cream" to="/faq">
             See all questions
           </Button>
         </div>
@@ -327,7 +331,7 @@ export default function Home() {
           <div className="home-faq__card-footer">
             <p className="home-faq__card-prompt">Still wondering?</p>
             {/* TODO(ai-assistant): opens the Ask Firehorse AI assistant. */}
-            <Button color="orange">Ask Firehorse</Button>
+            <Button color="cinder">Ask Firehorse</Button>
           </div>
         </div>
       </section>

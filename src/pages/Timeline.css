@@ -32,7 +32,7 @@
 }
 
 .timeline-intro__rail,
-.timeline-stage__rail {
+.timeline-rail {
   flex: none;
   display: flex;
   flex-direction: column;
@@ -177,29 +177,47 @@
 }
 
 /* ---------- Stage bands: one screen tall (800px frames in Figma) ---------- */
-.timeline-stage {
-  --stage-ink: var(--color-cinder-600);
+.timeline-stages {
+  --band-height: max(100vh, 600px);
 
-  height: 100vh;
-  min-height: 600px;
-  background: var(--stage-color);
-  color: var(--stage-ink);
-  scroll-margin-top: 0;
+  position: relative;
 }
 
-.timeline-stage[data-ink='cream'] {
-  --stage-ink: var(--text-static-cream);
-}
-
-.timeline-stage__rail {
+/*
+ * One rail for all four bands. It sits in the first band's place (the negative margin
+ * pulls the bands up under it), sticks to the top while the bands scroll, and is centred
+ * in the viewport, so at rest each band looks like its Figma frame. Its ink follows the
+ * band under it: Cinder, or cream on the Afterglow band (Figma, both themes).
+ */
+.timeline-rail {
+  position: sticky;
+  top: 0;
+  z-index: 1;
   justify-content: center;
+  height: var(--band-height);
+  margin-bottom: calc(-1 * var(--band-height));
+  color: var(--color-cinder-600);
+  pointer-events: none;
+  transition: color 0.3s ease-out;
+}
+
+.timeline-rail[data-ink='cream'] {
+  color: var(--text-static-cream);
+}
+
+.timeline-rail__list {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
   gap: var(--spacing-16);
   margin: 0;
+  padding: 0;
   list-style: none;
 }
 
 /* Firehorse/Heading 3 */
-.timeline-stage__rail-item {
+.timeline-rail__item {
+  display: block;
   width: 466px;
   font-family: var(--font-heading);
   font-size: 36px;
@@ -207,11 +225,42 @@
   line-height: 0.78;
   letter-spacing: -0.06em;
   text-transform: uppercase;
+  color: inherit;
+  text-decoration: none;
   opacity: 0.55;
+  pointer-events: auto;
+  transition: opacity 0.2s ease-out;
 }
 
-.timeline-stage__rail-item[aria-current='step'] {
+.timeline-rail__item:hover,
+.timeline-rail__item[aria-current='step'] {
   opacity: 1;
+}
+
+.timeline-rail__item:focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 4px;
+  border-radius: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .timeline-rail,
+  .timeline-rail__item {
+    transition: none;
+  }
+}
+
+.timeline-stage {
+  --stage-ink: var(--color-cinder-600);
+
+  height: var(--band-height);
+  background: var(--stage-color);
+  color: var(--stage-ink);
+  scroll-margin-top: 0;
+}
+
+.timeline-stage[data-ink='cream'] {
+  --stage-ink: var(--text-static-cream);
 }
 
 .timeline-stage__content {
@@ -288,7 +337,8 @@
   gap: var(--spacing-12);
 }
 
-/* The light Figma screen dropped the closing buttons; dark (322:9496) still has them. */
+/* Figma's closing bands (light 262:4314, dark 322:9496) have no buttons. Dark keeps them for
+   now (Submit = red primary, FAQ = cream on the Cinder band); light hides them. */
 [data-theme='light'] .timeline-closing__buttons {
   display: none;
 }

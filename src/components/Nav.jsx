@@ -51,8 +51,8 @@ export default function Nav({ current = 'home', onOpenSettings, settingsOpen = f
       </nav>
 
       <Button
-        color="cream"
-        className="nav__button"
+        color="cinder"
+        className="nav__button btn-dark-cream"
         icon={<GearIcon />}
         onClick={onOpenSettings}
         aria-haspopup="dialog"
@@ -61,7 +61,7 @@ export default function Nav({ current = 'home', onOpenSettings, settingsOpen = f
         Settings
       </Button>
 
-      <Button color="darkBlue" className="nav__button" href="#submit">
+      <Button color="red" className="nav__button" href="#submit">
         Submit
       </Button>
     </header>

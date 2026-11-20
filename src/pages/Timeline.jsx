@@ -1,3 +1,4 @@
+import { useEffect, useRef, useState } from 'react'
 import Button from '../components/Button.jsx'
 import Gradient from '../components/Gradient.jsx'
 import { stages } from '../timeline.js'
@@ -8,6 +9,27 @@ import './Timeline.css'
 
 /** Timeline page — Figma "Timeline Page" (light 262:4250, dark 322:9420). Desktop only for now. */
 export default function Timeline() {
+  // The stage band under the middle of the viewport; the sticky rail highlights it.
+  const [activeId, setActiveId] = useState(stages[0].id)
+  const activeStage = stages.find((stage) => stage.id === activeId) ?? stages[0]
+  const bandRefs = useRef({})
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          if (entry.isIntersecting) setActiveId(entry.target.id.replace('stage-', ''))
+        }
+      },
+      // A 0px-tall line across the middle of the viewport: the band crossing it is active.
+      { rootMargin: '-50% 0px -50% 0px' },
+    )
+    for (const node of Object.values(bandRefs.current)) {
+      if (node) observer.observe(node)
+    }
+    return () => observer.disconnect()
+  }, [])
+
   return (
     <div className="timeline">
       {/* Intro */}
@@ -67,42 +89,51 @@ export default function Timeline() {
         </div>
       </section>
 
-      {/* One band per stage. TODO(motion): the rail could stick and advance as the bands scroll by. */}
-      {stages.map((stage) => (
-        <section
-          key={stage.id}
-          id={`stage-${stage.id}`}
-          className="timeline-stage"
-          data-ink={stage.ink}
-          style={{ '--stage-color': stage.color }}
-          aria-labelledby={`stage-${stage.id}-title`}
-        >
-          <ol className="timeline-stage__rail" aria-label="Stages">
-            {stages.map((railStage) => (
-              <li
-                key={railStage.id}
-                className="timeline-stage__rail-item"
-                aria-current={railStage.id === stage.id ? 'step' : undefined}
-              >
-                {railStage.name}
+      {/* One band per stage, with one rail that sticks on the left while the bands scroll by. */}
+      <div className="timeline-stages">
+        <nav className="timeline-rail" aria-label="Stages" data-ink={activeStage.ink}>
+          <ol className="timeline-rail__list">
+            {stages.map((stage) => (
+              <li key={stage.id}>
+                <a
+                  className="timeline-rail__item"
+                  href={`#stage-${stage.id}`}
+                  aria-current={stage.id === activeStage.id ? 'step' : undefined}
+                >
+                  {stage.name}
+                </a>
               </li>
             ))}
           </ol>
+        </nav>
 
-          <div className="timeline-stage__content">
-            <p className="timeline-stage__date">{stage.date}</p>
-            <h2 id={`stage-${stage.id}-title`} className="timeline-stage__title">
-              {stage.title}
-            </h2>
-            <p className="timeline-stage__body">{stage.body}</p>
-            {stage.cta && (
-              <Button color={stage.ink === 'cream' ? 'cream' : 'cinder'} href={stage.cta.href}>
-                {stage.cta.label}
-              </Button>
-            )}
-          </div>
-        </section>
-      ))}
+        {stages.map((stage) => (
+          <section
+            key={stage.id}
+            id={`stage-${stage.id}`}
+            ref={(node) => {
+              bandRefs.current[stage.id] = node
+            }}
+            className="timeline-stage"
+            data-ink={stage.ink}
+            style={{ '--stage-color': stage.color }}
+            aria-labelledby={`stage-${stage.id}-title`}
+          >
+            <div className="timeline-stage__content">
+              <p className="timeline-stage__date">{stage.date}</p>
+              <h2 id={`stage-${stage.id}-title`} className="timeline-stage__title">
+                {stage.title}
+              </h2>
+              <p className="timeline-stage__body">{stage.body}</p>
+              {stage.cta && (
+                <Button color="cinder" href={stage.cta.href}>
+                  {stage.cta.label}
+                </Button>
+              )}
+            </div>
+          </section>
+        ))}
+      </div>
 
       {/* Closing tagline */}
       <section className="timeline-closing">
@@ -118,10 +149,10 @@ export default function Timeline() {
         <p className="timeline-closing__title">Let your flame run wild.</p>
         <p className="timeline-closing__text">Submissions close November 14, 2026.</p>
         <div className="timeline-closing__buttons">
-          <Button color="cream" href="#submit">
+          <Button color="red" href="#submit">
             Submit an Entry
           </Button>
-          <Button variant="text" to="/faq">
+          <Button color="cream" to="/faq">
             Read the FAQ
           </Button>
         </div>
