@@ -18,7 +18,8 @@
   --wheel-focus: var(--color-afterglow-600);
   --wheel-all-fill: var(--color-kindling-100);
   --wheel-all-label: var(--color-cinder-600);
-  --wheel-all-edge: 0px;
+  --wheel-all-edge: 1.5px; /* same colour and width as the wedge outlines */
+  --wheel-all-edge-color: var(--wheel-off-line);
 
   position: absolute;
   left: 0;
@@ -37,6 +38,7 @@
   --wheel-all-fill: var(--color-cinder-600);
   --wheel-all-label: var(--color-kindling-100);
   --wheel-all-edge: 2px; /* Figma: r 71 disc, 2px Kindling 100 stroke */
+  --wheel-all-edge-color: var(--color-kindling-100);
 }
 
 .wheel__svg {
@@ -163,7 +165,7 @@
   width: calc(140px + 2 * var(--wheel-all-edge));
   height: calc(140px + 2 * var(--wheel-all-edge));
   padding: 0;
-  border: var(--wheel-all-edge) solid var(--color-kindling-100);
+  border: var(--wheel-all-edge) solid var(--wheel-all-edge-color);
   border-radius: 50%;
   background: var(--wheel-all-fill);
   color: var(--wheel-all-label);
