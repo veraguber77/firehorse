@@ -5,6 +5,8 @@ import { stages } from '../timeline.js'
 import gradientIntroA from '../assets/timeline/gradient-intro-a.svg'
 import gradientIntroB from '../assets/timeline/gradient-intro-b.svg'
 import gradientClosing from '../assets/home/gradient-closing.svg'
+// Inlined (not an <img>) so the mane can take its colour from CSS via currentColor.
+import horseHead from '../assets/horse-head-darkblue.svg?raw'
 import './Timeline.css'
 
 /** Timeline page — Figma "Timeline Page" (light 262:4250, dark 322:9420). Desktop only for now. */
@@ -54,6 +56,9 @@ export default function Timeline() {
           rotate={-141.58}
           inset={[6.86, 5.74, 7.21, 5.69]}
         />
+
+        {/* Dark mode only: Figma "Graphic — Horse head / Dark blue / Dark" (431:1839). */}
+        <div className="timeline-intro__horse" aria-hidden="true" dangerouslySetInnerHTML={{ __html: horseHead }} />
 
         <div className="timeline-intro__rail">
           <h1 id="timeline-title" className="timeline-intro__title">
@@ -148,14 +153,6 @@ export default function Timeline() {
         />
         <p className="timeline-closing__title">Let your flame run wild.</p>
         <p className="timeline-closing__text">Submissions close November 14, 2026.</p>
-        <div className="timeline-closing__buttons">
-          <Button color="red" href="#submit">
-            Submit an Entry
-          </Button>
-          <Button color="cream" to="/faq">
-            Read the FAQ
-          </Button>
-        </div>
       </section>
     </div>
   )

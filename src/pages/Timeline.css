@@ -54,13 +54,9 @@
   text-transform: uppercase;
 }
 
-/* Cinder in light mode; black in dark mode, where it sits on the white glow. */
+/* Cinder in light mode, Kindling 100 in dark mode. */
 .timeline-intro__title-the {
   color: var(--text-brand-primary);
-}
-
-[data-theme='dark'] .timeline-intro__title-the {
-  color: var(--text-inverse);
 }
 
 .timeline-intro__title-accent {
@@ -174,6 +170,69 @@
   width: 208px;
   background: var(--ticket-color);
   color: var(--ticket-stub-ink);
+}
+
+/*
+ * ---------- Dark intro (Figma 322:9422) ----------
+ * Title and lede move to the bottom-right of the band, right-aligned, 64px in from the
+ * edges; the stage tickets aren't on the dark screen; a horse head sits bottom-left.
+ * The rail and content wrappers dissolve (display: contents) so the title and lede stack
+ * in one right-hand column, which stays pinned to the right edge on wide windows.
+ */
+.timeline-intro__horse {
+  display: none;
+}
+
+[data-theme='dark'] .timeline-intro {
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: flex-end;
+  gap: var(--spacing-40);
+  padding: var(--spacing-64);
+  text-align: right;
+}
+
+[data-theme='dark'] .timeline-intro__rail,
+[data-theme='dark'] .timeline-intro__content {
+  display: contents;
+}
+
+/* Positioned so they paint above the horse (the wrappers no longer are). */
+[data-theme='dark'] .timeline-intro__title,
+[data-theme='dark'] .timeline-intro__lede {
+  position: relative;
+  color: var(--color-kindling-100);
+}
+
+[data-theme='dark'] .timeline-intro__list {
+  display: none;
+}
+
+/* Figma's exact frame: 537 x 532 at (-26, 322) in the 1280 x 800 band, clipped by the band. */
+[data-theme='dark'] .timeline-intro__horse {
+  position: absolute;
+  top: 322px;
+  left: -26px;
+  display: block;
+  width: 537px;
+  height: 532px;
+  overflow: clip;
+  color: var(--color-afterglow-600); /* the mane (currentColor in the SVG) */
+  pointer-events: none;
+}
+
+[data-theme='dark'] .timeline-intro__horse svg {
+  display: block;
+}
+
+/* TODO: mobile. No narrow design yet: shrink the horse into the top-left corner, clear of
+   the title and lede at the bottom-right. */
+@media (max-width: 767px) {
+  [data-theme='dark'] .timeline-intro__horse {
+    top: 24px;
+    transform: scale(0.5);
+    transform-origin: 0 0;
+  }
 }
 
 /* ---------- Stage bands: one screen tall (800px frames in Figma) ---------- */
@@ -329,16 +388,4 @@
   font-weight: 400;
   line-height: normal;
   white-space: nowrap;
-}
-
-.timeline-closing__buttons {
-  display: flex;
-  align-items: center;
-  gap: var(--spacing-12);
-}
-
-/* Figma's closing bands (light 262:4314, dark 322:9496) have no buttons. Dark keeps them for
-   now (Submit = red primary, FAQ = cream on the Cinder band); light hides them. */
-[data-theme='light'] .timeline-closing__buttons {
-  display: none;
 }
