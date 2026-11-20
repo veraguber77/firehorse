@@ -4,7 +4,7 @@
  *
  *   color / onColor   the category's own colour and the text colour that sits on it
  *                     (bands, buttons, bento tiles)
- *   hoverColor        one shade lighter than `color`, for button hover fills
+ *   buttonColor       the <Button color> that matches the category (readout button)
  *   ink               'dark' or 'cream': which text colour reads on the category colour
  *   accent / onAccent optional override for when the colour is used as an accent
  *                     on the page background. Only Motion needs it: Cinder is the
@@ -31,7 +31,7 @@ export const categories = [
     name: 'Poster',
     tagline: 'Print-ready or digital poster design, any medium.',
     color: 'var(--cat-poster)', // Inferno
-    hoverColor: 'var(--color-inferno-500)', // one shade lighter, for hover
+    buttonColor: 'red',
     onColor: 'var(--text-on-accent)',
     ink: 'dark',
     requirements: requirements(
@@ -45,7 +45,7 @@ export const categories = [
     name: 'Web App',
     tagline: 'Designed interface for a browser-based product.',
     color: 'var(--cat-web-app)', // Ember
-    hoverColor: 'var(--color-ember-500)', // one shade lighter, for hover
+    buttonColor: 'orange',
     onColor: 'var(--text-on-accent)',
     ink: 'dark',
     requirements: requirements(
@@ -59,7 +59,7 @@ export const categories = [
     name: 'Mobile App',
     tagline: 'iOS or Android app UI, single screen or full flow.',
     color: 'var(--cat-mobile-app)', // Blaze
-    hoverColor: 'var(--color-blaze-500)', // one shade lighter, for hover
+    buttonColor: 'lightBlue',
     onColor: 'var(--text-on-accent)',
     ink: 'dark',
     requirements: requirements(
@@ -73,7 +73,7 @@ export const categories = [
     name: 'Illustration',
     tagline: 'Original vector or raster illustration, any subject.',
     color: 'var(--cat-illustration)', // Afterglow
-    hoverColor: 'var(--color-afterglow-500)', // one shade lighter, for hover
+    buttonColor: 'darkBlue',
     onColor: 'var(--text-static-cream)',
     ink: 'cream',
     requirements: requirements(
@@ -88,7 +88,7 @@ export const categories = [
     briefName: 'Motion / Animation',
     tagline: 'Looping or narrative animation, any duration.',
     color: 'var(--cat-motion)', // Cinder
-    hoverColor: 'var(--color-cinder-500)', // one shade lighter, for hover
+    buttonColor: 'cinder', // cream in dark mode (see CategoryPicker.css)
     onColor: 'var(--text-static-cream)',
     ink: 'cream',
     accent: 'var(--text-brand-primary)',
@@ -103,6 +103,7 @@ export const allCategories = {
   name: 'All five',
   tagline: 'Every category brief, stacked below.',
   color: 'var(--accent-primary)',
+  buttonColor: 'cinder', // cream in dark mode (see CategoryPicker.css)
   onColor: 'var(--text-on-accent)',
 }
 
@@ -112,13 +113,12 @@ export function getCategory(id) {
 
 /**
  * CSS custom properties for a category, for use in a `style` prop:
- * --category-color, --category-on-color, --category-color-hover, --category-accent, --category-on-accent.
+ * --category-color, --category-on-color, --category-accent, --category-on-accent.
  */
 export function categoryVars(category) {
   return {
     '--category-color': category.color,
     '--category-on-color': category.onColor,
-    '--category-color-hover': category.hoverColor ?? category.color,
     '--category-accent': category.accent ?? category.color,
     '--category-on-accent': category.onAccent ?? category.onColor,
   }

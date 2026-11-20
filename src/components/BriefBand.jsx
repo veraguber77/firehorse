@@ -1,6 +1,7 @@
 import './BriefBand.css'
 import { categoryVars } from '../categories.js'
 import gradient from '../assets/brief/gradient.svg'
+import Button from './Button.jsx'
 
 /**
  * Category brief band — Figma "Categories / Brief band" (262:4488, dark 322:10265).
@@ -50,12 +51,10 @@ export default function BriefBand({ category, showGradient = false }) {
         </ol>
 
         <div className="brief__actions">
-          <a
-            className={`brief__button button button--on-section${category.ink === 'cream' ? ' button--on-dark' : ''}`}
-            href="#submit"
-          >
+          {/* Figma: Cinder button on every band, cream (white, black label) on the black Motion band. */}
+          <Button color={category.id === 'motion' ? 'cream' : 'cinder'} href="#submit">
             Submit to {name}
-          </a>
+          </Button>
         </div>
       </div>
 

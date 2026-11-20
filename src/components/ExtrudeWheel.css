@@ -1,0 +1,230 @@
+/*
+ * Extrude wheel. The wrapper is the visible part of the wheel: 602 × 800 at the
+ * picker's top-left, with the wheel centre at (40, 440).
+ *
+ * Each coloured wedge rests at scale(100/548), tucked behind the hub ring, and
+ * extrudes to scale(1) when it's selected. Scaling uses the SVG origin, which is
+ * the wheel centre (transform-box: view-box).
+ */
+.wheel {
+  --wheel-rest: 0.1825; /* 100 / 548 */
+  --wheel-peek: 0.3;
+  --wheel-extrude: 600ms cubic-bezier(0.2, 0.8, 0.2, 1);
+  --wheel-face: var(--color-kindling-200);
+  --wheel-off-fill: var(--color-kindling-100);
+  --wheel-off-line: var(--color-kindling-600);
+  --wheel-off-label: #8a8a93; /* Figma's grey label; no matching token */
+  --wheel-preview-label: var(--color-cinder-600);
+  --wheel-focus: var(--color-afterglow-600);
+  --wheel-all-fill: var(--color-kindling-100);
+  --wheel-all-label: var(--color-cinder-600);
+  --wheel-all-edge: 0px;
+
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 602px;
+  height: 800px;
+  pointer-events: none;
+}
+
+[data-theme='dark'] .wheel {
+  --wheel-face: var(--color-cinder-600);
+  --wheel-off-fill: var(--color-cinder-700);
+  --wheel-off-line: var(--color-cinder-500);
+  --wheel-preview-label: var(--color-kindling-100);
+  --wheel-focus: var(--color-blaze-600);
+  --wheel-all-fill: var(--color-cinder-600);
+  --wheel-all-label: var(--color-kindling-100);
+  --wheel-all-edge: 2px; /* Figma: r 71 disc, 2px Kindling 100 stroke */
+}
+
+.wheel__svg {
+  display: block;
+  overflow: visible;
+}
+
+.wheel__face {
+  fill: var(--wheel-face);
+}
+
+.wheel__band path {
+  fill: none;
+  stroke-width: 3;
+}
+
+/* ---------- Off wedges (hit areas) ---------- */
+.wheel__radio {
+  outline: none;
+  cursor: pointer;
+  pointer-events: auto;
+}
+
+.wheel__radio[aria-checked='true'] {
+  cursor: default;
+}
+
+.wheel__base {
+  fill: var(--wheel-off-fill);
+  stroke: var(--wheel-off-line);
+  stroke-width: 1.5;
+}
+
+/* ---------- Coloured wedges ---------- */
+.wheel__fills,
+.wheel__labels,
+.wheel__hub,
+.wheel__focus {
+  pointer-events: none;
+}
+
+.wheel__fill {
+  fill: var(--wedge-color);
+  transform-box: view-box;
+  transform-origin: 0 0;
+  transform: scale(var(--wheel-rest));
+  /* Retract: no delay, so it sinks back while the next wedge rises. */
+  transition: transform var(--wheel-extrude);
+}
+
+.wheel__fill[data-preview='true'] {
+  transform: scale(var(--wheel-peek));
+  transition-duration: 250ms;
+}
+
+.wheel__fill[data-on='true'] {
+  transform: scale(1);
+  transition-delay: var(--wedge-delay, 80ms);
+}
+
+/* Motion is Cinder: in dark mode a thin Kindling edge (0.75px inside) keeps it off the background. */
+.wheel__fill-edge {
+  fill: none;
+  stroke: none;
+  stroke-width: 1.5;
+}
+
+[data-theme='dark'] .wheel__fill-edge {
+  stroke: var(--color-kindling-100);
+}
+
+/* ---------- Focus ring ---------- */
+.wheel__focus {
+  fill: none;
+  stroke: var(--wheel-focus);
+  stroke-width: 2;
+  stroke-linejoin: round;
+}
+
+/* ---------- Hub ring ---------- */
+.wheel__hub path {
+  transition: filter 0.2s ease;
+}
+
+.wheel:has(.wheel__all:hover) .wheel__hub path {
+  filter: brightness(1.08);
+}
+
+/* ---------- Labels ---------- */
+.wheel__label {
+  fill: var(--wheel-off-label);
+  font-family: var(--font-heading);
+  font-size: 28px; /* Figma: Firehorse/Heading 4 */
+  font-weight: 700;
+  letter-spacing: -0.06em;
+  text-anchor: middle;
+  dominant-baseline: central;
+  /* Back to grey straight away. */
+  transition: fill 0.2s ease;
+}
+
+.wheel__label[data-preview='true'] {
+  fill: var(--wheel-preview-label);
+}
+
+/* On: the colour arrives first, then the label tints. */
+.wheel__label[data-on='true'] {
+  fill: var(--color-cinder-600);
+  transition: fill 0.3s ease calc(var(--wedge-delay, 80ms) + 170ms);
+}
+
+.wheel__label[data-on='true'][data-ink='cream'] {
+  fill: var(--color-kindling-100);
+}
+
+/* ---------- ALL button ---------- */
+.wheel__all {
+  position: absolute;
+  left: calc(40px - 70px - var(--wheel-all-edge));
+  top: calc(440px - 70px - var(--wheel-all-edge));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: calc(140px + 2 * var(--wheel-all-edge));
+  height: calc(140px + 2 * var(--wheel-all-edge));
+  padding: 0;
+  border: var(--wheel-all-edge) solid var(--color-kindling-100);
+  border-radius: 50%;
+  background: var(--wheel-all-fill);
+  color: var(--wheel-all-label);
+  cursor: pointer;
+  pointer-events: auto;
+}
+
+.wheel__all:focus {
+  outline: none;
+}
+
+.wheel__all:focus-visible {
+  outline: 2px solid var(--wheel-focus);
+  outline-offset: 3px;
+}
+
+/* Figma: 38.4px Heading, centred on the wheel centre. */
+.wheel__all-label {
+  font-family: var(--font-heading);
+  font-size: 38.4px;
+  font-weight: 700;
+  line-height: 0.78;
+  letter-spacing: -0.06em;
+  text-transform: uppercase;
+  transition: scale 0.2s ease;
+}
+
+.wheel__all:hover .wheel__all-label {
+  scale: 1.05;
+}
+
+/* ---------- Reduced motion: no scaling, a short fade instead ---------- */
+@media (prefers-reduced-motion: reduce) {
+  .wheel__fill,
+  .wheel__fill[data-preview='true'],
+  .wheel__fill[data-on='true'] {
+    transform: none;
+    opacity: 0;
+    transition: opacity 150ms linear;
+  }
+
+  .wheel__fill[data-on='true'] {
+    opacity: 1;
+  }
+
+  .wheel__label,
+  .wheel__label[data-on='true'] {
+    transition: fill 150ms linear;
+  }
+
+  .wheel__hub path,
+  .wheel__all-label {
+    transition: none;
+  }
+}
+
+/* ---------- Below 768px: same wheel, scaled down around its left-edge centre ---------- */
+/* TODO: mobile wheel (see brief) */
+@media (max-width: 767px) {
+  .wheel {
+    transform: scale(0.6);
+    transform-origin: 0 440px;
+  }
+}

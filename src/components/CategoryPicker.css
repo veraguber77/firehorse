@@ -6,10 +6,6 @@
 .picker {
   /* --category-accent / --category-on-accent come from the selected category. */
   --picker-accent: var(--category-accent);
-  --picker-on-accent: var(--category-on-accent);
-  --picker-idle-label: var(--color-neutral-500);
-  --picker-idle-line: var(--border-default);
-  --picker-turn: 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
   --picker-fade: 0.3s ease;
   /* Browsers set Avant Garde ~0.1em lower than Figma at 0.78 line height. */
   --picker-tight-shift: -0.1em;
@@ -18,11 +14,6 @@
   height: 800px;
   overflow: clip;
   background: var(--background-primary);
-}
-
-[data-theme='dark'] .picker {
-  --picker-idle-label: var(--text-static-cream);
-  --picker-idle-line: var(--text-static-cream);
 }
 
 /* Background gradient (centre sits 371.94px from the right, 230.97px from the top) */
@@ -45,148 +36,6 @@
   width: 114.2%;
   height: 121.33%;
   max-width: none;
-}
-
-/* Wheel — centre at 40px, 440px */
-.picker__ring {
-  position: absolute;
-  left: -520px;
-  top: -120px;
-  max-width: none;
-}
-
-.picker__hub-disc {
-  position: absolute;
-  left: -140px;
-  top: 260px;
-  max-width: none;
-}
-
-.picker__wheel {
-  position: absolute;
-  left: 40px;
-  top: 440px;
-  width: 0;
-  height: 0;
-}
-
-.picker__spoke {
-  --spoke-ink: var(--picker-idle-label);
-  --spoke-line: var(--picker-idle-line);
-  --spoke-line-width: 1px;
-
-  position: absolute;
-  left: 0;
-  top: -24px;
-  width: 700px;
-  height: 48px;
-  transform-origin: 0 50%;
-  rotate: var(--spoke-angle);
-  transition: rotate var(--picker-turn);
-  pointer-events: none;
-}
-
-.picker__spoke[data-state='selected'],
-.picker__spoke[data-state='all'] {
-  --spoke-ink: var(--category-accent);
-  --spoke-line: var(--category-accent);
-  --spoke-line-width: 3px;
-}
-
-/* In the dark frame the All state keeps the spokes cream, with heavier lines. */
-[data-theme='dark'] .picker__spoke[data-state='all'] {
-  --spoke-ink: var(--text-static-cream);
-  --spoke-line: var(--text-static-cream);
-}
-
-.picker__spoke-button {
-  position: absolute;
-  left: 110px;
-  top: 0;
-  display: flex;
-  align-items: flex-start;
-  height: 48px;
-  padding: 6px 8px 0 134px;
-  border: 0;
-  background: none;
-  cursor: pointer;
-  pointer-events: auto;
-}
-
-.picker__spoke-line {
-  position: absolute;
-  left: 0;
-  top: 50%;
-  width: 110px;
-  height: var(--spoke-line-width);
-  translate: 0 -50%;
-  background: var(--spoke-line);
-  transition: background-color var(--picker-fade);
-}
-
-/* Firehorse/Heading 4 */
-.picker__spoke-label {
-  display: block;
-  font-family: var(--font-heading);
-  font-size: 28px;
-  font-weight: 700;
-  line-height: 0.78;
-  letter-spacing: -0.06em;
-  text-transform: uppercase;
-  white-space: nowrap;
-  color: var(--spoke-ink);
-  transition: color var(--picker-fade);
-  translate: 0 var(--picker-tight-shift);
-}
-
-/* All hub — five-colour ring with hard stops, in spoke order */
-.picker__hub {
-  position: absolute;
-  left: -60px;
-  top: 340px;
-  width: 200px;
-  height: 200px;
-  padding: 0;
-  border: 0;
-  border-radius: 100px;
-  background: conic-gradient(
-    from -20deg,
-    var(--cat-poster) 0deg 44deg,
-    var(--cat-web-app) 44deg 88deg,
-    var(--cat-mobile-app) 88deg 132deg,
-    var(--cat-illustration) 132deg 176deg,
-    var(--cat-motion) 176deg 290deg,
-    var(--cat-poster) 290deg 360deg
-  );
-  cursor: pointer;
-}
-
-/* Dark frame: cream inside stroke around the All hub, as in Figma. */
-[data-theme='dark'] .picker__hub {
-  box-shadow: inset 0 0 0 2px var(--text-static-cream);
-}
-
-.picker__hub-inner {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  translate: -50% -50%;
-  max-width: none;
-}
-
-.picker__hub-label {
-  position: absolute;
-  left: 69.01px;
-  top: 90.21px;
-  font-family: var(--font-heading);
-  font-size: 38.4px;
-  font-weight: 700;
-  line-height: 0.78;
-  letter-spacing: -0.06em;
-  text-transform: uppercase;
-  white-space: nowrap;
-  color: var(--text-brand-primary);
-  translate: 0 var(--picker-tight-shift);
 }
 
 /* Vertical rule under the pointer */
@@ -270,40 +119,60 @@
   color: var(--text-secondary);
 }
 
-/* Firehorse/Button-UI */
-.picker__readout-button {
-  display: flex;
-  align-items: center;
-  height: 48px;
-  padding: 0 var(--spacing-24);
-  background: var(--picker-accent);
-  color: var(--picker-on-accent);
-  font-size: 14px;
-  font-weight: 700;
-  line-height: normal;
-  text-transform: uppercase;
-  text-decoration: none;
-  white-space: nowrap;
-  transition:
-    background-color var(--picker-fade),
-    color var(--picker-fade);
-}
-
-/* Light-mode keycap (styles/buttons.css), as on the Figma picker. The All view uses the palette button. */
-[data-theme='light'] .picker__readout-button:not(.button--palette) {
-  --button-bg: var(--color-kindling-100);
-  --button-ink: var(--text-on-accent);
-  --button-line: var(--shadow-button-accent);
-  --button-hover-bg: var(--color-neutral-0);
-  --button-hover-ink: var(--color-cinder-400); /* Kindling fill: one shade lighter than the other dark labels */
-
-  height: 48px;
-  padding: 0 var(--spacing-24);
+/*
+ * Readout button: a <Button> in the selected category's colour. Button colours are
+ * primitives, so the Cinder ones (Motion, All) turn cream on the dark page here,
+ * as in the dark Figma frame (322:10465).
+ */
+[data-theme='dark'] .picker__readout-button--flip {
+  --btn-fill: var(--color-kindling-100);
+  --btn-label: var(--color-cinder-600);
+  --btn-glow: var(--color-ember-300);
 }
 
 @media (prefers-reduced-motion: reduce) {
   .picker {
-    --picker-turn: 0s;
     --picker-fade: 0s;
   }
 }
+
+/* TODO: mobile wheel (see brief). Until then the picker stacks: heading, scaled wheel, readout. */
+@media (max-width: 767px) {
+  .picker {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-24);
+    height: auto;
+    padding: var(--spacing-48) var(--spacing-16);
+  }
+
+  .picker .wheel {
+    position: relative;
+    flex: none;
+    margin-left: calc(-1 * var(--spacing-16));
+    margin-bottom: -320px; /* scaled to 0.6, the 800px wheel takes 480px */
+    transform-origin: 0 0;
+  }
+
+  .picker__heading,
+  .picker__readout {
+    position: relative;
+    top: auto;
+    right: auto;
+    width: auto;
+  }
+
+  .picker__heading {
+    order: -1;
+  }
+
+  .picker__title {
+    font-size: 64px;
+    line-height: 56px;
+  }
+
+  .picker__rule {
+    display: none;
+  }
+}
+
