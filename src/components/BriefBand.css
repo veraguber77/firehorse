@@ -164,3 +164,17 @@
 .brief__button {
   min-height: 52px;
 }
+
+/* Hover glow on each band's button. Illustration keeps the Cinder button's own (Afterglow). */
+.brief[data-category='poster'] .brief__button {
+  --btn-glow: var(--color-inferno-600);
+}
+
+.brief[data-category='web-app'] .brief__button {
+  --btn-glow: var(--color-ember-600);
+}
+
+.brief[data-category='mobile-app'] .brief__button,
+.brief[data-category='motion'] .brief__button {
+  --btn-glow: var(--color-blaze-600);
+}
