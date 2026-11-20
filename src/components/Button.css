@@ -27,8 +27,10 @@
   align-items: center;
   justify-content: center;
   gap: var(--spacing-8);
-  min-height: 48px;
-  padding: 16px 26px;
+  /* 42px tall with 24px sides, as drawn on the Figma page screens. Places Figma draws
+     taller (picker readout 48px, brief bands 52px) set their own min-height. */
+  min-height: 42px;
+  padding: 14px var(--spacing-24);
   border: 0;
   border-radius: 8px;
   background: var(--btn-fill);
