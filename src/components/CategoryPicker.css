@@ -124,6 +124,11 @@
  * primitives, so the Cinder ones (Motion, All) turn cream on the dark page here,
  * as in the dark Figma frame (322:10465).
  */
+/* Figma draws the readout button 48px tall (the shared Button is 42px). */
+.picker__readout-button {
+  min-height: 48px;
+}
+
 [data-theme='dark'] .picker__readout-button--flip {
   --btn-fill: var(--color-kindling-100);
   --btn-label: var(--color-cinder-600);

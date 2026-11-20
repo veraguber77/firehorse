@@ -52,7 +52,7 @@ export default function BriefBand({ category, showGradient = false }) {
 
         <div className="brief__actions">
           {/* Figma: Cinder button on every band, cream (white, black label) on the black Motion band. */}
-          <Button color={category.id === 'motion' ? 'cream' : 'cinder'} href="#submit">
+          <Button className="brief__button" color={category.id === 'motion' ? 'cream' : 'cinder'} href="#submit">
             Submit to {name}
           </Button>
         </div>

@@ -159,3 +159,8 @@
   width: 8px;
   background: var(--brief-ink);
 }
+
+/* Figma draws the band button 52px tall (the shared Button is 42px). */
+.brief__button {
+  min-height: 52px;
+}

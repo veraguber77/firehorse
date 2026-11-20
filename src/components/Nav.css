@@ -69,6 +69,12 @@
   flex: none;
 }
 
+/* The 16px gear is taller than the 14px label line: trim 1px top and bottom so Settings
+   stays 42px tall like the other buttons, as in the Figma nav. */
+.nav__button:has(.btn__icon) {
+  padding-block: 13px;
+}
+
 /* No narrow-screen design yet: just tighten the side padding so nothing clips. */
 @media (max-width: 900px) {
   .nav {
