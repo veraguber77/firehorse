@@ -173,17 +173,14 @@
 }
 
 /*
- * ---------- Dark intro (Figma 322:9422) ----------
- * Title and lede move to the bottom-right of the band, right-aligned, 64px in from the
- * edges; the stage tickets aren't on the dark screen; a horse head sits bottom-left.
+ * ---------- Intro layout (Figma Dark 322:9422, used in both themes) ----------
+ * Title and lede sit at the bottom-right of the band, right-aligned, 64px in from the
+ * edges; no stage tickets; a horse head sits bottom-left. Light uses the same layout and
+ * horse at the user's request (the Light Figma frame hasn't been updated yet).
  * The rail and content wrappers dissolve (display: contents) so the title and lede stack
  * in one right-hand column, which stays pinned to the right edge on wide windows.
  */
-.timeline-intro__horse {
-  display: none;
-}
-
-[data-theme='dark'] .timeline-intro {
+.timeline-intro {
   flex-direction: column;
   align-items: flex-end;
   justify-content: flex-end;
@@ -192,24 +189,28 @@
   text-align: right;
 }
 
-[data-theme='dark'] .timeline-intro__rail,
-[data-theme='dark'] .timeline-intro__content {
+.timeline-intro__rail,
+.timeline-intro__content {
   display: contents;
 }
 
 /* Positioned so they paint above the horse (the wrappers no longer are). */
+.timeline-intro__title,
+.timeline-intro__lede {
+  position: relative;
+}
+
 [data-theme='dark'] .timeline-intro__title,
 [data-theme='dark'] .timeline-intro__lede {
-  position: relative;
   color: var(--color-kindling-100);
 }
 
-[data-theme='dark'] .timeline-intro__list {
+.timeline-intro__list {
   display: none;
 }
 
 /* Figma's exact frame: 537 x 532 at (-26, 322) in the 1280 x 800 band, clipped by the band. */
-[data-theme='dark'] .timeline-intro__horse {
+.timeline-intro__horse {
   position: absolute;
   top: 322px;
   left: -26px;
@@ -217,18 +218,18 @@
   width: 537px;
   height: 532px;
   overflow: clip;
-  color: var(--color-afterglow-600); /* the mane (currentColor in the SVG) */
+  color: var(--color-ember-600); /* the mane (currentColor in the SVG), orange as in Figma */
   pointer-events: none;
 }
 
-[data-theme='dark'] .timeline-intro__horse svg {
+.timeline-intro__horse svg {
   display: block;
 }
 
 /* TODO: mobile. No narrow design yet: shrink the horse into the top-left corner, clear of
    the title and lede at the bottom-right. */
 @media (max-width: 767px) {
-  [data-theme='dark'] .timeline-intro__horse {
+  .timeline-intro__horse {
     top: 24px;
     transform: scale(0.5);
     transform-origin: 0 0;
@@ -254,10 +255,20 @@
   z-index: 1;
   justify-content: center;
   height: var(--band-height);
-  margin-bottom: calc(-1 * var(--band-height));
   color: var(--color-cinder-600);
   pointer-events: none;
   transition: color 0.3s ease-out;
+}
+
+/*
+ * Pull the first band up under the rail. The negative margin lives on the band, not the
+ * rail: a sticky element's own margin counts towards how far it may travel, so a negative
+ * margin on the rail let it stick to the very end of the last band. This way the rail stops
+ * exactly when it lines up with the Winners band (its list on that band's midpoint) and
+ * then scrolls away with it.
+ */
+.timeline-rail + .timeline-stage {
+  margin-top: calc(-1 * var(--band-height));
 }
 
 .timeline-rail[data-ink='cream'] {

@@ -6,7 +6,7 @@ import gradientIntroA from '../assets/timeline/gradient-intro-a.svg'
 import gradientIntroB from '../assets/timeline/gradient-intro-b.svg'
 import gradientClosing from '../assets/home/gradient-closing.svg'
 // Inlined (not an <img>) so the mane can take its colour from CSS via currentColor.
-import horseHead from '../assets/horse-head-darkblue.svg?raw'
+import horseHead from '../assets/horse-head-timeline.svg?raw'
 import './Timeline.css'
 
 /** Timeline page — Figma "Timeline Page" (light 262:4250, dark 322:9420). Desktop only for now. */
