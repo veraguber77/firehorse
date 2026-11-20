@@ -1,8 +1,10 @@
 /*
  * Button — Figma "Button — Flat (Ember rise)" (414:1895).
  * Flat fill, 8px radius, no border, no shadow. On hover a glow rises from the bottom
- * edge: a ::before layer that slides up, so the fill itself never changes. Pressed drops
- * the glow and pushes the button in (scale .97); it is never darker than at rest.
+ * edge: a ::before layer that slides up, so the fill itself never changes. A ::after
+ * layer carries a static film grain, masked to the glow's shape, and rises with it.
+ * Pressed drops the glow and pushes the button in (scale .97); it is never darker than
+ * at rest.
  *
  * Per-colour custom properties (primitives, so a button looks the same in both themes):
  *   --btn-fill   background
@@ -32,7 +34,8 @@
   background: var(--btn-fill);
   box-shadow: none;
   color: var(--btn-label);
-  font-family: var(--font-heading);
+  /* Figma sets Inter Bold 14 / 0.84px tracking; Neue Haas Grotesk Text is the brand match. */
+  font-family: var(--font-body);
   font-size: 14px;
   font-weight: 700;
   line-height: 1;
@@ -110,24 +113,43 @@
 }
 
 /* ---------- Hover: Ember rise ---------- */
-.btn--solid::before {
+/* ::before is the glow; ::after is its grain. Both share the glow's radial shape. */
+.btn--solid::before,
+.btn--solid::after {
+  --btn-glow-shape: 130% 160% at 50% 130%;
+
   content: '';
   position: absolute;
   inset: 0;
   z-index: 0;
   pointer-events: none;
-  background: radial-gradient(
-    130% 160% at 50% 130%,
-    var(--btn-glow) 0%,
-    var(--btn-glow) 25%,
-    transparent 75%
-  );
   transform: translateY(100%);
   transition: transform 0.45s cubic-bezier(0.2, 0.7, 0.2, 1);
 }
 
+.btn--solid::before {
+  background: radial-gradient(
+    var(--btn-glow-shape),
+    var(--btn-glow) 0%,
+    var(--btn-glow) 25%,
+    transparent 75%
+  );
+}
+
+/*
+ * Grain: the section backgrounds' noise (same frequencies, 240px tile at 1:1 CSS px, so the
+ * specks match them at any button size) at ~60% strength (black .13, white .08), masked by
+ * the glow's own gradient so it fades out with the glow and the resting button stays flat.
+ */
+.btn--solid::after {
+  background: url('../assets/buttons/grain.svg') 0 0 / 240px 240px repeat;
+  -webkit-mask-image: radial-gradient(var(--btn-glow-shape), #000 0%, #000 25%, transparent 75%);
+  mask-image: radial-gradient(var(--btn-glow-shape), #000 0%, #000 25%, transparent 75%);
+}
+
 @media (hover: hover) {
-  .btn--solid:not(:disabled, [aria-disabled='true']):hover::before {
+  .btn--solid:not(:disabled, [aria-disabled='true']):hover::before,
+  .btn--solid:not(:disabled, [aria-disabled='true']):hover::after {
     transform: translateY(0);
   }
 }
@@ -137,7 +159,8 @@
   transform: scale(0.97);
 }
 
-.btn--solid:not(:disabled, [aria-disabled='true']):active::before {
+.btn--solid:not(:disabled, [aria-disabled='true']):active::before,
+.btn--solid:not(:disabled, [aria-disabled='true']):active::after {
   transform: translateY(100%);
   transition-duration: 0.12s;
 }
@@ -158,7 +181,8 @@
   cursor: not-allowed;
 }
 
-.btn:is(:disabled, [aria-disabled='true'])::before {
+.btn:is(:disabled, [aria-disabled='true'])::before,
+.btn:is(:disabled, [aria-disabled='true'])::after {
   content: none;
 }
 
@@ -209,14 +233,16 @@
     transition: none;
   }
 
-  .btn--solid::before {
+  .btn--solid::before,
+  .btn--solid::after {
     transform: none;
     opacity: 0;
     transition: opacity 0.15s linear;
   }
 
   @media (hover: hover) {
-    .btn--solid:not(:disabled, [aria-disabled='true']):hover::before {
+    .btn--solid:not(:disabled, [aria-disabled='true']):hover::before,
+    .btn--solid:not(:disabled, [aria-disabled='true']):hover::after {
       transform: none;
       opacity: 1;
     }
@@ -226,7 +252,8 @@
     transform: none;
   }
 
-  .btn--solid:not(:disabled, [aria-disabled='true']):active::before {
+  .btn--solid:not(:disabled, [aria-disabled='true']):active::before,
+  .btn--solid:not(:disabled, [aria-disabled='true']):active::after {
     transform: none;
     opacity: 0;
   }

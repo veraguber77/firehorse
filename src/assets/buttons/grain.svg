@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="240" height="240" viewBox="0 0 240 240">
+<!-- Button hover grain: the section-gradient noise (filter0_nn_* in the gradient SVGs) at ~60% strength.
+     240px tile so both frequencies (0.8333, 1) stitch to whole cycles and the tile repeats seamlessly. -->
+<filter id="grain" x="0" y="0" width="240" height="240" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+<feTurbulence type="fractalNoise" baseFrequency="0.83333331346511841" stitchTiles="stitch" numOctaves="3" seed="0" result="n1"/>
+<feColorMatrix in="n1" type="luminanceToAlpha" result="a1"/>
+<feComponentTransfer in="a1" result="m1">
+<feFuncA type="discrete" tableValues="0 0 0 0 0 0 0 0 0 0 0 0 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0"/>
+</feComponentTransfer>
+<feFlood flood-color="#000" flood-opacity="0.13"/>
+<feComposite operator="in" in2="m1" result="dark"/>
+<feTurbulence type="fractalNoise" baseFrequency="1" stitchTiles="stitch" numOctaves="3" seed="0" result="n2"/>
+<feColorMatrix in="n2" type="luminanceToAlpha" result="a2"/>
+<feComponentTransfer in="a2" result="m2">
+<feFuncA type="discrete" tableValues="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0"/>
+</feComponentTransfer>
+<feFlood flood-color="#fff" flood-opacity="0.08"/>
+<feComposite operator="in" in2="m2" result="light"/>
+<feMerge>
+<feMergeNode in="dark"/>
+<feMergeNode in="light"/>
+</feMerge>
+</filter>
+<rect width="240" height="240" filter="url(#grain)"/>
+</svg>
