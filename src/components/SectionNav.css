@@ -43,6 +43,19 @@
   border-radius: 2px;
 }
 
+/* Touch on wide screens: the 16px between the list items is part of them. */
+@media (width >= 1024px) and (pointer: coarse) {
+  .section-nav__link {
+    position: relative;
+  }
+
+  .section-nav__link::before {
+    content: '';
+    position: absolute;
+    inset: -9px 0;
+  }
+}
+
 /* ---------- Tablet and mobile: a sticky bar of chips ---------- */
 @media (width < 1024px) {
   .section-nav {

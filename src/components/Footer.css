@@ -183,15 +183,20 @@
   }
 
   .footer__column {
-    gap: var(--spacing-4);
     width: auto;
+  }
+}
+
+/* Touch: 44px rows to tap, as wide as the column. */
+@media (width < 1024px), (pointer: coarse) {
+  .footer__column {
+    gap: var(--spacing-4);
   }
 
   .footer__list {
     gap: 0;
   }
 
-  /* 44px rows to tap, as wide as the column. */
   .footer__link {
     flex: 1;
     display: flex;
