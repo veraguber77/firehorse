@@ -73,7 +73,7 @@ Lighthouse, median of 3, `vite preview`. LCP is the largest item on screen, CLS 
 | `/faq` | 91 | 3.2s | 99 | 96 | 100 | 100 |
 | 404 | 86 | 3.8s | 99 | 100 | 100 | 66 (noindex, on purpose) |
 
-CLS 0.000 everywhere on mobile. Desktop scores are from just before the last small change. Mobile perf (target 90) and LCP (target 2.5s) **fail** except perf on `/faq`: see decision 2. Accessibility points are lost to contrast only.
+CLS 0.000 everywhere on mobile. Mobile perf (target 90) and LCP (target 2.5s) **fail** except perf on `/faq`: see decision 2. Accessibility points are lost to contrast only.
 
 - Fixed: CLS on mobile `/` was 0.83 earlier in this pass. Arial fallbacks now match each brand font's width.
 - Fixed: logos 66-70 KB PNG to 11-12 KB WebP (PNGs kept as sources).
