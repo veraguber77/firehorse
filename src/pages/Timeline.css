@@ -200,8 +200,8 @@
 }
 
 @media (width < 1024px) {
-  /* The horse in the top area (60% of its drawn size, 45% on mobile), standing on the text
-     block: title and lede, left-aligned and full width. */
+  /* The horse in the top area, the same size as the Homepage's, standing on the text
+     block: title (one line) and lede. All three share the left gutter. */
   .timeline-intro {
     align-items: flex-start;
     gap: var(--spacing-24);
@@ -221,14 +221,18 @@
   }
 
   .timeline-intro__horse {
-    --horse-u: 0.6px;
+    --horse-u: calc(var(--horse-size) / 532);
 
     position: relative;
     bottom: auto;
     left: auto;
     flex: none;
-    height: calc(478 * var(--horse-u)); /* as in the Figma band, which cuts off the last 54 */
-    margin-left: calc(-1 * var(--gutter-inner) - 26 * var(--horse-u));
+    height: calc(458 * var(--horse-u)); /* cropped 14% at the bottom, just under the nose */
+  }
+
+  .timeline-intro__title {
+    width: auto;
+    white-space: nowrap;
   }
 
   .timeline-intro__lede {
@@ -242,10 +246,6 @@
     --frame-scale: 0.7;
     --frame-x: calc(448px - 50vw);
     --frame-y: 20px;
-  }
-
-  .timeline-intro__horse {
-    --horse-u: 0.45px;
   }
 }
 

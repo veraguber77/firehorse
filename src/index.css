@@ -47,6 +47,20 @@
   }
 }
 
+/*
+ * Height of the horse head's art (uncropped) below 1024px, shared by the Homepage and Timeline
+ * heroes so both are the same size. Capped so the text beside or below it still fits.
+ */
+:root {
+  --horse-size: min(600 * var(--u), max(300px, var(--screen) - 400px));
+}
+
+@media (width < 768px) {
+  :root {
+    --horse-size: clamp(180px, var(--screen) - 530px, 330px);
+  }
+}
+
 *,
 *::before,
 *::after {

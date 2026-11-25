@@ -911,6 +911,13 @@
 
 /* ---------- Tablet ---------- */
 @media (width < 1024px) {
+  .home-hero__horse {
+    right: calc(-0.2296 * var(--horse-size));
+    bottom: calc(-0.14 * var(--horse-size)); /* cropped just under the nose */
+    width: calc(1.0096 * var(--horse-size));
+    height: var(--horse-size);
+  }
+
   .home-hero {
     padding-block: 120px var(--spacing-48);
   }
@@ -1047,16 +1054,16 @@
   /* Above the headline, facing right (unmirrored) and level with the headline's left edge. Its height is what the rest of the
      screen leaves over, so the buttons stay in view on most phones. */
   .home-hero__horse {
-    --horse: clamp(180px, var(--screen) - 530px, 330px);
-
     position: relative;
     right: auto;
+    bottom: auto;
     flex: none;
     align-self: flex-start;
     scale: 1 1;
-    width: calc(1.0096 * var(--horse));
-    height: var(--horse);
     margin-top: calc(-1 * var(--spacing-16));
+    /* Cropped 14% at the bottom, just under the nose; the margin takes up the cut. */
+    margin-bottom: calc(-0.14 * var(--horse-size));
+    clip-path: inset(0 0 14%);
   }
 
   .home-hero__title {
