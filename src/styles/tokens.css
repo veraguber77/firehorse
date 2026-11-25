@@ -147,3 +147,32 @@
   --cat-illustration: var(--color-afterglow-600); /* text: cream */
   --cat-motion: var(--color-cinder-600);        /* text: cream */
 }
+
+/*
+ * Fluid scale (responsive pass, Nov 2026). Each max is the Figma desktop size and is reached
+ * by 1280px, so the desktop look doesn't change. Breakpoints: wide >= 1440, desktop 1280-1439,
+ * laptop 1024-1279, tablet 768-1023, mobile < 768 (down to 360).
+ */
+:root {
+  --fs-display: clamp(52px, 7.5vw + 12px, 108px); /* RL Folklor page titles; line-height 0.8333 (90 / 108) */
+  --fs-h1: clamp(36px, 4.5vw + 10px, 64px); /* Firehorse/Heading 1, the brief's H2 */
+  --fs-h2: clamp(30px, 3vw + 10px, 48px); /* Firehorse/Heading 2 */
+  --fs-h3: clamp(24px, 2vw + 12px, 36px); /* Firehorse/Heading 3 */
+  --fs-h4: clamp(20px, 1.2vw + 13px, 28px); /* Firehorse/Heading 4 */
+  --fs-subtitle: clamp(17px, 0.5vw + 14px, 20px); /* Firehorse/Subtitle */
+  --fs-body-lg: clamp(16px, 0.4vw + 14px, 18px); /* Firehorse/Body Large */
+  --fs-body: 16px;
+  --fs-label: 14px; /* Firehorse/Button-UI */
+  --fs-caption: 12px; /* smallest size anywhere */
+
+  --content-max: 1440px; /* includes the side gutters */
+  --space-section-y: clamp(48px, 8vw, 120px);
+
+  /*
+   * Side gutter for full-bleed sections. Past 1440px it grows, so the content stays centred
+   * in 1440px while the section's background runs edge to edge. Use it for padding-inline or
+   * left / right on children of a full-width box: 100% is that box's width.
+   */
+  --gutter-inner: clamp(20px, 5vw, 64px);
+  --gutter: max(var(--gutter-inner), calc((100% - var(--content-max)) / 2 + var(--gutter-inner)));
+}
