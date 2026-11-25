@@ -11,8 +11,12 @@
   --font-reel: 'Bowlby One', sans-serif; /* Google Fonts, see index.html */
 
   /* Logo size shared by nav and footer (Figma: 92.7x56.7 nav, 80.6x49.3 footer). */
-  --logo-width: 104.727px;
-  --logo-height: 64px;
+  --logo-width: 114.545px;
+  --logo-height: 70px;
+
+  /* Page heroes: nav + hero fill exactly one screen. The minimum keeps their content clear. */
+  --nav-height: 72px;
+  --hero-height: max(600px, calc(100vh - var(--nav-height)));
 }
 
 *,

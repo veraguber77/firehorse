@@ -14,8 +14,6 @@ const R_ALL = 70 // ALL button
 const R_HUB = 100 // hub colour ring 70–100, wedges start here
 const R_WEDGE = 548
 const R_BAND = 558.5 // 3px outer band, 557–560 (Figma "Wheel ring": r 558.5, 3px stroke)
-const R_LABEL = 325
-const LABEL_NUDGE = -10
 const SWEEP = 36
 const START = -90 // straight up
 
@@ -39,6 +37,9 @@ const segments = categories.map((category, index) => {
     band: arcPath(0, 0, R_BAND, a0, a1),
   }
 })
+
+// Motion's left edge across the hub ring (straight down, where the last wedge ends).
+const MOTION_HUB_EDGE = `M 0 ${R_ALL} V ${R_HUB}`
 
 /**
  * Categories "Extrude" wheel — Figma "Categories / Picker" (262:4412 light, 322:10427 dark).
@@ -136,6 +137,9 @@ export default function ExtrudeWheel({ selected, onSelect }) {
           ))}
         </g>
 
+        {/* Beneath the wedges, so it frames Motion's own edge when Motion is out (dark only) */}
+        <path className="wheel__hub-edge" d={MOTION_HUB_EDGE} aria-hidden="true" />
+
         {/* Coloured wedges, scaled from the centre */}
         <g className="wheel__fills" aria-hidden="true">
           {segments.map(({ category, index, fill }) => {
@@ -182,6 +186,8 @@ export default function ExtrudeWheel({ selected, onSelect }) {
               style={{ '--hub-color': category.color }}
             />
           ))}
+          {/* Over the ring while Motion is in, so its black base reads on the navy (dark only) */}
+          <path className="wheel__hub-edge" d={MOTION_HUB_EDGE} data-on={isAll || selected === 'motion'} />
         </g>
 
         {/* Labels, inside each wedge, reading outward */}
@@ -196,9 +202,7 @@ export default function ExtrudeWheel({ selected, onSelect }) {
                 data-ink={category.ink}
                 data-on={on}
                 data-preview={preview}
-                // Figma sets each label ~10px counter-clockwise of the wedge's middle ray.
-                transform={`rotate(${mid}) translate(${R_LABEL} ${LABEL_NUDGE})`}
-                style={{ '--wedge-delay': isAll ? `${index * 70}ms` : '80ms' }}
+                style={{ '--label-angle': `${mid}deg`, '--wedge-delay': isAll ? `${index * 70}ms` : '80ms' }}
               >
                 {category.name.toUpperCase()}
               </text>

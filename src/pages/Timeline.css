@@ -26,9 +26,9 @@
   text-decoration: none;
 }
 
-/* ---------- Intro ---------- */
+/* ---------- Intro: one screen tall with the nav (800px frame in Figma) ---------- */
 .timeline-intro {
-  height: 800px;
+  height: var(--hero-height);
 }
 
 .timeline-intro__rail,
@@ -209,10 +209,11 @@
   display: none;
 }
 
-/* Figma's exact frame: 537 x 532 at (-26, 322) in the 1280 x 800 band, clipped by the band. */
+/* Figma's frame: 537 x 532 at (-26, 322) in the 1280 x 800 band, so it runs 54px past the
+   band's bottom edge, which clips it. */
 .timeline-intro__horse {
   position: absolute;
-  top: 322px;
+  bottom: -54px;
   left: -26px;
   display: block;
   width: 537px;
@@ -231,6 +232,7 @@
 @media (max-width: 767px) {
   .timeline-intro__horse {
     top: 24px;
+    bottom: auto;
     transform: scale(0.5);
     transform-origin: 0 0;
   }

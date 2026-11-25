@@ -18,6 +18,9 @@
   --wheel-focus: var(--color-afterglow-600);
   --wheel-all-fill: var(--color-kindling-100);
   --wheel-all-label: var(--color-cinder-600);
+  /* Label distance from the centre: Figma's 325px, pulled in on shorter screens so Motion's
+     label (72 degrees round, about 60px from its middle to its end) clears the bottom edge. */
+  --wheel-label-r: min(325px, 0.473 * var(--hero-height) - 85px);
   --wheel-all-edge: 1.5px; /* same colour and width as the wedge outlines */
   --wheel-all-edge-color: var(--wheel-off-line);
 
@@ -124,7 +127,7 @@
 }
 
 /* ---------- Hub ring ---------- */
-.wheel__hub path {
+.wheel__hub path[data-category] {
   fill: var(--hub-color);
   transition:
     filter 0.2s ease,
@@ -141,12 +144,32 @@
   opacity: 0;
 }
 
+/* Dark: the wedge outline carries on down Motion's left side to the ALL circle. */
+.wheel__hub-edge {
+  fill: none;
+  stroke: none;
+  stroke-width: 1.5;
+  pointer-events: none;
+}
+
+[data-theme='dark'] .wheel__hub-edge {
+  stroke: var(--wheel-off-line);
+}
+
+.wheel__hub-edge[data-on='true'] {
+  opacity: 0;
+}
+
 .wheel:has(.wheel__all:hover) .wheel__hub path {
   filter: brightness(1.08);
 }
 
 /* ---------- Labels ---------- */
 .wheel__label {
+  /* Figma sets each label ~10px counter-clockwise of the wedge's middle ray. */
+  transform: rotate(var(--label-angle)) translate(var(--wheel-label-r), -10px);
+  transform-box: view-box;
+  transform-origin: 0 0;
   fill: var(--wheel-off-label);
   font-family: var(--font-heading);
   font-size: 28px; /* Figma: Firehorse/Heading 4 */
@@ -234,7 +257,7 @@
     transition: fill 150ms linear;
   }
 
-  .wheel__hub path,
+  .wheel__hub path[data-category],
   .wheel__all-label {
     transition: none;
   }
@@ -244,6 +267,7 @@
 /* TODO: mobile wheel (see brief) */
 @media (max-width: 767px) {
   .wheel {
+    --wheel-label-r: 325px; /* the whole wheel shows here */
     transform: scale(0.6);
     transform-origin: 0 440px;
   }

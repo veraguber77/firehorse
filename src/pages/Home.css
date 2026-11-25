@@ -38,14 +38,14 @@
   white-space: nowrap;
 }
 
-/* ---------- Hero ---------- */
+/* ---------- Hero: one screen tall with the nav (800px frame in Figma) ---------- */
 .home-hero {
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
   align-items: flex-start;
   gap: var(--spacing-16);
-  height: 800px;
+  height: var(--hero-height);
   padding: var(--spacing-80) var(--spacing-64);
 }
 
@@ -66,10 +66,10 @@
   color: var(--text-secondary);
 }
 
-/* Mirrored horse head, hugging the right edge and running off it. */
+/* Mirrored horse head, standing on the hero's bottom edge and running off the right. */
 .home-hero__horse {
   position: absolute;
-  top: 200px;
+  bottom: 0;
   right: -137.735px;
   width: 605.735px;
   height: 600px;

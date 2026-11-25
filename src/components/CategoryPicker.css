@@ -1,5 +1,7 @@
 /*
- * Layout follows the 1280 × 800 Figma frame. The wheel hugs the left edge and
+ * Layout follows the 1280 × 800 Figma frame, one screen tall with the nav. The wheel's centre
+ * stays 55% of the way down (440 / 800), and the rule and readout keep their distance from it.
+ * The wheel hugs the left edge and
  * the heading, rule, readout and gradient are anchored to the right edge, so
  * wider windows just open up space in the middle. Desktop only for now.
  */
@@ -10,8 +12,10 @@
   /* Browsers set Avant Garde ~0.1em lower than Figma at 0.78 line height. */
   --picker-tight-shift: -0.1em;
 
+  --picker-centre: 55%;
+
   position: relative;
-  height: 800px;
+  height: var(--hero-height);
   overflow: clip;
   background: var(--background-primary);
 }
@@ -28,10 +32,15 @@
   pointer-events: none;
 }
 
+/* The SVG's own centre is 440px down. It isn't clipped, so a taller picker shows more wheel. */
+.picker .wheel {
+  top: calc(var(--picker-centre) - 440px);
+}
+
 /* Vertical rule under the pointer */
 .picker__rule {
   position: absolute;
-  top: 452px;
+  top: calc(var(--picker-centre) + 12px);
   bottom: 0;
   right: 578px;
   width: 8px;
@@ -77,7 +86,7 @@
 /* Readout */
 .picker__readout {
   position: absolute;
-  top: 520px;
+  top: calc(var(--picker-centre) + 80px);
   right: var(--spacing-64);
   display: flex;
   flex-direction: column;
@@ -143,6 +152,7 @@
 
   .picker .wheel {
     position: relative;
+    top: 0;
     flex: none;
     margin-left: calc(-1 * var(--spacing-16));
     margin-bottom: -320px; /* scaled to 0.6, the 800px wheel takes 480px */
