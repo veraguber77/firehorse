@@ -1044,7 +1044,7 @@
     white-space: normal;
   }
 
-  /* Above the headline, running off the right edge. Its height is what the rest of the
+  /* Above the headline, facing right (unmirrored) and running off the left edge. Its height is what the rest of the
      screen leaves over, so the buttons stay in view on most phones. */
   .home-hero__horse {
     --horse: clamp(180px, var(--screen) - 530px, 330px);
@@ -1052,10 +1052,11 @@
     position: relative;
     right: auto;
     flex: none;
-    align-self: flex-end;
+    align-self: flex-start;
+    scale: 1 1;
     width: calc(1.0096 * var(--horse));
     height: var(--horse);
-    margin: calc(-1 * var(--spacing-16)) calc(-1 * var(--gutter-inner) - 0.1 * var(--horse)) 0 0;
+    margin: calc(-1 * var(--spacing-16)) 0 0 calc(-1 * var(--gutter-inner) - 0.1 * var(--horse));
   }
 
   .home-hero__title {
