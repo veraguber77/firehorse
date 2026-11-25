@@ -64,6 +64,10 @@
   transition: background-color var(--picker-fade);
 }
 
+.picker__segment {
+  display: none; /* mobile only */
+}
+
 /* Heading */
 .picker__heading {
   position: absolute;
@@ -196,18 +200,42 @@
     width: auto;
   }
 
-  /* The vertical rule becomes a short bar on top of the readout's line. */
+  /*
+   * The vertical rule becomes five segments along the readout's line, in wheel order: the
+   * line is thick where the selected category is. ALL shows all five, in their own colours.
+   */
   .picker__rule {
     order: 1;
-    width: 64px;
+    z-index: 1;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 6px;
     height: var(--cats-rule);
-    margin-top: var(--spacing-32);
+    margin: var(--spacing-32) 0 -2px; /* sits on the line, sharing its bottom edge */
+    background: none;
+  }
+
+  .picker__segment {
+    display: block;
+    background: var(--segment-color);
+    transform: scaleY(0);
+    transform-origin: bottom;
+    transition: transform var(--picker-fade);
+  }
+
+  .picker__segment[data-on='true'] {
+    transform: none;
+    transition-delay: var(--segment-delay);
+  }
+
+  /* Just the segments: no line showing through the gaps. */
+  .picker__readout[data-all='true'] {
+    border-top-color: transparent;
   }
 
   .picker__readout {
     order: 2;
     align-items: stretch;
-    border-top-width: 2px;
   }
 
   .picker__readout-tagline {

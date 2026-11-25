@@ -1,6 +1,6 @@
 import { useRef, useSyncExternalStore } from 'react'
 import './CategoryPicker.css'
-import { allCategories, categoryVars, getCategory } from '../categories.js'
+import { allCategories, categories, categoryVars, getCategory } from '../categories.js'
 import gradient from '../assets/picker/gradient.webp'
 import Button from './Button.jsx'
 import ExtrudeWheel from './ExtrudeWheel.jsx'
@@ -63,9 +63,22 @@ export default function CategoryPicker({ selected, onSelect }) {
         <p className="picker__lede">Pick a category to see its brief.</p>
       </div>
 
-      <div className="picker__rule" aria-hidden="true" />
+      {/* On mobile the rule turns into five segments, in wheel order (see CategoryPicker.css). */}
+      <div className="picker__rule" aria-hidden="true">
+        {categories.map((category, index) => (
+          <span
+            key={category.id}
+            className="picker__segment"
+            data-on={isAll || category.id === current.id}
+            style={{
+              '--segment-color': category.accent ?? category.color,
+              '--segment-delay': isAll ? `${index * 70}ms` : '0ms',
+            }}
+          />
+        ))}
+      </div>
 
-      <div ref={readout} className="picker__readout" aria-live="polite">
+      <div ref={readout} className="picker__readout" data-all={isAll} aria-live="polite">
         <h2 className="picker__readout-name">{current.name}</h2>
         <p className="picker__readout-tagline">{current.tagline}</p>
         <Button
