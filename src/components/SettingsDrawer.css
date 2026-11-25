@@ -22,6 +22,11 @@
     display 0.25s allow-discrete;
 }
 
+/* Dark: the panel is the navy page colour. */
+[data-theme='dark'] .drawer {
+  background: var(--color-cinder-600);
+}
+
 .drawer[open] {
   transform: translateX(0);
 }
@@ -45,9 +50,22 @@
   background: rgb(1 2 15 / 0.4);
 }
 
+/* Dark: a Cinder 500 scrim, so the page behind gets lighter than the navy panel. */
+[data-theme='dark'] .drawer::backdrop {
+  background: rgb(53 56 81 / 0);
+}
+
+[data-theme='dark'] .drawer[open]::backdrop {
+  background: rgb(53 56 81 / 0.6);
+}
+
 @starting-style {
   .drawer[open]::backdrop {
     background: rgb(1 2 15 / 0);
+  }
+
+  [data-theme='dark'] .drawer[open]::backdrop {
+    background: rgb(53 56 81 / 0);
   }
 }
 
