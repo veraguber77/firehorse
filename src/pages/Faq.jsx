@@ -1,8 +1,8 @@
-import { useEffect, useRef, useState } from 'react'
 import Button from '../components/Button.jsx'
 import Gradient from '../components/Gradient.jsx'
 import SectionNav from '../components/SectionNav.jsx'
 import { faqTopics } from '../faq.js'
+import { useCurrentSection } from '../lib/useCurrentSection.js'
 import gradientHeader from '../assets/faq/gradient.webp'
 import './Faq.css'
 
@@ -10,32 +10,13 @@ import './Faq.css'
 // (its scroll-margin in Faq.css, which is larger below 1024px, under the chip bar).
 const CURRENT_REACH = 64
 
+const topicIds = faqTopics.map((topic) => topic.id)
+const landingLine = (topic) => parseFloat(getComputedStyle(topic).scrollMarginTop) + CURRENT_REACH
+
 /** FAQ page — Figma "FAQ Page" (light 262:4326, dark 322:9511). */
 export default function Faq() {
   // The topic being read; the topic nav highlights it.
-  const [currentId, setCurrentId] = useState(faqTopics[0].id)
-  const sectionRefs = useRef({})
-
-  useEffect(() => {
-    function update() {
-      let next = faqTopics[0].id
-      const margin = parseFloat(getComputedStyle(sectionRefs.current[next]).scrollMarginTop)
-      for (const { id } of faqTopics) {
-        if (sectionRefs.current[id]?.getBoundingClientRect().top <= margin + CURRENT_REACH) next = id
-      }
-      // On tall screens the page can run out of scroll before the last topic reaches the line.
-      const { scrollHeight } = document.documentElement
-      if (window.scrollY > 0 && window.scrollY + window.innerHeight >= scrollHeight - 2) next = faqTopics.at(-1).id
-      setCurrentId(next)
-    }
-    update()
-    window.addEventListener('scroll', update, { passive: true })
-    window.addEventListener('resize', update)
-    return () => {
-      window.removeEventListener('scroll', update)
-      window.removeEventListener('resize', update)
-    }
-  }, [])
+  const currentId = useCurrentSection(topicIds, landingLine)
 
   return (
     <div className="faq">
@@ -79,9 +60,6 @@ export default function Faq() {
               <section
                 key={id}
                 id={id}
-                ref={(node) => {
-                  sectionRefs.current[id] = node
-                }}
                 className="faq-topic"
                 aria-labelledby={`${id}-title`}
               >

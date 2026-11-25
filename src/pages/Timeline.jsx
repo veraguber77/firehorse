@@ -1,7 +1,7 @@
-import { useEffect, useRef, useState } from 'react'
 import Button from '../components/Button.jsx'
 import Gradient from '../components/Gradient.jsx'
 import SectionNav from '../components/SectionNav.jsx'
+import { useCurrentSection } from '../lib/useCurrentSection.js'
 import { stages } from '../timeline.js'
 import gradientIntroA from '../assets/timeline/gradient-intro-a.webp'
 import gradientIntroB from '../assets/timeline/gradient-intro-b.webp'
@@ -10,28 +10,14 @@ import gradientClosing from '../assets/home/gradient-closing.webp'
 import horseHead from '../assets/horse-head-timeline.svg?raw'
 import './Timeline.css'
 
+const stageIds = stages.map((stage) => stage.id)
+const middleOfScreen = () => window.innerHeight / 2
+
 /** Timeline page — Figma "Timeline Page" (light 262:4250, dark 322:9420). */
 export default function Timeline() {
   // The stage band under the middle of the viewport; the stage nav highlights it.
-  const [activeId, setActiveId] = useState(stages[0].id)
-  const activeStage = stages.find((stage) => stage.id === activeId) ?? stages[0]
-  const bandRefs = useRef({})
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        for (const entry of entries) {
-          if (entry.isIntersecting) setActiveId(entry.target.id.replace('stage-', ''))
-        }
-      },
-      // A 0px-tall line across the middle of the viewport: the band crossing it is active.
-      { rootMargin: '-50% 0px -50% 0px' },
-    )
-    for (const node of Object.values(bandRefs.current)) {
-      if (node) observer.observe(node)
-    }
-    return () => observer.disconnect()
-  }, [])
+  const activeId = useCurrentSection(stageIds, middleOfScreen, 'stage-')
+  const activeStage = stages.find((stage) => stage.id === activeId)
 
   return (
     <div className="timeline">
@@ -112,9 +98,6 @@ export default function Timeline() {
           <section
             key={stage.id}
             id={`stage-${stage.id}`}
-            ref={(node) => {
-              bandRefs.current[stage.id] = node
-            }}
             className="timeline-stage"
             data-ink={stage.ink}
             style={{ '--stage-color': stage.color }}
