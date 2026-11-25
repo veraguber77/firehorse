@@ -168,6 +168,10 @@
   /* One Figma px of the 1280px frames, shrinking with narrower windows. For fixed-size art. */
   --u: min(1px, 100vw / 1280);
 
+  /* Avant Garde headlines. Figma's 0.78 makes wrapped lines touch; they wrap more on small
+     screens, so it opens up there. */
+  --lh-heading: 0.78;
+
   --content-max: 1440px; /* includes the side gutters */
   --space-section-y: clamp(48px, 8vw, 120px);
 
@@ -178,4 +182,10 @@
    */
   --gutter-inner: clamp(20px, 5vw, 64px);
   --gutter: max(var(--gutter-inner), calc((100% - var(--content-max)) / 2 + var(--gutter-inner)));
+}
+
+@media (width < 1024px) {
+  :root {
+    --lh-heading: 0.9;
+  }
 }

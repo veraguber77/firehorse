@@ -10,11 +10,12 @@
  * The Figma frame, centred in the section. It keeps its Figma size, and only
  * grows when the section is wider than the frame. The gradient art runs well
  * past the frame, so taller sections show more of it rather than zooming in.
+ * On small screens a section can shrink it or nudge it: --frame-scale, --frame-x, --frame-y.
  */
 .gradient__frame {
   position: absolute;
-  left: 50%;
-  top: 50%;
+  left: calc(50% + var(--frame-x, 0px));
+  top: calc(50% + var(--frame-y, 0px));
   width: max(100cqw, var(--frame-w) * var(--frame-scale, 1) * 1px);
   aspect-ratio: var(--frame-w) / var(--frame-h);
   translate: -50% -50%;

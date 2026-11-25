@@ -45,7 +45,7 @@ const questions = [
   'Is there an entry fee?',
 ]
 
-/** Homepage — Figma "Homepage" (light 262:4137, dark 322:9254). Desktop only for now. */
+/** Homepage — Figma "Homepage" (light 262:4137, dark 322:9254). */
 export default function Home() {
   // TODO(motion): steps advance through the four milestones. Static on step 1 for now; the
   // bars, markers and the button colour all follow this index once it cycles.
