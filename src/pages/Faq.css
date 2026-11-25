@@ -1,0 +1,337 @@
+/*
+ * FAQ page — follows the 1280px-wide Figma frame. Desktop only for now.
+ */
+.faq {
+  --faq-body-bg: var(--color-kindling-100);
+  --faq-you-bg: var(--color-cinder-600);
+  --faq-you-label: var(--text-secondary);
+  --faq-you-label-opacity: 1;
+  --faq-firehorse-bg: var(--color-kindling-600);
+  --faq-firehorse-ink: var(--color-cinder-600);
+  --faq-firehorse-label: var(--color-inferno-600);
+  /* Browsers set Avant Garde ~0.1em lower than Figma at 0.78 line height (measured here: 0.14em). */
+  --faq-tight-shift: -0.14em;
+}
+
+[data-theme='dark'] .faq {
+  --faq-body-bg: var(--color-cinder-700);
+  --faq-you-bg: var(--color-afterglow-600);
+  --faq-you-label: var(--text-static-cream);
+  --faq-you-label-opacity: 0.6;
+  --faq-firehorse-bg: var(--color-cinder-500);
+  --faq-firehorse-ink: var(--text-static-cream);
+  --faq-firehorse-label: var(--text-static-cream);
+}
+
+/* ---------- Header: one screen tall with the nav (613px frame in Figma) ---------- */
+.faq-header {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-end;
+  gap: var(--spacing-24);
+  height: var(--hero-height);
+  padding: var(--spacing-96) var(--spacing-64) 56px;
+  border-bottom: 1px solid var(--border-default);
+  overflow: clip;
+}
+
+/* Firehorse/Display */
+.faq-header__title {
+  position: relative;
+  width: 883px;
+  max-width: 100%;
+  font-family: var(--font-display);
+  font-size: 108px;
+  font-weight: 900;
+  line-height: 90px;
+  text-transform: uppercase;
+  color: var(--text-brand-primary);
+}
+
+.faq-header__intro {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 20px;
+}
+
+/* Firehorse/Body Large */
+.faq-header__lede {
+  width: 380px;
+  max-width: 100%;
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 22px;
+  color: var(--text-secondary);
+}
+
+/* Figma draws this button 46px tall and the closing one 50px (the shared Button is 42px). */
+.faq-header__button {
+  min-height: 46px;
+}
+
+/* ---------- Body ---------- */
+.faq-body {
+  --faq-index-width: 220px;
+
+  padding: 56px var(--spacing-64) var(--spacing-80);
+  background: var(--faq-body-bg);
+}
+
+.faq-topics {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--spacing-24);
+}
+
+/*
+ * Topic index, styled like the Timeline page's stage rail. It starts level with the first
+ * topic title, sticks at that height while the transcript scrolls, and stops when the last
+ * topic ends, above the closing block.
+ */
+.faq-index {
+  position: sticky;
+  /* Both offsets line the first item's letters up with the topic title beside it: 4px at
+     rest, 47px down the screen once an index link has scrolled a topic into place. */
+  top: 47px;
+  flex: none;
+  width: var(--faq-index-width);
+  margin-top: 4px;
+  color: var(--text-brand-primary);
+}
+
+.faq-index__list {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--spacing-16);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* Firehorse/Heading 3 */
+.faq-index__link {
+  display: block;
+  font-family: var(--font-heading);
+  font-size: 36px;
+  font-weight: 700;
+  line-height: 0.78;
+  letter-spacing: -0.06em;
+  text-transform: uppercase;
+  color: inherit;
+  text-decoration: none;
+  opacity: 0.55;
+  transition: opacity 0.2s ease-out;
+}
+
+.faq-index__link:hover,
+.faq-index__link[aria-current] {
+  opacity: 1;
+}
+
+.faq-index__link:focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 4px;
+  border-radius: 2px;
+}
+
+/*
+ * Figma's 858px transcript, pinned to the right margin: the larger index needs the 98px
+ * Figma leaves there, and wider windows open up space in the middle.
+ */
+.faq-transcript {
+  flex: 0 1 858px;
+  min-width: 0;
+  margin: 0 0 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-64);
+}
+
+.faq-topic {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-16);
+  scroll-margin-top: 56px;
+}
+
+/* Firehorse/Heading 1 */
+.faq-topic__title {
+  display: flex;
+  align-items: center;
+  height: 50px;
+  font-family: var(--font-heading);
+  font-size: 64px;
+  font-weight: 700;
+  line-height: 0.78;
+  letter-spacing: -0.06em;
+  text-transform: uppercase;
+  color: var(--text-brand-primary);
+}
+
+/* Figma gives the first title a taller box. */
+.faq-topic:first-child .faq-topic__title {
+  height: 76px;
+}
+
+.faq-topic__title-text,
+.faq-closing__title-text {
+  translate: 0 var(--faq-tight-shift);
+}
+
+/* ---------- Questions and answers ---------- */
+.faq-exchange {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-16);
+}
+
+.faq-message {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 6px;
+}
+
+.faq-message--you {
+  align-items: flex-end;
+}
+
+/* Firehorse/Caption-Label */
+.faq-message__from {
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 15px;
+  color: var(--faq-firehorse-label);
+}
+
+.faq-message--you .faq-message__from {
+  color: var(--faq-you-label);
+  opacity: var(--faq-you-label-opacity);
+}
+
+/* Firehorse/Body. Answers wrap at 580px, like Figma's text box. */
+.faq-message__bubble {
+  width: 616px;
+  max-width: 100%;
+  padding: 14px 18px;
+  border-radius: 18px 18px 18px 4px;
+  background: var(--faq-firehorse-bg);
+  font-family: var(--font-body);
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 20px;
+  color: var(--faq-firehorse-ink);
+}
+
+.faq-message--you .faq-message__bubble {
+  width: auto;
+  border-radius: 18px 18px 4px;
+  background: var(--faq-you-bg);
+  color: var(--text-static-cream);
+}
+
+/* ---------- Closing block: lines up with the transcript ---------- */
+.faq-closing {
+  width: calc(100% - var(--faq-index-width) - var(--spacing-24));
+  max-width: 858px;
+  margin: var(--spacing-64) 0 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--spacing-24);
+  padding: var(--spacing-40);
+  border-radius: var(--radius-xl);
+  background: var(--color-inferno-600);
+  color: var(--color-cinder-600);
+}
+
+.faq-closing__text {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 440px;
+  min-width: 0;
+}
+
+/* Firehorse/Heading 2 */
+.faq-closing__title {
+  display: flex;
+  align-items: center;
+  min-height: 84px;
+  font-family: var(--font-heading);
+  font-size: 48px;
+  font-weight: 700;
+  line-height: 0.78;
+  letter-spacing: -0.06em;
+  text-transform: uppercase;
+}
+
+/* Firehorse/Body */
+.faq-closing__note {
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 20px;
+}
+
+.faq-closing__button {
+  flex: none;
+  min-height: 50px;
+  padding-inline: 28px;
+}
+
+/* TODO: mobile. No narrow design yet: the index stacks above the transcript. */
+@media (max-width: 767px) {
+  .faq-header {
+    height: auto;
+    padding: 160px var(--spacing-16) var(--spacing-48);
+  }
+
+  .faq-header__title {
+    font-size: 64px;
+    line-height: 56px;
+  }
+
+  .faq-topics,
+  .faq-closing {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .faq-body {
+    padding-inline: var(--spacing-16);
+  }
+
+  .faq-index {
+    position: static;
+    width: auto;
+    margin-top: 0;
+  }
+
+  .faq-transcript {
+    flex: none;
+    margin: 0;
+  }
+
+  .faq-closing {
+    width: auto;
+  }
+
+  .faq-closing__text {
+    width: auto;
+  }
+
+  .faq-closing__button {
+    align-self: flex-start;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .faq-index__link {
+    transition: none;
+  }
+}
