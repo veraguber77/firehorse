@@ -1,0 +1,22 @@
+/*
+ * Shared by the picker and the brief bands, so the picker's vertical rule and every band's
+ * rule stay one line. Lengths follow the page's own width (cqw), not the window's.
+ *
+ *   left  ... wheel ... | rule | gap | column | gutter |  right
+ */
+.categories {
+  container: categories / inline-size;
+}
+
+.picker,
+.brief {
+  /* Same as --gutter, but with cqw for its 100% so it works in any property. */
+  --cats-gutter: max(
+    var(--gutter-inner),
+    calc((100cqw - var(--content-max)) / 2 + var(--gutter-inner))
+  );
+  --cats-column: clamp(300px, 36.40625cqw, 466px); /* 466 at 1280 */
+  --cats-rule: 8px;
+  --cats-rule-gap: clamp(24px, 3.75cqw, 48px); /* rule to column */
+  --cats-rule-right: calc(var(--cats-gutter) + var(--cats-column) + var(--cats-rule-gap));
+}

@@ -2,6 +2,7 @@ import { useState } from 'react'
 import BriefBand from '../components/BriefBand.jsx'
 import CategoryPicker from '../components/CategoryPicker.jsx'
 import { allCategories, categories, getCategory } from '../categories.js'
+import './Categories.css'
 
 export default function Categories() {
   // A category id from src/categories.js, or 'all'. ?category= is a dev aid for deep links.
@@ -14,7 +15,7 @@ export default function Categories() {
   const shown = isAll ? categories : [current]
 
   return (
-    <>
+    <div className="categories">
       <CategoryPicker selected={current.id} onSelect={setSelected} />
       <div id="briefs">
         {shown.map((category) => (
@@ -26,6 +27,6 @@ export default function Categories() {
           />
         ))}
       </div>
-    </>
+    </div>
   )
 }

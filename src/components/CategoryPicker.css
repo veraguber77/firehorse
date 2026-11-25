@@ -1,9 +1,12 @@
 /*
  * Layout follows the 1280 × 800 Figma frame, one screen tall with the nav. The wheel's centre
  * stays 55% of the way down (440 / 800), and the rule and readout keep their distance from it.
- * The wheel hugs the left edge and
- * the heading, rule, readout and gradient are anchored to the right edge, so
- * wider windows just open up space in the middle. Desktop only for now.
+ * The wheel hugs the window's left edge; the heading, rule and readout hug the right gutter of
+ * the 1440px content box, so wider windows just open up space in the middle. The gradient is
+ * tied to the window's right edge.
+ *
+ * Below 1280px the right column narrows, and the wheel shrinks to keep clear of it.
+ * --cats-* lengths are shared with the brief bands (pages/Categories.css).
  */
 .picker {
   /* --category-accent / --category-on-accent come from the selected category. */
@@ -12,29 +15,42 @@
   /* Browsers set Avant Garde ~0.1em lower than Figma at 0.78 line height. */
   --picker-tight-shift: -0.1em;
 
+  --picker-height: var(--hero-height);
   --picker-centre: 55%;
 
+  /* Between the wheel's outer band and the rule: 94px in the 1280px design, never under 48px. */
+  --picker-wheel-gap: clamp(48px, 7.34375cqw, 94px);
+  /* The wheel reaches 600 units from the left edge (40 to its centre + 560 to the outer band). */
+  --wheel-u: min(
+    1px,
+    (100cqw - var(--cats-rule-right) - var(--cats-rule) - var(--picker-wheel-gap)) / 600
+  );
+  --wheel-room: calc(0.45 * var(--picker-height));
+
   position: relative;
-  height: var(--hero-height);
+  height: var(--picker-height);
   overflow: clip;
   background: var(--background-primary);
 }
 
-/* Background gradient (centre sits 371.94px from the right, 230.97px from the top) */
+/* Background gradient (centre sits 371.94px from the right, 230.97px from the top at 1280) */
 .picker__gradient {
+  --g: clamp(0.6px, 0.078125cqw, 1px); /* one Figma px */
+
   position: absolute;
-  top: -461.79px;
-  right: -485.43px;
-  width: 1714.74px;
-  height: 1385.513px;
+  top: calc(-461.79 * var(--g));
+  /* Below 1280px the column takes a bigger share of the page, so the art also moves right. */
+  right: calc(-485.43 * var(--g) - max(0px, (1280px - 100cqw) * 0.25));
+  width: calc(1714.74 * var(--g));
+  height: calc(1385.513 * var(--g));
   rotate: -139.95deg;
   scale: 1 -1;
   pointer-events: none;
 }
 
-/* The SVG's own centre is 440px down. It isn't clipped, so a taller picker shows more wheel. */
+/* The SVG's own centre is 440 units down. It isn't clipped, so a taller picker shows more wheel. */
 .picker .wheel {
-  top: calc(var(--picker-centre) - 440px);
+  top: calc(var(--picker-centre) - 440 * var(--wheel-u));
 }
 
 /* Vertical rule under the pointer */
@@ -42,8 +58,8 @@
   position: absolute;
   top: calc(var(--picker-centre) + 12px);
   bottom: 0;
-  right: 578px;
-  width: 8px;
+  right: var(--cats-rule-right);
+  width: var(--cats-rule);
   background: var(--picker-accent);
   transition: background-color var(--picker-fade);
 }
@@ -51,20 +67,21 @@
 /* Heading */
 .picker__heading {
   position: absolute;
-  top: 72px;
-  right: var(--spacing-64);
+  top: clamp(40px, 5.625cqw, 72px);
+  right: var(--cats-gutter);
   display: flex;
   flex-direction: column;
   gap: var(--spacing-16);
-  width: 466px;
+  width: var(--cats-column);
 }
 
 /* Firehorse/Display */
 .picker__title {
   font-family: var(--font-display);
-  font-size: 108px;
+  font-size: var(--fs-display);
   font-weight: 900;
-  line-height: 90px;
+  line-height: calc(90 / 108);
+  text-wrap: balance;
   text-transform: uppercase;
   color: var(--text-brand-primary);
 }
@@ -77,7 +94,7 @@
 
 /* Firehorse/Body Large */
 .picker__lede {
-  font-size: 18px;
+  font-size: var(--fs-body-lg);
   font-weight: 500;
   line-height: normal;
   color: var(--text-secondary);
@@ -86,13 +103,13 @@
 /* Readout */
 .picker__readout {
   position: absolute;
-  top: calc(var(--picker-centre) + 80px);
-  right: var(--spacing-64);
+  top: calc(var(--picker-centre) + clamp(48px, 6.25cqw, 80px));
+  right: var(--cats-gutter);
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   gap: 14px;
-  width: 466px;
+  width: var(--cats-column);
   padding-top: var(--spacing-24);
   border-top: 2px solid var(--picker-accent);
   transition: border-color var(--picker-fade);
@@ -101,7 +118,7 @@
 /* Firehorse/Heading 3 */
 .picker__readout-name {
   font-family: var(--font-heading);
-  font-size: 36px;
+  font-size: var(--fs-h3);
   font-weight: 700;
   line-height: 0.78;
   letter-spacing: -0.06em;
@@ -112,7 +129,7 @@
 
 /* Firehorse/Body */
 .picker__readout-tagline {
-  font-size: 16px;
+  font-size: var(--fs-body);
   font-weight: 400;
   line-height: normal;
   color: var(--text-secondary);
@@ -140,44 +157,17 @@
   }
 }
 
-/* TODO: mobile wheel (see brief). Until then the picker stacks: heading, scaled wheel, readout. */
-@media (max-width: 767px) {
-  .picker {
-    display: flex;
-    flex-direction: column;
-    gap: var(--spacing-24);
-    height: auto;
-    padding: var(--spacing-48) var(--spacing-16);
-  }
-
-  .picker .wheel {
-    position: relative;
-    top: 0;
-    flex: none;
-    margin-left: calc(-1 * var(--spacing-16));
-    margin-bottom: -320px; /* scaled to 0.6, the 800px wheel takes 480px */
-    transform-origin: 0 0;
-  }
-
-  .picker__heading,
-  .picker__readout {
-    position: relative;
-    top: auto;
-    right: auto;
-    width: auto;
-  }
-
-  .picker__heading {
-    order: -1;
-  }
-
-  .picker__title {
-    font-size: 64px;
-    line-height: 56px;
-  }
-
-  .picker__rule {
-    display: none;
+/* Laptop and tablet: two short lines keep the one-liner off the gradient. */
+@media (max-width: 1279px) {
+  .picker__readout-tagline {
+    max-width: 240px;
+    text-wrap: balance;
   }
 }
 
+/* Tablet: no longer one screen tall; the height follows the wheel. */
+@media (max-width: 1023px) {
+  .picker {
+    --picker-height: max(560px, 62.5cqw);
+  }
+}

@@ -4,9 +4,10 @@ import { allCategories, categories } from '../categories.js'
 import { arcPath, wedgePath } from '../lib/wedgePath.js'
 
 /*
- * Geometry, in SVG user units = CSS px at desktop size. The wheel centre is the
+ * Geometry, in SVG user units, "wheel units" = CSS px at desktop size. The wheel centre is the
  * SVG origin (0, 0) and sits 40px from the left and 440px from the top of the
  * 1280 × 800 picker, so the left half of the wheel is off-screen (Figma 262:4412).
+ * On screen one unit is --wheel-u (ExtrudeWheel.css), so everything scales together.
  */
 const CENTRE_X = 40
 const CENTRE_Y = 440
@@ -19,6 +20,9 @@ const START = -90 // straight up
 
 const VIEW_WIDTH = CENTRE_X + R_BAND + 3.5 // just past the outer band
 const VIEW_HEIGHT = 800
+
+/** Devices with a real hover: the only ones that get the wedge preview. */
+const canHover = window.matchMedia('(hover: hover) and (pointer: fine)')
 
 /** Scale at which a coloured wedge is fully hidden behind the hub ring (100 / 548). */
 export const REST_SCALE = R_HUB / R_WEDGE
@@ -57,7 +61,7 @@ export default function ExtrudeWheel({ selected, onSelect }) {
   const isAll = selected === allCategories.id
   const selectedIndex = categories.findIndex((category) => category.id === selected)
 
-  // Wedge being previewed by hover or keyboard focus, and the one showing a focus ring.
+  // Wedge being previewed by hover (mouse only) or keyboard focus, and the one showing a focus ring.
   const [hovered, setHovered] = useState(-1)
   const [focused, setFocused] = useState(-1)
   const [focusVisible, setFocusVisible] = useState(false)
@@ -85,12 +89,19 @@ export default function ExtrudeWheel({ selected, onSelect }) {
   }
 
   return (
-    <div className="wheel" data-all={isAll}>
-      {/* TODO: mobile wheel (see brief). Below 768px the whole wheel is only scaled down. */}
+    <div
+      className="wheel"
+      data-all={isAll}
+      style={{
+        '--wheel-w': VIEW_WIDTH,
+        '--wheel-h': VIEW_HEIGHT,
+        '--wheel-cx': CENTRE_X,
+        '--wheel-cy': CENTRE_Y,
+        '--wheel-r-all': R_ALL,
+      }}
+    >
       <svg
         className="wheel__svg"
-        width={VIEW_WIDTH}
-        height={VIEW_HEIGHT}
         viewBox={`${-CENTRE_X} ${-CENTRE_Y} ${VIEW_WIDTH} ${VIEW_HEIGHT}`}
       >
         <defs>
@@ -124,7 +135,10 @@ export default function ExtrudeWheel({ selected, onSelect }) {
               tabIndex={index === tabStop ? 0 : -1}
               onClick={() => onSelect(category.id)}
               onKeyDown={(event) => handleKeyDown(event, index)}
-              onPointerEnter={() => setHovered(index)}
+              onPointerEnter={(event) => {
+                // On touch a tap selects straight away, without a preview first.
+                if (event.pointerType !== 'touch' && canHover.matches) setHovered(index)
+              }}
               onPointerLeave={() => setHovered((current) => (current === index ? -1 : current))}
               onFocus={(event) => {
                 setFocused(index)
