@@ -50,6 +50,16 @@
   padding: var(--spacing-80) var(--gutter);
 }
 
+/* Slight glow along the left edge. Below 1280px, where the Figma frame is wider than the
+   window, it stays on that edge. Not on phones, where it would sit behind the text. */
+.home-hero__left-glow {
+  --frame-x: max(0px, 640px - 50vw);
+
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
 .home-hero__rule {
   position: absolute;
   top: 60px;
@@ -1008,6 +1018,10 @@
 
 /* ---------- Mobile ---------- */
 @media (width < 768px) {
+  .home-hero__left-glow {
+    display: none;
+  }
+
   /* In the flow: rule, overline, horse, headline, buttons. */
   .home-hero {
     padding-block: var(--spacing-24) var(--spacing-40);

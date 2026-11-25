@@ -4,6 +4,7 @@ import Gradient from '../components/Gradient.jsx'
 import { categories, categoryVars, getCategory } from '../categories.js'
 import { stages as milestones } from '../timeline.js'
 import gradientHero from '../assets/home/gradient-hero.webp'
+import gradientHeroLeft from '../assets/home/gradient-hero-left.webp'
 import gradientIntro from '../assets/home/gradient-intro.webp'
 import gradientBeat from '../assets/home/gradient-beat.webp'
 import gradientTurnA from '../assets/home/gradient-turn-a.webp'
@@ -69,6 +70,18 @@ export default function Home() {
           rotate={-114.46}
           inset={[14.13, 11.78, 14.47, 11.73]}
         />
+        <div className="home-hero__left-glow" aria-hidden="true">
+          <Gradient
+            src={gradientHeroLeft}
+            frame={[1280, 800]}
+            x={-516.56}
+            y={401.91}
+            width={1365.758}
+            height={1153.594}
+            rotate={-53.62}
+            inset={[17.05, 14.44, 17.4, 14.39]}
+          />
+        </div>
         <div className="home-hero__rule" aria-hidden="true" />
         <p className="home-hero__overline">THE YEAR OF THE FIRE HORSE — 2026 DESIGN COMPETITION</p>
         <img className="home-hero__horse" src={horseHead} width="605.727" height="599.959" alt="" />
