@@ -171,10 +171,16 @@ export default function ExtrudeWheel({ selected, onSelect }) {
           <path className="wheel__focus" d={segments[focused].wedge} aria-hidden="true" />
         )}
 
-        {/* Hub colour ring (never animates) */}
+        {/* Hub colour ring (static, except Motion fades out when on in dark mode) */}
         <g className="wheel__hub" aria-hidden="true">
           {segments.map(({ category, hub }) => (
-            <path key={category.id} d={hub} style={{ fill: category.color }} />
+            <path
+              key={category.id}
+              d={hub}
+              data-category={category.id}
+              data-on={isAll || category.id === selected}
+              style={{ '--hub-color': category.color }}
+            />
           ))}
         </g>
 

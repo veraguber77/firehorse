@@ -99,7 +99,12 @@
   transition-delay: var(--wedge-delay, 80ms);
 }
 
-/* Motion is Cinder: in dark mode a thin Kindling edge (0.75px inside) keeps it off the background. */
+/* Motion is Cinder, the dark page background, so in dark mode its wedge goes black like the Motion brief band. */
+[data-theme='dark'] .wheel__fill[data-category='motion'] {
+  fill: var(--color-neutral-900);
+}
+
+/* A thin Kindling edge (0.75px inside) keeps the black Motion wedge off the dark background. */
 .wheel__fill-edge {
   fill: none;
   stroke: none;
@@ -120,7 +125,20 @@
 
 /* ---------- Hub ring ---------- */
 .wheel__hub path {
-  transition: filter 0.2s ease;
+  fill: var(--hub-color);
+  transition:
+    filter 0.2s ease,
+    opacity 0.2s ease;
+}
+
+/* Dark Motion: the base is the same black as its wedge, so the wedge extrudes from it. */
+[data-theme='dark'] .wheel__hub path[data-category='motion'] {
+  fill: var(--color-neutral-900);
+}
+
+/* Once on, uncover the wedge beneath so its Kindling edge runs unbroken into ALL. */
+[data-theme='dark'] .wheel__hub path[data-category='motion'][data-on='true'] {
+  opacity: 0;
 }
 
 .wheel:has(.wheel__all:hover) .wheel__hub path {
