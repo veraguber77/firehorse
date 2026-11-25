@@ -13,6 +13,10 @@ export function useTheme() {
 
   const setTheme = useCallback((next) => {
     document.documentElement.dataset.theme = next
+    // The browser's own bar follows the page background, as in index.html.
+    document.querySelectorAll('meta[name="theme-color"]').forEach((tag) => {
+      tag.content = next === 'dark' ? '#030625' : '#F6F5EC'
+    })
     try {
       localStorage.setItem(STORAGE_KEY, next)
     } catch {

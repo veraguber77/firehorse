@@ -8,3 +8,38 @@
 .app__main {
   flex: 1;
 }
+
+/* Takes focus on a page change or from the skip link, without a ring around the whole page. */
+.app__main:focus {
+  outline: none;
+}
+
+/* First in the tab order, only shown while it has keyboard focus. */
+.skip-link {
+  position: fixed;
+  top: var(--spacing-12);
+  left: var(--gutter-inner);
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  min-height: 48px;
+  padding: 0 var(--spacing-24);
+  border-radius: 8px;
+  background: var(--color-cinder-600);
+  color: var(--color-kindling-100);
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  text-decoration: none;
+  transform: translateY(-200%);
+}
+
+.skip-link:focus {
+  transform: none;
+}
+
+[data-theme='dark'] .skip-link {
+  background: var(--color-kindling-100);
+  color: var(--color-cinder-600);
+}

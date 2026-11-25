@@ -18,7 +18,7 @@ const options = [
  * Built on <dialog> so focus trapping, Esc to close and focus return are native.
  * Below 1024px it is also the site menu: the page links on top, Settings at the bottom.
  */
-export default function SettingsDrawer({ open, onClose, current, theme, onThemeChange }) {
+export default function SettingsDrawer({ open, onClose, onNavigate, current, theme, onThemeChange }) {
   const dialogRef = useRef(null)
   const isMenu = useMediaQuery('(width < 1024px)')
 
@@ -66,7 +66,7 @@ export default function SettingsDrawer({ open, onClose, current, theme, onThemeC
                   className="drawer__link"
                   to={link.path}
                   aria-current={current === link.id ? 'page' : undefined}
-                  onClick={onClose}
+                  onClick={onNavigate}
                 >
                   <span className="drawer__link-text">{link.label}</span>
                 </Link>
