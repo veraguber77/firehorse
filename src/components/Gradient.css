@@ -15,7 +15,7 @@
   position: absolute;
   left: 50%;
   top: 50%;
-  width: max(100cqw, var(--frame-w) * 1px);
+  width: max(100cqw, var(--frame-w) * var(--frame-scale, 1) * 1px);
   aspect-ratio: var(--frame-w) / var(--frame-h);
   translate: -50% -50%;
   container-type: inline-size;

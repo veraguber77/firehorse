@@ -56,6 +56,13 @@
   z-index: 1;
 }
 
+/* Touch sizes: at least 48px tall. */
+@media (width < 1024px), (pointer: coarse) {
+  .btn {
+    min-height: 48px;
+  }
+}
+
 .btn__icon {
   display: inline-flex;
   flex: none;
@@ -149,7 +156,7 @@
   mask-image: radial-gradient(var(--btn-glow-shape), #000 0%, #000 25%, transparent 75%);
 }
 
-@media (hover: hover) {
+@media (hover: hover) and (pointer: fine) {
   .btn--solid:not(:disabled, [aria-disabled='true']):hover::before,
   .btn--solid:not(:disabled, [aria-disabled='true']):hover::after {
     transform: translateY(0);
@@ -211,7 +218,7 @@
   transition: background-size 0.3s ease-out;
 }
 
-@media (hover: hover) {
+@media (hover: hover) and (pointer: fine) {
   .btn--text:not(:disabled, [aria-disabled='true']):hover .btn__label {
     background-image: linear-gradient(
       90deg,
@@ -242,7 +249,7 @@
     transition: opacity 0.15s linear;
   }
 
-  @media (hover: hover) {
+  @media (hover: hover) and (pointer: fine) {
     .btn--solid:not(:disabled, [aria-disabled='true']):hover::before,
     .btn--solid:not(:disabled, [aria-disabled='true']):hover::after {
       transform: none;
