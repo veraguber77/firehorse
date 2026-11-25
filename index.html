@@ -3,13 +3,24 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Firehorse</title>
+    <!-- Home page defaults. The build writes each page's own (vite-plugin-site.js, src/pageMeta.js). -->
+    <title>Firehorse — 2026 design competition</title>
+    <meta name="description" content="Firehorse is an open design competition across five categories. Free to enter, judged by senior designers. Submissions close November 14, 2026." />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Firehorse" />
+    <meta property="og:title" content="Firehorse — 2026 design competition" />
+    <meta property="og:description" content="Firehorse is an open design competition across five categories. Free to enter, judged by senior designers. Submissions close November 14, 2026." />
+    <meta name="twitter:card" content="summary" />
+    <!-- Kindling 300 / Cinder 600, the page backgrounds. Kept in step with a chosen theme below and in src/theme.js. -->
+    <meta name="theme-color" media="(prefers-color-scheme: light)" content="#F6F5EC" />
+    <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#030625" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="icon" href="/favicon-32.png" type="image/png" sizes="32x32" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
     <link rel="preconnect" href="https://use.typekit.net" crossorigin />
+    <link rel="preconnect" href="https://p.typekit.net" />
     <link rel="stylesheet" href="https://use.typekit.net/jhd2bcu.css" />
-    <!-- Bowlby One (homepage category reel) isn't in the Adobe Fonts project. -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bowlby+One&display=swap" />
     <script>
       // Apply the saved (or system) theme before first paint to avoid a flash.
       (function () {
@@ -21,6 +32,9 @@
           theme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
         }
         document.documentElement.dataset.theme = theme
+        document.querySelectorAll('meta[name="theme-color"]').forEach(function (tag) {
+          tag.content = theme === 'dark' ? '#030625' : '#F6F5EC'
+        })
       })()
     </script>
   </head>

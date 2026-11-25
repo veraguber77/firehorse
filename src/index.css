@@ -1,14 +1,24 @@
 @import './styles/tokens.css';
 @import './styles/button-themes.css';
 
+/* Not in the Adobe Fonts project. Open Font License; Google Fonts' Latin file, hosted here so
+   the page doesn't wait for another server. Only downloaded where the reel is shown. */
+@font-face {
+  font-family: 'Bowlby One';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('./assets/fonts/bowlby-one-latin.woff2') format('woff2');
+}
+
 /* Font stacks — family names come from the Adobe Fonts project (jhd2bcu).
-   Available weights: rl-folklor 900 · itc-avant-garde-gothic-pro 300/700 (+ italics)
-   · neue-haas-grotesk-text 400/700 (+ italics) */
+   Weights in use: rl-folklor 900 · itc-avant-garde-gothic-pro 700 · neue-haas-grotesk-text
+   400/500/700. No italics. */
 :root {
   --font-display: 'rl-folklor', sans-serif;
   --font-heading: 'itc-avant-garde-gothic-pro', sans-serif;
   --font-body: 'neue-haas-grotesk-text', sans-serif;
-  --font-reel: 'Bowlby One', sans-serif; /* Google Fonts, see index.html */
+  --font-reel: 'Bowlby One', sans-serif; /* homepage category reel, below */
 
   /* Logo size shared by nav and footer (Figma: 92.7x56.7 nav, 80.6x49.3 footer). */
   --logo-width: 114.545px;
@@ -150,6 +160,16 @@ a {
     overflow: hidden;
     scrollbar-gutter: stable;
   }
+}
+
+/* For screen readers only. */
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
 }
 
 /* Theme-specific assets: render both, show the one for the active theme. */

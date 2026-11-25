@@ -122,6 +122,7 @@ export default function Timeline() {
       {/* Closing tagline */}
       <section className="timeline-closing">
         <Gradient
+          lazy
           src={gradientClosing}
           x={543.72}
           y={302.76}

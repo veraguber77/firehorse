@@ -11,9 +11,9 @@ import GradientArt from './GradientArt.jsx'
  *
  * The Figma frame stays centred in the section at its Figma size, growing only
  * to match a wider section. The art runs past the frame, so taller sections
- * show more of it instead of zooming in.
+ * show more of it instead of zooming in. `lazy` is for sections below the first screen.
  */
-export default function Gradient({ src, frame = [1280, 600], x, y, width, height, rotate, inset, flip = true }) {
+export default function Gradient({ src, frame = [1280, 600], x, y, width, height, rotate, inset, flip = true, lazy = false }) {
   const [frameWidth, frameHeight] = frame
   return (
     <div className="gradient" aria-hidden="true">
@@ -32,7 +32,7 @@ export default function Gradient({ src, frame = [1280, 600], x, y, width, height
             '--layer-flip': flip ? -1 : 1,
           }}
         >
-          <GradientArt src={src} inset={inset} />
+          <GradientArt src={src} inset={inset} lazy={lazy} />
         </div>
       </div>
     </div>

@@ -23,7 +23,7 @@ export default function BriefBand({ category, showGradient = false }) {
     >
       {showGradient && (
         <div className="brief__gradient" aria-hidden="true">
-          <GradientArt src={gradient} inset={[6.86, 3.8, 7.21, 5.33]} />
+          <GradientArt src={gradient} inset={[6.86, 3.8, 7.21, 5.33]} lazy />
         </div>
       )}
 

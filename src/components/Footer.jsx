@@ -1,8 +1,8 @@
 import { Link } from 'react-router'
 import Button from './Button.jsx'
 import './Footer.css'
-import logoForLight from '../assets/logo-sky-blue-dark.png'
-import logoForDark from '../assets/logo-deep-blue-light.png'
+import logoForLight from '../assets/logo-sky-blue-dark.webp'
+import logoForDark from '../assets/logo-deep-blue-light.webp'
 
 const columns = [
   {
@@ -73,8 +73,22 @@ export default function Footer() {
 
       <div className="footer__bar">
         <div className="footer__logo">
-          <img className="footer__logo-img theme-light-only" src={logoForLight} alt="Firehorse" />
-          <img className="footer__logo-img theme-dark-only" src={logoForDark} alt="Firehorse" />
+          <img
+            className="footer__logo-img theme-light-only"
+            src={logoForLight}
+            width="466"
+            height="287"
+            loading="lazy"
+            alt="Firehorse"
+          />
+          <img
+            className="footer__logo-img theme-dark-only"
+            src={logoForDark}
+            width="466"
+            height="287"
+            loading="lazy"
+            alt="Firehorse"
+          />
         </div>
         <p className="footer__copyright">
           © 2026 Firehorse Design Competition. All rights reserved.

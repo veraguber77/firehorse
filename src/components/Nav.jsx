@@ -1,8 +1,8 @@
 import { Link } from 'react-router'
 import './Nav.css'
 import { navLinks } from '../routes.js'
-import logoForLight from '../assets/logo-red-dark.png'
-import logoForDark from '../assets/logo-red-light.png'
+import logoForLight from '../assets/logo-red-dark.webp'
+import logoForDark from '../assets/logo-red-light.webp'
 import Button from './Button.jsx'
 
 /** Settings gear (from the Figma Nav), drawn in currentColor so it follows the button label. */
@@ -51,8 +51,8 @@ export default function Nav({ current = 'home', onOpenSettings, settingsOpen = f
   return (
     <header className="nav">
       <Link className="nav__logo" to="/" aria-label="Firehorse — home">
-        <img className="nav__logo-img theme-light-only" src={logoForLight} alt="" />
-        <img className="nav__logo-img theme-dark-only" src={logoForDark} alt="" />
+        <img className="nav__logo-img theme-light-only" src={logoForLight} width="466" height="287" alt="" />
+        <img className="nav__logo-img theme-dark-only" src={logoForDark} width="466" height="287" alt="" />
       </Link>
 
       <nav className="nav__links" aria-label="Main">

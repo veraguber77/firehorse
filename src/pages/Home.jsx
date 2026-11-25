@@ -84,7 +84,7 @@ export default function Home() {
         </div>
         <div className="home-hero__rule" aria-hidden="true" />
         <p className="home-hero__overline">THE YEAR OF THE FIRE HORSE — 2026 DESIGN COMPETITION</p>
-        <img className="home-hero__horse" src={horseHead} width="605.727" height="599.959" alt="" />
+        <img className="home-hero__horse" src={horseHead} width="606" height="600" alt="" />
 
         <h1 className="home-hero__title">
           <span className="home-hero__year">2026</span> is the Year of the{' '}
@@ -106,6 +106,7 @@ export default function Home() {
       {/* Intro beat */}
       <section className="home-beat home-beat--inferno">
         <Gradient
+          lazy
           src={gradientIntro}
           x={698.66}
           y={-264.52}
@@ -155,6 +156,7 @@ export default function Home() {
       {/* Second beat */}
       <section className="home-beat home-beat--ember">
         <Gradient
+          lazy
           src={gradientBeat}
           x={621.33}
           y={-9.93}
@@ -227,6 +229,7 @@ export default function Home() {
       {/* Your turn */}
       <section className="home-beat home-beat--blaze">
         <Gradient
+          lazy
           src={gradientTurnA}
           x={540.79}
           y={105.05}
@@ -236,6 +239,7 @@ export default function Home() {
           inset={WIDE_INSET}
         />
         <Gradient
+          lazy
           src={gradientTurnB}
           x={1367.32}
           y={648.7}
@@ -300,6 +304,7 @@ export default function Home() {
       {/* Closing tagline */}
       <section className="home-beat home-beat--afterglow">
         <Gradient
+          lazy
           src={gradientClosing}
           x={543.72}
           y={302.76}
