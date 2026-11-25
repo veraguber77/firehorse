@@ -1,10 +1,11 @@
 import { useEffect, useState } from 'react'
 
-/** Runs the callback once the page has loaded and the browser has nothing more urgent to do. */
+/** Runs the callback a moment after the page and its fonts have loaded, when the browser is idle. */
 function afterLoad(callback) {
-  const idle = () => (window.requestIdleCallback ?? ((run) => setTimeout(run, 500)))(callback)
-  if (document.readyState === 'complete') idle()
-  else window.addEventListener('load', idle, { once: true })
+  const idle = () => (window.requestIdleCallback ?? setTimeout)(callback)
+  const settled = () => document.fonts.ready.then(() => setTimeout(idle, 1000))
+  if (document.readyState === 'complete') settled()
+  else window.addEventListener('load', settled, { once: true })
 }
 
 /**
