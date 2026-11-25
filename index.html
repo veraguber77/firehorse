@@ -20,7 +20,41 @@
     <link rel="manifest" href="/site.webmanifest" />
     <link rel="preconnect" href="https://use.typekit.net" crossorigin />
     <link rel="preconnect" href="https://p.typekit.net" />
-    <link rel="stylesheet" href="https://use.typekit.net/jhd2bcu.css" />
+    <link rel="preload" as="style" href="https://use.typekit.net/jhd2bcu.css" />
+    <script>
+      // Brand fonts, without holding up the page: the Adobe stylesheet loads in the background and
+      // the page shows the Arial fallbacks (same widths, see index.css) until every weight has
+      // downloaded. Then html.fonts-ready switches all the text at once. Waiting for the files
+      // matters: the kit's font-display is "auto", which hides text while its font downloads.
+      window.brandFonts = new Promise(function (done) {
+        var link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = 'https://use.typekit.net/jhd2bcu.css'
+        // Safari holds the page back for any stylesheet that applies, so it applies once it's here.
+        link.media = 'print'
+        link.onload = function () {
+          link.onload = null
+          link.media = 'all'
+          var fonts = [
+            '900 1em rl-folklor',
+            '700 1em itc-avant-garde-gothic-pro',
+            '400 1em neue-haas-grotesk-text',
+            '500 1em neue-haas-grotesk-text',
+            '700 1em neue-haas-grotesk-text',
+          ]
+          Promise.all(
+            fonts.map(function (font) {
+              return document.fonts.load(font)
+            }),
+          ).then(function () {
+            document.documentElement.classList.add('fonts-ready')
+            done()
+          }, done)
+        }
+        link.onerror = done
+        document.head.appendChild(link)
+      })
+    </script>
     <script>
       // Apply the saved (or system) theme before first paint to avoid a flash.
       (function () {

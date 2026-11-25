@@ -7,7 +7,7 @@ November 25, 2026. Production build of this branch (started from commit 1621a5b)
 ## Decisions for you
 
 1. Contrast fails (table below). Recommendation: start with the body-size text (grey labels, FAQ names, home statement text, dark picker one-liner).
-2. Adobe Fonts hold back mobile loading. Loading their stylesheet without blocking gave 95 instead of 88 on mobile `/` in a trial (first paint 0.9s instead of 2.2s), but text shows in a similar Arial for a moment first. Recommendation: do it.
+2. Adobe Fonts: done. They load in the background; the page shows resized Arial until every weight has downloaded, then switches once. Mobile medians of 3 are now `/` 86 (70 to 90 across runs on a busy machine), `/categories` 90, `/timeline` 94, `/faq` 96; first paint about 0.9s; CLS 0.000 to 0.003. LCP is 2.7 to 3.6s (target 2.5s). If Adobe's server fails or hangs, the page still shows (tested in Chrome, WebKit, Firefox). The table under Performance is from before this change.
 3. Site address is unknown (none on GitHub, no Vercel config). Set `VITE_SITE_URL` in the host's build settings; canonical, og:url and the sitemap then appear.
 4. The 1200 x 630 social image doesn't exist. Put it in `public/` and set `VITE_SOCIAL_IMAGE=/social.png`.
 5. Favicon: a crop of the horse mark from the logo. Please approve. It's a small bitmap inside the SVG; a vector logo would be sharper.

@@ -3,7 +3,9 @@ import { useEffect, useState } from 'react'
 /** Runs the callback a moment after the page and its fonts have loaded, when the browser is idle. */
 function afterLoad(callback) {
   const idle = () => (window.requestIdleCallback ?? setTimeout)(callback)
-  const settled = () => document.fonts.ready.then(() => setTimeout(idle, 1000))
+  // The brand fonts' own promise (index.html), but never stuck behind a slow font server.
+  const fonts = Promise.race([window.brandFonts, new Promise((done) => setTimeout(done, 6000))])
+  const settled = () => fonts.then(() => setTimeout(idle, 1000))
   if (document.readyState === 'complete') settled()
   else window.addEventListener('load', settled, { once: true })
 }
