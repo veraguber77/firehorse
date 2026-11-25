@@ -51,7 +51,7 @@
 }
 
 /* Slight glow along the left edge. Below 1280px, where the Figma frame is wider than the
-   window, it stays on that edge. Not on phones, where it would sit behind the text. */
+   window, it stays on that edge. */
 .home-hero__left-glow {
   --frame-x: max(0px, 640px - 50vw);
 
@@ -1018,24 +1018,40 @@
 
 /* ---------- Mobile ---------- */
 @media (width < 768px) {
-  .home-hero__left-glow {
-    display: none;
-  }
-
   /* In the flow: rule, overline, horse, headline, buttons. */
   .home-hero {
     padding-block: var(--spacing-24) var(--spacing-40);
   }
 
-  /* Moved up and left, so the glow is behind the horse, and faded out before it reaches the
-     headline (Inferno on orange wouldn't read). The text block is ~360px tall. */
+  /* Moved up and left, so the glow is behind the horse. It runs down the right edge for the
+     hero's whole height, and eases off around the text, where Inferno on orange wouldn't
+     read: the mask keeps the right edge (first layer) and the part above the text (second). */
   .home-hero .gradient {
+    --text-fade: linear-gradient(to top, transparent 320px, #000 500px);
+    --glow-mask: linear-gradient(to left, #000, transparent 32%), var(--text-fade);
     --frame-scale: 0.75;
     --frame-x: -120px;
     --frame-y: -90px;
 
-    -webkit-mask-image: linear-gradient(to top, transparent 310px, #000 440px);
-    mask-image: linear-gradient(to top, transparent 310px, #000 440px);
+    -webkit-mask-image: var(--glow-mask);
+    mask-image: var(--glow-mask);
+  }
+
+  /* Two-line headline, buttons side by side: the text is shorter. */
+  @media (width >= 500px) {
+    .home-hero .gradient {
+      --text-fade: linear-gradient(to top, transparent 240px, #000 480px);
+    }
+  }
+
+  /* Along the whole left edge as on desktop, drawn smaller to suit the narrower margin. */
+  .home-hero__left-glow .gradient {
+    --frame-scale: 0.7;
+    --frame-x: calc(448px - 50vw);
+    --frame-y: 0px;
+
+    -webkit-mask-image: none;
+    mask-image: none;
   }
 
   .home-hero__rule,
@@ -1075,6 +1091,13 @@
 
   .home-hero__subtitle {
     max-width: 100%;
+  }
+
+  /* Wraps before the glow on the right edge. */
+  @media (width < 500px) {
+    .home-hero__subtitle {
+      max-width: 290px;
+    }
   }
 
   .home-hero__ctas {
