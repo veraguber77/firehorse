@@ -29,7 +29,7 @@ export default function GradientArt({ src, inset, lazy = false }) {
     >
       {ready && (
         <>
-          <img src={src} alt="" decoding="async" />
+          <img src={src} alt="" decoding="async" fetchPriority={lazy ? 'auto' : 'high'} />
           <span className="gradient-art__grain" />
         </>
       )}

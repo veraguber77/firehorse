@@ -10,6 +10,7 @@ const escapeHtml = (text) => text.replace(/&/g, '&amp;').replace(/"/g, '&quot;')
  * - One HTML file per page (dist/timeline.html, ...), the same app with that page's title,
  *   description and sharing tags in the <head>. Link previews don't run JavaScript, so they
  *   only see these. The host serves /timeline from timeline.html (cleanUrls in vercel.json).
+ * Each also preloads its own first-screen art (`preload` in src/pageMeta.js).
  * - 404.html, which the host sends with a real 404 status for any other address.
  * - robots.txt, and sitemap.xml once the site's address is known.
  *
@@ -19,6 +20,8 @@ const escapeHtml = (text) => text.replace(/&/g, '&amp;').replace(/"/g, '&quot;')
  */
 export function sitePlugin({ siteUrl = '', socialImage = '' } = {}) {
   let outDir
+  let base
+  const builtFiles = new Map() // src/assets/... -> its hashed file name
 
   function headFor(html, meta) {
     const set = (current, pattern, value) => current.replace(pattern, (_, before, after) => before + escapeHtml(value) + after)
@@ -28,7 +31,11 @@ export function sitePlugin({ siteUrl = '', socialImage = '' } = {}) {
     page = set(page, /(<meta property="og:title" content=")[^"]*(")/, meta.title)
     page = set(page, /(<meta property="og:description" content=")[^"]*(")/, meta.description)
 
-    const extra = []
+    const extra = meta.preload.map((source) => {
+      const file = builtFiles.get(`src/assets/${source}`)
+      if (!file) throw new Error(`pageMeta.js preloads src/assets/${source}, which isn't in the build`)
+      return `<link rel="preload" as="image" href="${base}${file}" fetchpriority="high" />`
+    })
     if (meta.path && siteUrl) {
       extra.push(`<link rel="canonical" href="${siteUrl}${meta.path}" />`)
       extra.push(`<meta property="og:url" content="${siteUrl}${meta.path}" />`)
@@ -47,7 +54,13 @@ export function sitePlugin({ siteUrl = '', socialImage = '' } = {}) {
     name: 'firehorse-site',
     apply: 'build',
     configResolved(config) {
+      base = config.base
       outDir = path.resolve(config.root, config.build.outDir)
+    },
+    generateBundle(_, bundle) {
+      for (const file of Object.values(bundle)) {
+        for (const source of file.originalFileNames ?? []) builtFiles.set(source.replaceAll('\\', '/'), file.fileName)
+      }
     },
     closeBundle() {
       const html = readFileSync(path.join(outDir, 'index.html'), 'utf8')

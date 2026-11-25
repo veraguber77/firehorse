@@ -11,13 +11,69 @@
   src: url('./assets/fonts/bowlby-one-latin.woff2') format('woff2');
 }
 
+/*
+ * Arial, resized to take up the same room as each brand font. Until the Adobe fonts arrive the
+ * text is laid out in these, so lines break in the same places and the page doesn't jump.
+ * Letters only: arrows and other symbols keep coming from the same fonts as before.
+ */
+@font-face {
+  font-family: 'Folklor fallback';
+  font-weight: 900;
+  src: local('Arial Bold'), local('Arial-BoldMT'), local('Arial');
+  size-adjust: 83.26%;
+  ascent-override: 114.1%;
+  descent-override: 28.82%;
+  line-gap-override: 0%;
+  unicode-range: U+20-7E, U+2019;
+}
+@font-face {
+  font-family: 'Avant Garde fallback';
+  font-weight: 700;
+  src: local('Arial Bold'), local('Arial-BoldMT'), local('Arial');
+  size-adjust: 97.48%;
+  ascent-override: 106.68%;
+  descent-override: 28.72%;
+  line-gap-override: 0%;
+  unicode-range: U+20-7E, U+2019;
+}
+@font-face {
+  font-family: 'Neue Haas fallback';
+  font-weight: 400;
+  src: local('Arial'), local('ArialMT');
+  size-adjust: 103.5%;
+  ascent-override: 94.69%;
+  descent-override: 24.16%;
+  line-gap-override: 0%;
+  unicode-range: U+20-7E, U+2019;
+}
+@font-face {
+  font-family: 'Neue Haas fallback';
+  font-weight: 500;
+  src: local('Arial'), local('ArialMT');
+  size-adjust: 105.81%;
+  ascent-override: 93.56%;
+  descent-override: 24.57%;
+  line-gap-override: 0%;
+  unicode-range: U+20-7E, U+2019;
+}
+@font-face {
+  font-family: 'Neue Haas fallback';
+  font-weight: 700;
+  src: local('Arial Bold'), local('Arial-BoldMT'), local('Arial');
+  size-adjust: 101.05%;
+  ascent-override: 98.96%;
+  descent-override: 25.73%;
+  line-gap-override: 0%;
+  unicode-range: U+20-7E, U+2019;
+}
+
 /* Font stacks — family names come from the Adobe Fonts project (jhd2bcu).
    Weights in use: rl-folklor 900 · itc-avant-garde-gothic-pro 700 · neue-haas-grotesk-text
    400/500/700. No italics. */
 :root {
-  --font-display: 'rl-folklor', sans-serif;
-  --font-heading: 'itc-avant-garde-gothic-pro', sans-serif;
-  --font-body: 'neue-haas-grotesk-text', sans-serif;
+  --font-display: 'rl-folklor', 'Folklor fallback', sans-serif;
+  --font-heading: 'itc-avant-garde-gothic-pro', 'Avant Garde fallback', sans-serif;
+  --font-body: 'neue-haas-grotesk-text', 'Neue Haas fallback', sans-serif;
   --font-reel: 'Bowlby One', sans-serif; /* homepage category reel, below */
 
   /* Logo size shared by nav and footer (Figma: 92.7x56.7 nav, 80.6x49.3 footer). */
