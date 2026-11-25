@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { Route, Routes, useLocation } from 'react-router'
 import Nav from './components/Nav.jsx'
 import Footer from './components/Footer.jsx'
@@ -11,6 +11,7 @@ import './App.css'
 export default function App() {
   const [theme, setTheme] = useTheme()
   const [settingsOpen, setSettingsOpen] = useState(false)
+  const drawerOpener = useRef(null)
   const { pathname } = useLocation()
 
   // Trailing slashes shouldn't stop a link from being marked current.
@@ -22,12 +23,24 @@ export default function App() {
     document.title = activeRoute && activeRoute.id !== 'home' ? `${activeRoute.label} — Firehorse` : 'Firehorse'
   }, [activeRoute])
 
+  // Settings on wide screens, the menu below 1024px: one drawer, two openers.
+  function openDrawer(event) {
+    drawerOpener.current = event.currentTarget
+    setSettingsOpen(true)
+  }
+
+  function closeDrawer() {
+    setSettingsOpen(false)
+    // <dialog> restores focus itself, except where a click doesn't focus a button (Safari).
+    drawerOpener.current?.focus({ preventScroll: true })
+  }
+
   return (
     <div className="app">
       <Nav
         current={activeRoute?.id}
         settingsOpen={settingsOpen}
-        onOpenSettings={() => setSettingsOpen(true)}
+        onOpenSettings={openDrawer}
       />
       <main className="app__main">
         <Routes>
@@ -40,7 +53,8 @@ export default function App() {
       <Footer />
       <SettingsDrawer
         open={settingsOpen}
-        onClose={() => setSettingsOpen(false)}
+        current={activeRoute?.id}
+        onClose={closeDrawer}
         theme={theme}
         onThemeChange={setTheme}
       />

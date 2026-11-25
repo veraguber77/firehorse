@@ -3,7 +3,7 @@
   align-items: center;
   gap: var(--spacing-12);
   height: var(--nav-height);
-  padding: 0 var(--spacing-64);
+  padding: 0 var(--gutter);
   background: var(--background-primary);
   border-bottom: 1px solid var(--color-neutral-300);
   overflow: clip;
@@ -52,6 +52,15 @@
   text-decoration: none;
 }
 
+/* Invisible, 44px tall: the link's touch area. */
+.nav__link::before {
+  content: '';
+  position: absolute;
+  inset: 50% -10px auto;
+  height: 44px;
+  translate: 0 -50%;
+}
+
 /* Active indicator */
 .nav__link[aria-current='page']::after {
   content: '';
@@ -75,9 +84,50 @@
   padding-block: 13px;
 }
 
-/* No narrow-screen design yet: just tighten the side padding so nothing clips. */
-@media (max-width: 900px) {
+/* Menu button: 48px to tap, with the 24px icon's right edge on the gutter. */
+.nav__menu {
+  display: none;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  margin-right: -12px;
+  padding: 0;
+  border: 0;
+  border-radius: 8px;
+  background: none;
+  color: inherit;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* ---------- Tablet and mobile: logo, Submit, menu ---------- */
+@media (width < 1024px) {
   .nav {
-    padding: 0 var(--spacing-24);
+    gap: var(--spacing-4);
+    overflow: visible; /* keeps the menu button's focus ring whole */
+  }
+
+  .nav__links,
+  .nav .nav__settings {
+    display: none;
+  }
+
+  .nav__menu {
+    display: flex;
+  }
+
+  /* Drawn 40px tall; the transparent borders above and below make it 48px to tap.
+     (A pseudo-element can't: the button clips its glow.) */
+  .nav .nav__submit {
+    min-height: 48px;
+    margin-left: auto;
+    padding: 0 var(--spacing-16);
+    border: 0 solid transparent;
+    border-width: 4px 0;
+    border-radius: 8px / 12px;
+    background-clip: padding-box;
+    font-size: 12px;
   }
 }

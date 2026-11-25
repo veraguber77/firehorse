@@ -13,6 +13,7 @@
   background: var(--surface-elevated);
   color: var(--text-primary);
   overflow-y: auto;
+  overscroll-behavior: contain;
 
   /* Slide in from the right; browsers without @starting-style just show it. */
   transform: translateX(100%);
@@ -92,7 +93,8 @@
 }
 
 /* Firehorse/Heading 4 */
-.drawer__title {
+.drawer__title,
+.drawer__subtitle {
   font-family: var(--font-heading);
   font-size: 28px;
   font-weight: 700;
@@ -244,4 +246,65 @@
   font-weight: 400;
   line-height: normal;
   color: var(--text-secondary);
+}
+
+/* ---------- Menu (below 1024px): page links on top, Settings at the bottom ---------- */
+.drawer--menu {
+  width: min(360px, 100vw - 40px);
+}
+
+.drawer--menu .drawer__panel {
+  /* The header lines up with the nav bar's 72px and its gutter. */
+  padding: var(--spacing-12) var(--gutter-inner) var(--spacing-32) var(--spacing-24);
+}
+
+.drawer__links {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: auto;
+  padding-bottom: var(--spacing-16);
+}
+
+.drawer__link {
+  display: flex;
+  align-items: center;
+  min-height: 64px;
+  border-bottom: 1px solid var(--border-default);
+  font-family: var(--font-body);
+  font-size: 22px;
+  font-weight: 700;
+  line-height: 1;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: var(--text-brand-primary);
+  -webkit-tap-highlight-color: transparent;
+}
+
+.drawer__link-text {
+  position: relative;
+}
+
+/* The nav's active indicator, at the menu's size. */
+.drawer__link[aria-current='page'] .drawer__link-text::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -10px;
+  height: 3px;
+  border-radius: 1.5px;
+  background: var(--color-inferno-600);
+}
+
+/* The nav's face; the Settings title below keeps the drawer's own (Heading 4). */
+.drawer--menu .drawer__title {
+  font-family: var(--font-body);
+  font-size: 14px;
+  line-height: normal;
+  letter-spacing: normal;
+}
+
+.drawer--menu .drawer__subtitle {
+  padding-top: var(--spacing-24);
+  border-top: 1px solid var(--border-default);
 }

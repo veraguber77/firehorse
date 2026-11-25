@@ -25,9 +25,27 @@ function GearIcon() {
   )
 }
 
+function MenuIcon() {
+  return (
+    <svg
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2.5"
+      aria-hidden="true"
+      focusable="false"
+    >
+      <path d="M1 5.5H23M1 12H23M1 18.5H23" />
+    </svg>
+  )
+}
+
 /**
  * Site nav — Figma component "Nav" (262:4567 light, 322:10208 dark).
  * `current` marks the active page link: 'home' | 'categories' | 'timeline' | 'faq'.
+ * Below 1024px the links and Settings give way to a menu button; both open the one drawer.
  */
 export default function Nav({ current = 'home', onOpenSettings, settingsOpen = false }) {
   return (
@@ -52,7 +70,7 @@ export default function Nav({ current = 'home', onOpenSettings, settingsOpen = f
 
       <Button
         color="cinder"
-        className="nav__button btn-dark-cream"
+        className="nav__button nav__settings btn-dark-cream"
         icon={<GearIcon />}
         onClick={onOpenSettings}
         aria-haspopup="dialog"
@@ -61,9 +79,21 @@ export default function Nav({ current = 'home', onOpenSettings, settingsOpen = f
         Settings
       </Button>
 
-      <Button color="red" className="nav__button" href="#submit">
+      <Button color="red" className="nav__button nav__submit" href="#submit">
         Submit
       </Button>
+
+      <button
+        type="button"
+        className="nav__menu"
+        aria-label="Menu"
+        aria-haspopup="dialog"
+        aria-expanded={settingsOpen}
+        aria-controls="site-drawer"
+        onClick={onOpenSettings}
+      >
+        <MenuIcon />
+      </button>
     </header>
   )
 }

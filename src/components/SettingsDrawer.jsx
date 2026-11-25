@@ -1,4 +1,7 @@
 import { useEffect, useRef } from 'react'
+import { Link } from 'react-router'
+import { useMediaQuery } from '../lib/useMediaQuery.js'
+import { navLinks } from '../routes.js'
 import './SettingsDrawer.css'
 import sunIcon from '../assets/sun.svg'
 import moonIcon from '../assets/moon.svg'
@@ -13,9 +16,11 @@ const options = [
  * Settings drawer — Figma component "Settings drawer" (257:856).
  * Full-height panel that opens from the right with the light/dark toggle.
  * Built on <dialog> so focus trapping, Esc to close and focus return are native.
+ * Below 1024px it is also the site menu: the page links on top, Settings at the bottom.
  */
-export default function SettingsDrawer({ open, onClose, theme, onThemeChange }) {
+export default function SettingsDrawer({ open, onClose, current, theme, onThemeChange }) {
   const dialogRef = useRef(null)
+  const isMenu = useMediaQuery('(width < 1024px)')
 
   useEffect(() => {
     const dialog = dialogRef.current
@@ -26,7 +31,8 @@ export default function SettingsDrawer({ open, onClose, theme, onThemeChange }) 
   return (
     <dialog
       ref={dialogRef}
-      className="drawer"
+      id="site-drawer"
+      className={isMenu ? 'drawer drawer--menu' : 'drawer'}
       aria-labelledby="settings-drawer-title"
       onClose={onClose}
       onClick={(event) => {
@@ -37,14 +43,38 @@ export default function SettingsDrawer({ open, onClose, theme, onThemeChange }) 
       <div className="drawer__panel">
         <div className="drawer__header">
           <h2 id="settings-drawer-title" className="drawer__title">
-            Settings
+            {isMenu ? 'Menu' : 'Settings'}
           </h2>
-          <button type="button" className="drawer__close" aria-label="Close settings" onClick={onClose}>
+          <button
+            type="button"
+            className="drawer__close"
+            aria-label={isMenu ? 'Close menu' : 'Close settings'}
+            onClick={onClose}
+          >
             <span className="drawer__close-icon" aria-hidden="true" />
           </button>
         </div>
 
         <div className="drawer__divider" />
+
+        {isMenu && (
+          <>
+            <nav className="drawer__links" aria-label="Main">
+              {navLinks.map((link) => (
+                <Link
+                  key={link.id}
+                  className="drawer__link"
+                  to={link.path}
+                  aria-current={current === link.id ? 'page' : undefined}
+                  onClick={onClose}
+                >
+                  <span className="drawer__link-text">{link.label}</span>
+                </Link>
+              ))}
+            </nav>
+            <h3 className="drawer__subtitle">Settings</h3>
+          </>
+        )}
 
         <fieldset className="drawer__section">
           <legend className="drawer__label">Appearance</legend>
