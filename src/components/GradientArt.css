@@ -1,0 +1,24 @@
+/* Baked colours plus a separate grain layer, both the size of the Figma art (see GradientArt.jsx). */
+.gradient-art {
+  position: absolute;
+  display: block;
+}
+
+.gradient-art img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  max-width: none;
+}
+
+/*
+ * Figma's noise (black 21% + white 13.5%) as one repeating tile: 300 Figma px square, 2x.
+ * Masked by the art itself, so the grain fades out with the colour.
+ */
+.gradient-art__grain {
+  position: absolute;
+  inset: 0;
+  background: url('../assets/gradient-grain.webp') 0 0 / calc(300 * var(--px, 1px)) calc(300 * var(--px, 1px));
+  -webkit-mask: var(--art) 0 0 / 100% 100% no-repeat;
+  mask: var(--art) 0 0 / 100% 100% no-repeat;
+}

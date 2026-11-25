@@ -34,9 +34,3 @@
   rotate: var(--layer-rotate);
   scale: 1 var(--layer-flip);
 }
-
-.gradient__layer img {
-  position: absolute;
-  display: block;
-  max-width: none;
-}

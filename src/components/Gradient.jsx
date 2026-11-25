@@ -1,12 +1,13 @@
 import './Gradient.css'
+import GradientArt from './GradientArt.jsx'
 
 /**
- * A Figma gradient layer: an exported SVG, rotated and flipped, behind a section.
+ * A Figma gradient layer: the exported art, rotated and flipped, behind a section.
  *
  * Figma gives each one as a rotated box inside a bounding frame. Pass the box's
  * centre (`x`, `y`, measured in the Figma section frame `frame` = [width, height]),
  * its size before rotation, the rotation, and the image inset Figma puts around the
- * SVG ([top, right, bottom, left] in %).
+ * art ([top, right, bottom, left] in %).
  *
  * The Figma frame stays centred in the section at its Figma size, growing only
  * to match a wider section. The art runs past the frame, so taller sections
@@ -14,7 +15,6 @@ import './Gradient.css'
  */
 export default function Gradient({ src, frame = [1280, 600], x, y, width, height, rotate, inset, flip = true }) {
   const [frameWidth, frameHeight] = frame
-  const [top, right, bottom, left] = inset
   return (
     <div className="gradient" aria-hidden="true">
       <div
@@ -32,16 +32,7 @@ export default function Gradient({ src, frame = [1280, 600], x, y, width, height
             '--layer-flip': flip ? -1 : 1,
           }}
         >
-          <img
-            src={src}
-            alt=""
-            style={{
-              top: `-${top}%`,
-              left: `-${left}%`,
-              width: `${100 + left + right}%`,
-              height: `${100 + top + bottom}%`,
-            }}
-          />
+          <GradientArt src={src} inset={inset} />
         </div>
       </div>
     </div>

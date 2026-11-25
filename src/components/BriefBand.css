@@ -40,16 +40,6 @@
   pointer-events: none;
 }
 
-.brief__gradient img {
-  position: absolute;
-  top: -6.86%;
-  left: -5.33%;
-  display: block;
-  width: 109.13%;
-  height: 114.07%;
-  max-width: none;
-}
-
 /* Big index number */
 .brief__index {
   position: relative;

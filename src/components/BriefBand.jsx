@@ -1,7 +1,8 @@
 import './BriefBand.css'
 import { categoryVars } from '../categories.js'
-import gradient from '../assets/brief/gradient.svg'
+import gradient from '../assets/brief/gradient.webp'
 import Button from './Button.jsx'
+import GradientArt from './GradientArt.jsx'
 
 /**
  * Category brief band — Figma "Categories / Brief band" (262:4488, dark 322:10265).
@@ -22,7 +23,7 @@ export default function BriefBand({ category, showGradient = false }) {
     >
       {showGradient && (
         <div className="brief__gradient" aria-hidden="true">
-          <img src={gradient} alt="" />
+          <GradientArt src={gradient} inset={[6.86, 3.8, 7.21, 5.33]} />
         </div>
       )}
 

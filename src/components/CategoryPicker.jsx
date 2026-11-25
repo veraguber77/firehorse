@@ -1,8 +1,9 @@
 import './CategoryPicker.css'
 import { allCategories, categoryVars, getCategory } from '../categories.js'
-import gradient from '../assets/picker/gradient.svg'
+import gradient from '../assets/picker/gradient.webp'
 import Button from './Button.jsx'
 import ExtrudeWheel from './ExtrudeWheel.jsx'
+import GradientArt from './GradientArt.jsx'
 
 /**
  * Categories picker — Figma "Categories / Picker" (262:4412 light, 322:10427 dark).
@@ -18,7 +19,7 @@ export default function CategoryPicker({ selected, onSelect }) {
   return (
     <section className="picker" style={categoryVars(current)}>
       <div className="picker__gradient" aria-hidden="true">
-        <img src={gradient} alt="" />
+        <GradientArt src={gradient} inset={[10.49, 8.52, 10.84, 5.68]} />
       </div>
 
       <ExtrudeWheel selected={current.id} onSelect={onSelect} />
