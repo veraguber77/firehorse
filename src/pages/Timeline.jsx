@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import Button from '../components/Button.jsx'
 import Gradient from '../components/Gradient.jsx'
+import SectionNav from '../components/SectionNav.jsx'
 import { stages } from '../timeline.js'
 import gradientIntroA from '../assets/timeline/gradient-intro-a.webp'
 import gradientIntroB from '../assets/timeline/gradient-intro-b.webp'
@@ -9,9 +10,9 @@ import gradientClosing from '../assets/home/gradient-closing.webp'
 import horseHead from '../assets/horse-head-timeline.svg?raw'
 import './Timeline.css'
 
-/** Timeline page — Figma "Timeline Page" (light 262:4250, dark 322:9420). Desktop only for now. */
+/** Timeline page — Figma "Timeline Page" (light 262:4250, dark 322:9420). */
 export default function Timeline() {
-  // The stage band under the middle of the viewport; the sticky rail highlights it.
+  // The stage band under the middle of the viewport; the stage nav highlights it.
   const [activeId, setActiveId] = useState(stages[0].id)
   const activeStage = stages.find((stage) => stage.id === activeId) ?? stages[0]
   const bandRefs = useRef({})
@@ -57,7 +58,7 @@ export default function Timeline() {
           inset={[6.86, 5.74, 7.21, 5.69]}
         />
 
-        {/* Dark mode only: Figma "Graphic — Horse head / Dark blue / Dark" (431:1839). */}
+        {/* Figma "Graphic — Horse head / Dark blue / Dark" (431:1839). */}
         <div className="timeline-intro__horse" aria-hidden="true" dangerouslySetInnerHTML={{ __html: horseHead }} />
 
         <div className="timeline-intro__rail">
@@ -94,23 +95,18 @@ export default function Timeline() {
         </div>
       </section>
 
-      {/* One band per stage, with one rail that sticks on the left while the bands scroll by. */}
+      {/* One band per stage, with one rail that sticks on the left (a chip bar on top of the
+          screen below 1024px) while the bands scroll by. */}
       <div className="timeline-stages">
-        <nav className="timeline-rail" aria-label="Stages" data-ink={activeStage.ink}>
-          <ol className="timeline-rail__list">
-            {stages.map((stage) => (
-              <li key={stage.id}>
-                <a
-                  className="timeline-rail__item"
-                  href={`#stage-${stage.id}`}
-                  aria-current={stage.id === activeStage.id ? 'step' : undefined}
-                >
-                  {stage.name}
-                </a>
-              </li>
-            ))}
-          </ol>
-        </nav>
+        <SectionNav
+          className="timeline-rail"
+          label="Stages"
+          items={stages}
+          hrefFor={(id) => `#stage-${id}`}
+          currentId={activeStage.id}
+          currentToken="step"
+          data-ink={activeStage.ink}
+        />
 
         {stages.map((stage) => (
           <section
