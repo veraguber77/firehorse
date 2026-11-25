@@ -169,6 +169,11 @@
   min-height: 52px;
 }
 
+/* Focus ring in the band's ink: the usual Afterglow / Blaze disappears on some of the bands. */
+.brief .brief__body .brief__button {
+  --btn-ring: var(--brief-ink);
+}
+
 /* Hover glow on each band's button. Illustration keeps the Cinder button's own (Afterglow). */
 .brief[data-category='poster'] .brief__button {
   --btn-glow: var(--color-inferno-600);

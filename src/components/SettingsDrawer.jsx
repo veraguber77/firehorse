@@ -59,7 +59,7 @@ export default function SettingsDrawer({ open, onClose, onNavigate, current, the
 
         {isMenu && (
           <>
-            <nav className="drawer__links" aria-label="Main">
+            <nav className="drawer__links" aria-label="Menu">
               {navLinks.map((link) => (
                 <Link
                   key={link.id}

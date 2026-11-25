@@ -251,6 +251,11 @@
   padding-inline: 28px;
 }
 
+/* Focus ring: the usual Afterglow / Blaze is too faint on Inferno. */
+.faq .faq-closing .faq-closing__button {
+  --btn-ring: var(--color-cinder-600);
+}
+
 /* ---------- Tablet and mobile: the chip bar, then everything full width ---------- */
 @media (width < 1024px) {
   .faq-header {

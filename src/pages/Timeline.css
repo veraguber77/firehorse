@@ -337,6 +337,11 @@
   gap: var(--spacing-24);
 }
 
+/* Focus ring in the band's ink: the usual Afterglow / Blaze disappears on some of the bands. */
+.timeline .timeline-stage .btn {
+  --btn-ring: var(--stage-ink);
+}
+
 /* Firehorse/Heading 4 */
 .timeline-stage__date {
   font-family: var(--font-heading);

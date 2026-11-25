@@ -898,6 +898,11 @@
   border-top: 1px solid rgb(0 0 0 / 0.25);
 }
 
+/* Focus ring: the usual Afterglow / Blaze is too faint on the card. */
+.home .home-faq__card .btn {
+  --btn-ring: var(--text-brand-primary);
+}
+
 .home-faq__card-prompt {
   color: var(--text-brand-primary);
 }
