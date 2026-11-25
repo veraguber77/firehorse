@@ -112,6 +112,7 @@
   width: var(--cats-column);
   padding-top: var(--spacing-24);
   border-top: 2px solid var(--picker-accent);
+  scroll-margin-block: calc(var(--nav-height) + var(--spacing-16)) var(--spacing-24);
   transition: border-color var(--picker-fade);
 }
 
@@ -169,5 +170,72 @@
 @media (max-width: 1023px) {
   .picker {
     --picker-height: max(560px, 62.5cqw);
+  }
+}
+
+/*
+ * Mobile: heading, readout, then the wheel rising from the section's bottom edge. The wheel is
+ * first in the DOM, so a screen reader meets the choice before its result.
+ */
+@media (max-width: 767px) {
+  .picker {
+    --picker-height: auto;
+    /* The wheel's 1120 units fill the width, less 16px each side. */
+    --wheel-u: calc((100cqw - 32px) / 1120);
+
+    display: flex;
+    flex-direction: column;
+    padding: var(--spacing-40) var(--cats-gutter) 0;
+  }
+
+  .picker__heading,
+  .picker__rule,
+  .picker__readout {
+    position: relative;
+    inset: auto;
+    width: auto;
+  }
+
+  /* The vertical rule becomes a short bar on top of the readout's line. */
+  .picker__rule {
+    order: 1;
+    width: 64px;
+    height: var(--cats-rule);
+    margin-top: var(--spacing-32);
+  }
+
+  .picker__readout {
+    order: 2;
+    align-items: stretch;
+    border-top-width: 2px;
+  }
+
+  .picker__readout-tagline {
+    max-width: none;
+  }
+
+  /* Room for two lines, so the wheel doesn't jump when the one-liner's length changes. */
+  @media (max-width: 479px) {
+    .picker__readout-tagline {
+      min-height: 2lh;
+    }
+  }
+
+  .picker .wheel {
+    order: 3;
+    top: auto;
+    flex: none;
+    align-self: center;
+    margin-top: var(--spacing-40);
+  }
+
+  /* Turned half way round, so it rises behind the wheel's right shoulder, clear of the text. */
+  .picker__gradient {
+    --g: 0.105cqw;
+
+    top: auto;
+    bottom: calc(-1160 * var(--g));
+    right: calc(-860 * var(--g));
+    rotate: 40.05deg;
   }
 }

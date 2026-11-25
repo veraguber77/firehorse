@@ -1,12 +1,13 @@
 /*
  * Extrude wheel. The wrapper is the visible part of the wheel: 602 × 800 wheel units at the
- * picker's top-left, with the wheel centre at (40, 440).
+ * picker's top-left, with the wheel centre at (40, 440). On mobile the wheel rises from the
+ * bottom instead: 1120 × 624, centred at (560, 560). GEOMETRY in ExtrudeWheel.jsx has both.
  *
  * --wheel-u is the length of one wheel unit (1px in the 1280px design). The layout around
  * the wheel sets it; the SVG, its labels and the ALL button are all measured in it.
  * It is registered so it can be turned into the plain number --wheel-scale.
  *
- * Each coloured wedge rests at scale(100/548), tucked behind the hub ring, and
+ * Each coloured wedge rests at --wheel-rest (100 / 548 on desktop), tucked behind the hub ring, and
  * extrudes to scale(1) when it's selected. Scaling uses the SVG origin, which is
  * the wheel centre (transform-box: view-box).
  */
@@ -18,7 +19,6 @@
 
 .wheel {
   --wheel-scale: tan(atan2(var(--wheel-u), 1px)); /* --wheel-u without its unit */
-  --wheel-rest: 0.1825; /* 100 / 548 */
   --wheel-peek: 0.3;
   --wheel-extrude: 600ms cubic-bezier(0.2, 0.8, 0.2, 1);
   --wheel-face: var(--color-kindling-200);
@@ -33,6 +33,9 @@
      so Motion's label (72 degrees round, about 60 from its middle to its end) clears the bottom
      edge. --wheel-room is how much of the screen is below the centre. */
   --wheel-label-r: min(325px, 1.0511 * var(--wheel-room, 1000px) / var(--wheel-scale) - 85px);
+  --wheel-label-shift: -10px;
+  --wheel-label-size: 28px; /* in wheel units; Figma: Firehorse/Heading 4 */
+  --wheel-all-size: 38.4;
   --wheel-all-edge: 1.5px; /* same colour and width as the wedge outlines */
   --wheel-all-edge-color: var(--wheel-off-line);
 
@@ -189,12 +192,13 @@
 /* ---------- Labels ---------- */
 .wheel__label {
   /* Figma sets each label ~10px counter-clockwise of the wedge's middle ray. */
-  transform: rotate(var(--label-angle)) translate(var(--wheel-label-r), -10px);
+  transform: rotate(var(--label-angle))
+    translate(calc(var(--label-side) * var(--wheel-label-r)), var(--wheel-label-shift));
   transform-box: view-box;
   transform-origin: 0 0;
   fill: var(--wheel-off-label);
   font-family: var(--font-heading);
-  font-size: 28px; /* Figma: Firehorse/Heading 4 */
+  font-size: var(--wheel-label-size);
   font-weight: 700;
   letter-spacing: -0.06em;
   text-anchor: middle;
@@ -249,7 +253,7 @@
 /* Figma: 38.4px Heading at full size, centred on the wheel centre. */
 .wheel__all-label {
   font-family: var(--font-heading);
-  font-size: calc(38.4 * var(--wheel-u));
+  font-size: calc(var(--wheel-all-size) * var(--wheel-u));
   font-weight: 700;
   line-height: 0.78;
   letter-spacing: -0.06em;
@@ -261,6 +265,18 @@
   .wheel__all:hover .wheel__all-label {
     scale: 1.05;
   }
+}
+
+/* ---------- Rising from the bottom (mobile) ---------- */
+.wheel[data-orientation='bottom'] {
+  --wheel-peek: 0.42;
+  --wheel-label-r: 352px; /* middle of the wedge, a little outward where it is wider */
+  --wheel-label-shift: 0px; /* centred on the ray: the wedges are narrow here */
+  /* 14px on a 360px screen and never more than 28px. */
+  --wheel-label-size: min(48px, 28px / var(--wheel-scale));
+  --wheel-all-size: 62;
+
+  position: relative;
 }
 
 /* ---------- Reduced motion: no scaling, a short fade instead ---------- */

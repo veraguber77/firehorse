@@ -1,49 +1,78 @@
 import { useRef, useState } from 'react'
 import './ExtrudeWheel.css'
 import { allCategories, categories } from '../categories.js'
-import { arcPath, wedgePath } from '../lib/wedgePath.js'
+import { arcPath, polar, wedgePath } from '../lib/wedgePath.js'
 
 /*
- * Geometry, in SVG user units, "wheel units" = CSS px at desktop size. The wheel centre is the
- * SVG origin (0, 0) and sits 40px from the left and 440px from the top of the
- * 1280 × 800 picker, so the left half of the wheel is off-screen (Figma 262:4412).
- * On screen one unit is --wheel-u (ExtrudeWheel.css), so everything scales together.
+ * Geometry, in SVG user units, "wheel units". The wheel centre is the SVG origin (0, 0), and
+ * centreX / centreY say where it sits in the visible box (width × height). On screen one unit
+ * is --wheel-u (ExtrudeWheel.css), so everything scales together. Angles are wedgePath's:
+ * 0 points right, -90 up, and they turn clockwise.
+ *
+ * left    Desktop and tablet (Figma 262:4412): one unit is 1px in the 1280 × 800 frame. The
+ *         centre is 40 from the left edge, so the left half of the wheel is off-screen.
+ * bottom  Mobile: the same wheel turned to rise from the bottom edge, fanning left to right.
+ *         It is drawn at about a third of the size, so the hub is bigger in proportion (ALL
+ *         stays tappable) and the band has more room.
  */
-const CENTRE_X = 40
-const CENTRE_Y = 440
-const R_ALL = 70 // ALL button
-const R_HUB = 100 // hub colour ring 70–100, wedges start here
-const R_WEDGE = 548
-const R_BAND = 558.5 // 3px outer band, 557–560 (Figma "Wheel ring": r 558.5, 3px stroke)
-const SWEEP = 36
-const START = -90 // straight up
+const GEOMETRY = {
+  left: {
+    start: -90, // straight up
+    centreX: 40,
+    centreY: 440,
+    width: 602, // just past the outer band
+    height: 800,
+    rAll: 70, // ALL button
+    rHub: 100, // hub colour ring 70-100, wedges start here
+    rWedge: 548,
+    rBand: 558.5, // 3px outer band, 557-560 (Figma "Wheel ring": r 558.5, 3px stroke)
+  },
+  bottom: {
+    start: 180, // straight left
+    centreX: 560,
+    centreY: 560,
+    width: 1120,
+    height: 624, // the strip below the centre matches the 40 units beside it on desktop
+    rAll: 112,
+    rHub: 150,
+    rWedge: 536,
+    rBand: 554,
+  },
+}
 
-const VIEW_WIDTH = CENTRE_X + R_BAND + 3.5 // just past the outer band
-const VIEW_HEIGHT = 800
+const SWEEP = 36
+
+function buildWheel({ start, rAll, rHub, rWedge, rBand }) {
+  const end = start + categories.length * SWEEP
+  return {
+    /** Scale at which a coloured wedge is fully hidden behind the hub ring. */
+    restScale: rHub / rWedge,
+    segments: categories.map((category, index) => {
+      const a0 = start + index * SWEEP
+      const a1 = a0 + SWEEP
+      const mid = a0 + SWEEP / 2
+      return {
+        category,
+        index,
+        mid,
+        // Labels read outward from the centre, except where that would be upside down.
+        flip: Math.cos((mid * Math.PI) / 180) < -0.01,
+        wedge: wedgePath(0, 0, rHub, rWedge, a0, a1),
+        // The coloured wedge reaches under the hub ring (from r ALL), so no seam shows at its edge.
+        fill: wedgePath(0, 0, rAll, rWedge, a0, a1),
+        hub: wedgePath(0, 0, rAll, rHub, a0, a1),
+        band: arcPath(0, 0, rBand, a0, a1),
+      }
+    }),
+    // Motion's outer edge across the hub ring, where the last wedge ends.
+    motionHubEdge: `M${polar(0, 0, rAll, end).join(' ')} L${polar(0, 0, rHub, end).join(' ')}`,
+  }
+}
+
+const WHEELS = { left: buildWheel(GEOMETRY.left), bottom: buildWheel(GEOMETRY.bottom) }
 
 /** Devices with a real hover: the only ones that get the wedge preview. */
 const canHover = window.matchMedia('(hover: hover) and (pointer: fine)')
-
-/** Scale at which a coloured wedge is fully hidden behind the hub ring (100 / 548). */
-export const REST_SCALE = R_HUB / R_WEDGE
-
-const segments = categories.map((category, index) => {
-  const a0 = START + index * SWEEP
-  const a1 = a0 + SWEEP
-  return {
-    category,
-    index,
-    mid: a0 + SWEEP / 2,
-    wedge: wedgePath(0, 0, R_HUB, R_WEDGE, a0, a1),
-    // The coloured wedge reaches under the hub ring (from r 70), so no seam shows at r 100.
-    fill: wedgePath(0, 0, R_ALL, R_WEDGE, a0, a1),
-    hub: wedgePath(0, 0, R_ALL, R_HUB, a0, a1),
-    band: arcPath(0, 0, R_BAND, a0, a1),
-  }
-})
-
-// Motion's left edge across the hub ring (straight down, where the last wedge ends).
-const MOTION_HUB_EDGE = `M 0 ${R_ALL} V ${R_HUB}`
 
 /**
  * Categories "Extrude" wheel — Figma "Categories / Picker" (262:4412 light, 322:10427 dark).
@@ -55,9 +84,12 @@ const MOTION_HUB_EDGE = `M 0 ${R_ALL} V ${R_HUB}`
  * GSAP (later motion pass) could replace them with one timeline per selection change:
  * retract the previous wedge, extrude the next, then tint the label.
  *
- * `selected` is a category id or 'all'.
+ * `selected` is a category id or 'all'. `orientation` is the edge the wheel grows from:
+ * 'left' (desktop, tablet) or 'bottom' (mobile).
  */
-export default function ExtrudeWheel({ selected, onSelect }) {
+export default function ExtrudeWheel({ selected, onSelect, orientation = 'left' }) {
+  const { centreX, centreY, width, height, rAll, rBand } = GEOMETRY[orientation]
+  const { restScale, segments, motionHubEdge } = WHEELS[orientation]
   const isAll = selected === allCategories.id
   const selectedIndex = categories.findIndex((category) => category.id === selected)
 
@@ -92,17 +124,19 @@ export default function ExtrudeWheel({ selected, onSelect }) {
     <div
       className="wheel"
       data-all={isAll}
+      data-orientation={orientation}
       style={{
-        '--wheel-w': VIEW_WIDTH,
-        '--wheel-h': VIEW_HEIGHT,
-        '--wheel-cx': CENTRE_X,
-        '--wheel-cy': CENTRE_Y,
-        '--wheel-r-all': R_ALL,
+        '--wheel-w': width,
+        '--wheel-h': height,
+        '--wheel-cx': centreX,
+        '--wheel-cy': centreY,
+        '--wheel-r-all': rAll,
+        '--wheel-rest': restScale,
       }}
     >
       <svg
         className="wheel__svg"
-        viewBox={`${-CENTRE_X} ${-CENTRE_Y} ${VIEW_WIDTH} ${VIEW_HEIGHT}`}
+        viewBox={`${-centreX} ${-centreY} ${width} ${height}`}
       >
         <defs>
           {segments.map(({ category, fill }) => (
@@ -113,7 +147,7 @@ export default function ExtrudeWheel({ selected, onSelect }) {
         </defs>
 
         {/* Wheel face and outer band (never animate) */}
-        <circle className="wheel__face" r={R_BAND} aria-hidden="true" />
+        <circle className="wheel__face" r={rBand} aria-hidden="true" />
         <g className="wheel__band" aria-hidden="true">
           {segments.map(({ category, band }) => (
             <path key={category.id} d={band} style={{ stroke: category.color }} />
@@ -152,7 +186,7 @@ export default function ExtrudeWheel({ selected, onSelect }) {
         </g>
 
         {/* Beneath the wedges, so it frames Motion's own edge when Motion is out (dark only) */}
-        <path className="wheel__hub-edge" d={MOTION_HUB_EDGE} aria-hidden="true" />
+        <path className="wheel__hub-edge" d={motionHubEdge} aria-hidden="true" />
 
         {/* Coloured wedges, scaled from the centre */}
         <g className="wheel__fills" aria-hidden="true">
@@ -201,12 +235,12 @@ export default function ExtrudeWheel({ selected, onSelect }) {
             />
           ))}
           {/* Over the ring while Motion is in, so its black base reads on the navy (dark only) */}
-          <path className="wheel__hub-edge" d={MOTION_HUB_EDGE} data-on={isAll || selected === 'motion'} />
+          <path className="wheel__hub-edge" d={motionHubEdge} data-on={isAll || selected === 'motion'} />
         </g>
 
         {/* Labels, inside each wedge, reading outward */}
         <g className="wheel__labels" aria-hidden="true">
-          {segments.map(({ category, index, mid }) => {
+          {segments.map(({ category, index, mid, flip }) => {
             const on = isAll || category.id === selected
             const preview = !on && (hovered === index || (focused === index && focusVisible))
             return (
@@ -216,7 +250,11 @@ export default function ExtrudeWheel({ selected, onSelect }) {
                 data-ink={category.ink}
                 data-on={on}
                 data-preview={preview}
-                style={{ '--label-angle': `${mid}deg`, '--wedge-delay': isAll ? `${index * 70}ms` : '80ms' }}
+                style={{
+                  '--label-angle': `${flip ? mid + 180 : mid}deg`,
+                  '--label-side': flip ? -1 : 1,
+                  '--wedge-delay': isAll ? `${index * 70}ms` : '80ms',
+                }}
               >
                 {category.name.toUpperCase()}
               </text>
