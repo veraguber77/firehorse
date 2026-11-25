@@ -1076,7 +1076,7 @@
     flex: 1 1 auto;
   }
 
-  /* Heading and text on top, the three bars in a row below, as wide as the column. */
+  /* Heading and text on top, the three bars in a row below: centred, about 3/4 of the column. */
   .home-about {
     flex-direction: column;
     gap: var(--spacing-40);
@@ -1088,10 +1088,10 @@
   }
 
   .home-bars {
-    --bar-u: min(calc((100vw - 2 * var(--gutter-inner)) / 584), 0.8px);
+    --bar-u: min(calc(0.78 * (100vw - 2 * var(--gutter-inner)) / 584), 0.62px);
 
     flex: none;
-    justify-content: flex-start;
+    justify-content: center;
   }
 
   .home-statement {
