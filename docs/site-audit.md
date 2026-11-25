@@ -1,6 +1,6 @@
 # Site audit
 
-November 25, 2026. Production build of this branch (started from commit 1621a5b). Pages: `/`, `/categories` (Poster, Web App, Mobile App, Illustration, Motion, All), `/timeline`, `/faq`, 404. Main has changed since (fire graphic, hero gradients, horse): numbers over that artwork may differ now.
+November 25, 2026. Production build of this branch (started from commit 1621a5b). Pages: `/`, `/categories` (Poster, Web App, Mobile App, Illustration, Motion, All), `/timeline`, `/faq`, 404. Rechecked after merging the later Homepage and Timeline changes (fire graphic removed, hero gradients, horses); contrast ratios over the hero art are from before those changes.
 
 **Pass** = checked, fine. **Fixed** = was wrong, changed here. **Fail** = still wrong, needs a decision. **Not run** = not checked.
 
@@ -19,7 +19,7 @@ November 25, 2026. Production build of this branch (started from commit 1621a5b)
 
 | Check | Result |
 | --- | --- |
-| axe, 44 runs (every page and selection, both themes, 1280 and 390, drawer open) | Only contrast fails. Run before the focus-ring, font and preload changes; final rerun not finished |
+| axe, 42 runs on the merged build (every page and selection, both themes, 1280 and 390, drawer open) | Only contrast fails |
 | One h1 per page, heading order, unique ids | Pass |
 | header, nav, main, footer landmarks | Pass |
 | Skip link first in the tab order, moves focus to main | Fixed (added) |
@@ -67,9 +67,9 @@ Lighthouse, median of 3, `vite preview`. LCP is the largest item on screen, CLS 
 
 | Page | Mobile perf | Mobile LCP | Desktop perf | Accessibility | Best practices | SEO |
 | --- | --- | --- | --- | --- | --- | --- |
-| `/` | 88 | 3.6s | 99 | 96 | 100 | 100 |
+| `/` (merged build: 86, 3.8s) | 88 | 3.6s | 99 | 96 | 100 | 100 |
 | `/categories` | 88 | 3.6s | 99 | 96 | 100 | 100 |
-| `/timeline` | 87 | 3.7s | 99 | 96 (100 desktop) | 100 | 100 |
+| `/timeline` (merged build: 86, 3.8s) | 87 | 3.7s | 99 | 96 (100 desktop) | 100 | 100 |
 | `/faq` | 91 | 3.2s | 99 | 96 | 100 | 100 |
 | 404 | 86 | 3.8s | 99 | 100 | 100 | 66 (noindex, on purpose) |
 
@@ -91,13 +91,13 @@ Fixed (added): title, description, Open Graph and Twitter tags per page (written
 ## Quality
 
 - Console: no errors or warnings in Chrome and WebKit; Firefox only the font warnings above.
-- Behaviour test (navigation, focus, 404, deep links, sticky bars, drawer, theme, wheel taps, sideways scroll) at 1280 and 390: Chrome passes on the final build; Firefox and WebKit passed on an earlier build (before the focus-ring, font and preload changes), final rerun not finished.
+- Behaviour test (skip link, navigation, focus, drawer, deep links, sticky bars, wheel, 404, sideways scroll) at 1280 and 390 on the merged build: passes in Chrome, WebKit and Firefox. Safari's Tab key skips links by default (Option+Tab includes them), so the skip link was focused directly there.
 - Back button: Firefox doesn't return to the old scroll position. Chrome and WebKit do.
-- HTML validation: passes after giving the drawer's links their own name. Not rerun after that.
+- HTML validation on the merged build: no errors, no duplicate ids on any page.
 - Theme: saved choice survives a reload (tested); the system theme is used on first visit.
 - `vercel.json`: no catch-all rewrite. Each page has its own file, so unknown addresses get a real 404. Assets cached for a year, HTML revalidated. Not tested on Vercel. A new page needs an entry in `src/pageMeta.js` as well as `src/routes.js`.
 - Pixel comparison with the starting commit (1280 and 390, both themes, every page and selection): only the logos (sharper), anti-aliasing on the home horse's edge and the 404 page differ.
-- Responsive size list on the final build: not run. Sideways scroll was checked at 1280 and 390.
+- Responsive sizes on the merged build (five pages, nine sizes from 360 to 1440, both themes): no sideways scroll, no text under 12px, tap targets at least 44px below 1024. The wheel's ALL circle is cut by the edge on purpose.
 
 **Placeholder links:** `#submit` (nav, home hero, footer, brief bands, Timeline), `#create-account` (Timeline), `#prizes`, `#judges`, `#about`, `#past-winners`, `#press`, `#instagram`, `#linkedin` (footer). There are no external links yet, so no `rel` to check.
 

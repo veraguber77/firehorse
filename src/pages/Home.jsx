@@ -80,6 +80,7 @@ export default function Home() {
             height={1153.594}
             rotate={-53.62}
             inset={[17.05, 14.44, 17.4, 14.39]}
+            lazy
           />
         </div>
         <div className="home-hero__rule" aria-hidden="true" />
