@@ -216,8 +216,8 @@
     --frame-x: 12vw;
     --frame-y: -40px;
 
-    -webkit-mask-image: linear-gradient(to top, transparent 220px, #000 340px);
-    mask-image: linear-gradient(to top, transparent 220px, #000 340px);
+    -webkit-mask-image: linear-gradient(to top, transparent 185px, #000 285px);
+    mask-image: linear-gradient(to top, transparent 185px, #000 285px);
   }
 
   .timeline-intro__horse {
@@ -244,8 +244,8 @@
 @media (width < 768px) {
   .timeline-intro .gradient {
     --frame-scale: 0.7;
-    --frame-x: calc(448px - 50vw);
-    --frame-y: 20px;
+    --frame-x: calc(520px - 50vw);
+    --frame-y: calc(50% - 266px); /* from the bottom, like the horse */
   }
 }
 

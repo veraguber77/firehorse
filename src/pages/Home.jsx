@@ -10,7 +10,6 @@ import gradientTurnA from '../assets/home/gradient-turn-a.webp'
 import gradientTurnB from '../assets/home/gradient-turn-b.webp'
 import gradientClosing from '../assets/home/gradient-closing.webp'
 import horseHead from '../assets/home/horse-head.svg'
-import fire from '../assets/home/fire.svg'
 import iconPoster from '../assets/home/icon-poster.svg'
 import iconWebApp from '../assets/home/icon-web-app.svg'
 import iconMobileApp from '../assets/home/icon-mobile-app.svg'
@@ -133,7 +132,6 @@ export default function Home() {
 
       {/* Statement band */}
       <section className="home-statement">
-        <img className="home-statement__fire" src={fire} width="700.033" height="312" alt="" />
         <h2 className="home-statement__title">Firehorse is an open design competition across five categories.</h2>
         <p className="home-statement__text">
           Poster, Web App, Mobile App, Illustration, and Motion/Animation. AI is welcome but not required.

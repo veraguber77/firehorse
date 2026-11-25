@@ -325,17 +325,6 @@
   background: var(--color-afterglow-600);
 }
 
-/* Fire graphic, upside down in the top-right corner. */
-.home-statement__fire {
-  position: absolute;
-  top: calc(-30 * var(--u));
-  right: calc(-30.017 * var(--u));
-  width: calc(700.033 * var(--u));
-  height: calc(312 * var(--u));
-  max-width: none;
-  rotate: 180deg;
-}
-
 /* Firehorse/Heading 2 */
 .home-statement__title {
   width: 900px;
@@ -1099,19 +1088,6 @@
 
     flex: none;
     justify-content: center;
-  }
-
-  .home-statement {
-    justify-content: flex-end;
-    min-height: 460px;
-    padding-top: 160px;
-  }
-
-  .home-statement__fire {
-    top: -16px;
-    right: -16px;
-    width: 350px;
-    height: 156px;
   }
 
   .home-categories__grid {
