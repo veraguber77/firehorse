@@ -1,25 +1,27 @@
 import { useEffect, useRef, useState } from 'react'
 import Button from '../components/Button.jsx'
 import Gradient from '../components/Gradient.jsx'
+import SectionNav from '../components/SectionNav.jsx'
 import { faqTopics } from '../faq.js'
 import gradientHeader from '../assets/faq/gradient.webp'
 import './Faq.css'
 
-// A topic becomes current once its top passes this far down the viewport
-// (just below where an index link lands it: 56px scroll-margin in Faq.css).
-const CURRENT_LINE = 120
+// A topic becomes current once its top is this close to where an index link lands it
+// (its scroll-margin in Faq.css, which is larger below 1024px, under the chip bar).
+const CURRENT_REACH = 64
 
-/** FAQ page — Figma "FAQ Page" (light 262:4326, dark 322:9511). Desktop only for now. */
+/** FAQ page — Figma "FAQ Page" (light 262:4326, dark 322:9511). */
 export default function Faq() {
-  // The topic being read; the sticky index highlights it.
+  // The topic being read; the topic nav highlights it.
   const [currentId, setCurrentId] = useState(faqTopics[0].id)
   const sectionRefs = useRef({})
 
   useEffect(() => {
     function update() {
       let next = faqTopics[0].id
+      const margin = parseFloat(getComputedStyle(sectionRefs.current[next]).scrollMarginTop)
       for (const { id } of faqTopics) {
-        if (sectionRefs.current[id]?.getBoundingClientRect().top <= CURRENT_LINE) next = id
+        if (sectionRefs.current[id]?.getBoundingClientRect().top <= margin + CURRENT_REACH) next = id
       }
       // On tall screens the page can run out of scroll before the last topic reaches the line.
       const { scrollHeight } = document.documentElement
@@ -64,21 +66,13 @@ export default function Faq() {
       <div className="faq-body">
         {/* The index sticks within this row only, so it stops above the closing block. */}
         <div className="faq-topics">
-          <nav className="faq-index" aria-label="FAQ topics">
-            <ul className="faq-index__list">
-              {faqTopics.map(({ id, name }) => (
-                <li key={id}>
-                  <a
-                    className="faq-index__link"
-                    href={`#${id}`}
-                    aria-current={id === currentId ? 'location' : undefined}
-                  >
-                    {name}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </nav>
+          <SectionNav
+            className="faq-index"
+            label="FAQ topics"
+            items={faqTopics}
+            hrefFor={(id) => `#${id}`}
+            currentId={currentId}
+          />
 
           <div className="faq-transcript">
             {faqTopics.map(({ id, name, items }) => (

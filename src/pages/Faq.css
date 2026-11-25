@@ -1,5 +1,6 @@
 /*
- * FAQ page — follows the 1280px-wide Figma frame. Desktop only for now.
+ * FAQ page — follows the 1280px-wide Figma frame. Below 1024px the topic index becomes the
+ * chip bar (components/SectionNav) and the transcript takes the full width.
  */
 .faq {
   --faq-body-bg: var(--color-kindling-100);
@@ -31,8 +32,8 @@
   align-items: flex-start;
   justify-content: flex-end;
   gap: var(--spacing-24);
-  height: var(--hero-height);
-  padding: var(--spacing-96) var(--spacing-64) 56px;
+  min-height: var(--hero-height);
+  padding: var(--spacing-96) var(--gutter) 56px;
   border-bottom: 1px solid var(--border-default);
   overflow: clip;
 }
@@ -43,9 +44,9 @@
   width: 883px;
   max-width: 100%;
   font-family: var(--font-display);
-  font-size: 108px;
+  font-size: var(--fs-display);
   font-weight: 900;
-  line-height: 90px;
+  line-height: 0.8333;
   text-transform: uppercase;
   color: var(--text-brand-primary);
 }
@@ -62,9 +63,9 @@
 .faq-header__lede {
   width: 380px;
   max-width: 100%;
-  font-size: 18px;
+  font-size: var(--fs-body-lg);
   font-weight: 500;
-  line-height: 22px;
+  line-height: 1.2222;
   color: var(--text-secondary);
 }
 
@@ -77,7 +78,7 @@
 .faq-body {
   --faq-index-width: 220px;
 
-  padding: 56px var(--spacing-64) var(--spacing-80);
+  padding: 56px var(--gutter) clamp(48px, 6.25vw, 80px);
   background: var(--faq-body-bg);
 }
 
@@ -92,51 +93,17 @@
  * topic title, sticks at that height while the transcript scrolls, and stops when the last
  * topic ends, above the closing block.
  */
-.faq-index {
-  position: sticky;
-  /* Both offsets line the first item's letters up with the topic title beside it: 4px at
-     rest, 47px down the screen once an index link has scrolled a topic into place. */
-  top: 47px;
-  flex: none;
-  width: var(--faq-index-width);
-  margin-top: 4px;
-  color: var(--text-brand-primary);
-}
-
-.faq-index__list {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: var(--spacing-16);
-  margin: 0;
-  padding: 0;
-  list-style: none;
-}
-
-/* Firehorse/Heading 3 */
-.faq-index__link {
-  display: block;
-  font-family: var(--font-heading);
-  font-size: 36px;
-  font-weight: 700;
-  line-height: 0.78;
-  letter-spacing: -0.06em;
-  text-transform: uppercase;
-  color: inherit;
-  text-decoration: none;
-  opacity: 0.55;
-  transition: opacity 0.2s ease-out;
-}
-
-.faq-index__link:hover,
-.faq-index__link[aria-current] {
-  opacity: 1;
-}
-
-.faq-index__link:focus-visible {
-  outline: 2px solid currentColor;
-  outline-offset: 4px;
-  border-radius: 2px;
+@media (width >= 1024px) {
+  .faq-index {
+    position: sticky;
+    /* Both offsets line the first item's letters up with the topic title beside it: 4px at
+       rest, 47px down the screen once an index link has scrolled a topic into place. */
+    top: 47px;
+    flex: none;
+    width: var(--faq-index-width);
+    margin-top: 4px;
+    color: var(--text-brand-primary);
+  }
 }
 
 /*
@@ -165,7 +132,7 @@
   align-items: center;
   height: 50px;
   font-family: var(--font-heading);
-  font-size: 64px;
+  font-size: var(--fs-h1);
   font-weight: 700;
   line-height: 0.78;
   letter-spacing: -0.06em;
@@ -264,9 +231,9 @@
   align-items: center;
   min-height: 84px;
   font-family: var(--font-heading);
-  font-size: 48px;
+  font-size: var(--fs-h2);
   font-weight: 700;
-  line-height: 0.78;
+  line-height: var(--lh-heading);
   letter-spacing: -0.06em;
   text-transform: uppercase;
 }
@@ -284,54 +251,102 @@
   padding-inline: 28px;
 }
 
-/* TODO: mobile. No narrow design yet: the index stacks above the transcript. */
-@media (max-width: 767px) {
+/* ---------- Tablet and mobile: the chip bar, then everything full width ---------- */
+@media (width < 1024px) {
   .faq-header {
-    height: auto;
-    padding: 160px var(--spacing-16) var(--spacing-48);
+    padding-block: var(--spacing-96) var(--spacing-48);
   }
 
-  .faq-header__title {
-    font-size: 64px;
-    line-height: 56px;
+  .faq-header__button {
+    min-height: 48px;
   }
 
-  .faq-topics,
-  .faq-closing {
-    flex-direction: column;
-    align-items: stretch;
+  .faq-header__lede {
+    width: 440px;
   }
 
   .faq-body {
-    padding-inline: var(--spacing-16);
+    padding-top: 0;
   }
 
+  .faq-topics {
+    flex-direction: column;
+    align-items: stretch;
+    gap: var(--spacing-40);
+  }
+
+  /* Edge to edge, on the transcript's background. */
   .faq-index {
-    position: static;
-    width: auto;
-    margin-top: 0;
+    margin-inline: calc(-1 * var(--gutter-inner));
+    background: var(--faq-body-bg);
   }
 
   .faq-transcript {
     flex: none;
+    gap: var(--spacing-48);
     margin: 0;
+  }
+
+  .faq-topic {
+    scroll-margin-top: calc(var(--section-nav-height) + var(--spacing-24));
+  }
+
+  .faq-topic__title,
+  .faq-topic:first-child .faq-topic__title {
+    height: auto;
+    min-height: 44px;
+  }
+
+  .faq-message {
+    max-width: 640px;
+  }
+
+  .faq-message--you {
+    align-self: flex-end;
   }
 
   .faq-closing {
     width: auto;
+    max-width: none;
   }
 
   .faq-closing__text {
+    flex: 1;
     width: auto;
+    max-width: 440px;
   }
 
-  .faq-closing__button {
-    align-self: flex-start;
+  .faq-closing__title {
+    min-height: 0;
+  }
+
+  .faq-closing__title-text {
+    translate: none;
   }
 }
 
-@media (prefers-reduced-motion: reduce) {
-  .faq-index__link {
-    transition: none;
+@media (width < 768px) {
+  .faq-header__intro {
+    align-self: stretch;
+  }
+
+  .faq-header__button,
+  .faq-closing__button {
+    align-self: stretch;
+  }
+
+  /* Each message leaves room on the other side, so it still reads as a conversation. */
+  .faq-message {
+    max-width: 92%;
+  }
+
+  .faq-closing {
+    flex-direction: column;
+    align-items: stretch;
+    padding: var(--spacing-32) var(--spacing-24);
+  }
+
+  .faq-closing__text {
+    max-width: none;
   }
 }
