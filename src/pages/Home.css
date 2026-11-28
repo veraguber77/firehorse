@@ -245,6 +245,7 @@
   flex-direction: column;
   align-items: flex-start;
   gap: var(--spacing-12);
+  width: min-content; /* as wide as its bar: a longer label wraps instead of spreading the bars */
 }
 
 .home-bars__fill {
@@ -270,8 +271,13 @@
   background: var(--color-blaze-600);
 }
 
-/* The year reads bottom-to-top inside its bar. */
+/*
+ * The year reads bottom-to-top inside its bar. Its size comes from the box (container units),
+ * not from px, so the browser's text-only zoom doesn't push it out of the bar. The label under
+ * the bar repeats the year as text, and that does grow with zoom.
+ */
 .home-bars__year-box {
+  container-type: size;
   position: absolute;
   left: calc(40 * var(--bar-u));
   top: calc(40 * var(--bar-u));
@@ -286,7 +292,7 @@
   flex: none;
   rotate: -90deg;
   font-family: var(--font-heading);
-  font-size: calc(108 * var(--bar-u));
+  font-size: calc(108 / 78 * 100cqi); /* 108 Figma px in the 78px box */
   font-weight: 700;
   line-height: 0.7222;
   letter-spacing: -0.06em;
@@ -304,7 +310,7 @@
 }
 
 .home-bars__item--now .home-bars__year {
-  font-size: calc(168 * var(--bar-u));
+  font-size: calc(168 / 131 * 100cqi); /* 168 Figma px in the 131px box */
   line-height: 0.78;
   color: var(--text-inverse);
 }
@@ -314,8 +320,18 @@
   font-size: 12px;
   font-weight: 400;
   line-height: normal;
-  white-space: nowrap;
   color: var(--text-secondary);
+}
+
+/* Phones: the year on its own line, so all three labels are two lines and the bars stay level. */
+@media (width < 768px) {
+  .home-bars__label-year {
+    display: block;
+  }
+
+  .home-bars__label-sep {
+    display: none;
+  }
 }
 
 .home-bars__item--now .home-bars__label {

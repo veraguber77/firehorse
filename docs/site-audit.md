@@ -32,8 +32,8 @@ November 25, 2026. Production build of this branch (started from commit 1621a5b)
 | Drawer: focus, Esc, return of focus, name | Pass |
 | Reduced motion | Pass by reading the CSS and JS: every transition has a rule for it |
 | 200% browser zoom (1280) | Pass: no sideways scroll, no text past the edge |
-| Text-only 200% at 1280 | Fixed (Nov 27): long words break, nowrap labels and buttons wrap when they don't fit. Still clipped: the big years inside the Home year bars |
-| Text-only 200% at 390 | Fixed (Nov 27): no sideways scroll on any page, no text cut off except the year-bar years. Simulated in Chrome (every font size doubled); real Firefox and Safari text zoom not run. At normal size, every page and width is pixel-identical apart from a 0.02px rounding change in the reel |
+| Text-only 200% at 1280 | Fixed (Nov 27): long words break, nowrap labels and buttons wrap when they don't fit. The big years in the Home bars are sized to their bar (container units), and each label under a bar now says its year too |
+| Text-only 200% at 390 | Fixed (Nov 27): no sideways scroll on any page, no text cut off. Simulated in Chrome (every font size doubled); real Firefox and Safari text zoom not run. At normal size, every page and width is pixel-identical apart from a 0.02px rounding change in the reel |
 | Screen readers, real iOS Safari, real Android | Not run |
 
 ### Contrast fails

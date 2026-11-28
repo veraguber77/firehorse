@@ -141,11 +141,16 @@ export default function Home() {
           {yearBars.map((bar) => (
             <li key={bar.year} className={`home-bars__item home-bars__item--${bar.tone}`}>
               <div className="home-bars__fill">
-                <span className="home-bars__year-box">
+                {/* The big year is part of the graphic: the label below says it in text. */}
+                <span className="home-bars__year-box" aria-hidden="true">
                   <span className="home-bars__year">{bar.year}</span>
                 </span>
               </div>
-              <span className="home-bars__label">{bar.label}</span>
+              <span className="home-bars__label">
+                <span className="home-bars__label-year">{bar.year}</span>
+                <span className="home-bars__label-sep"> · </span>
+                {bar.label}
+              </span>
             </li>
           ))}
         </ol>
