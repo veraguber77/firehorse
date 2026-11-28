@@ -130,7 +130,8 @@
   fill: var(--color-neutral-900);
 }
 
-/* A thin Kindling edge (0.75px inside) keeps the black Motion wedge off the dark background. */
+/* A thin edge (0.75px inside), the same grey as the wheel's other lines, keeps the black Motion
+   wedge off the dark background. */
 .wheel__fill-edge {
   fill: none;
   stroke: none;
@@ -138,7 +139,7 @@
 }
 
 [data-theme='dark'] .wheel__fill-edge {
-  stroke: var(--color-kindling-100);
+  stroke: var(--wheel-off-line);
 }
 
 /* ---------- Focus ring ---------- */
@@ -162,7 +163,7 @@
   fill: var(--color-neutral-900);
 }
 
-/* Once on, uncover the wedge beneath so its Kindling edge runs unbroken into ALL. */
+/* Once on, uncover the wedge beneath so its edge runs unbroken into ALL. */
 [data-theme='dark'] .wheel__hub path[data-category='motion'][data-on='true'] {
   opacity: 0;
 }
