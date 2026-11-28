@@ -6,16 +6,6 @@
   overflow: clip;
 }
 
-/* The embers SVG is the whole 1280 × 800 Figma frame, nav included: lift it by the nav's 72. */
-.not-found__embers img {
-  position: absolute;
-  top: calc(-72 / 728 * 100%);
-  left: 0;
-  width: 100%;
-  height: calc(800 / 728 * 100%);
-  max-width: none;
-}
-
 .not-found__content {
   position: relative;
   display: flex;
