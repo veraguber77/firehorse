@@ -75,6 +75,7 @@
 
 /* Firehorse/Heading 1 */
 .brief__title {
+  max-width: 100%; /* a word too wide for the band breaks (large text zoom) */
   font-family: var(--font-heading);
   font-size: var(--fs-h1);
   font-weight: 700;

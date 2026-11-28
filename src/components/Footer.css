@@ -112,7 +112,6 @@
   font-size: 14px;
   font-weight: 700;
   line-height: normal;
-  white-space: nowrap;
   text-decoration: none;
   color: var(--footer-link);
 }

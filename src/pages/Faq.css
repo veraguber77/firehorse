@@ -130,7 +130,7 @@
 .faq-topic__title {
   display: flex;
   align-items: center;
-  height: 50px;
+  min-height: 50px; /* taller only if large text zoom wraps the title */
   font-family: var(--font-heading);
   font-size: var(--fs-h1);
   font-weight: 700;
@@ -142,11 +142,12 @@
 
 /* Figma gives the first title a taller box. */
 .faq-topic:first-child .faq-topic__title {
-  height: 76px;
+  min-height: 76px;
 }
 
 .faq-topic__title-text,
 .faq-closing__title-text {
+  min-width: 0; /* lets a word too wide for the column break (large text zoom) */
   translate: 0 var(--faq-tight-shift);
 }
 

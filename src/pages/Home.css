@@ -393,7 +393,7 @@
 
 .home-reel__window {
   align-self: stretch;
-  height: 1.231em; /* one line of the word */
+  min-height: 1.231em; /* one line of the word; more only if large text zoom wraps it */
   font-size: var(--reel-size);
   overflow: clip;
 }
@@ -404,7 +404,6 @@
   font-weight: 400;
   line-height: 1.231;
   text-transform: uppercase;
-  white-space: nowrap;
   color: var(--category-color);
 }
 
@@ -725,7 +724,6 @@
   font-size: 12px;
   font-weight: 400;
   line-height: normal;
-  white-space: nowrap;
   text-transform: capitalize;
   color: var(--timeline-muted);
 }
@@ -768,13 +766,13 @@
 
 /* Questions? title is 118px from the top, the list 254px. */
 .home-faq__title {
+  max-width: 100%; /* "Questions?" breaks rather than running off (large text zoom) */
   margin-bottom: 54.97px;
   font-family: var(--font-display);
   font-size: clamp(52px, 7.6vw, 97.236px);
   font-weight: 900;
   line-height: 0.8333;
   text-transform: uppercase;
-  white-space: nowrap;
   color: var(--color-inferno-600);
 }
 

@@ -230,9 +230,10 @@
     height: calc(458 * var(--horse-u)); /* cropped 14% at the bottom, just under the nose */
   }
 
+  /* One line here; it only wraps if large text zoom makes it wider than the screen. */
   .timeline-intro__title {
     width: auto;
-    white-space: nowrap;
+    max-width: 100%;
   }
 
   .timeline-intro__lede {
