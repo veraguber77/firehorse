@@ -210,13 +210,13 @@
   color: var(--color-blaze-600);
 }
 
-/* Inter Regular 18/1.6 in Figma; Inter isn't in the font project, so this uses the body face. */
+/* Firehorse/Body Large (light Figma frame, 262:4156; the dark frame follows it). */
 .home-about__body {
   width: 400px;
   max-width: 100%;
   font-size: var(--fs-body-lg);
-  font-weight: 400;
-  line-height: 1.6;
+  font-weight: 500;
+  line-height: normal;
   color: var(--text-secondary);
 }
 
