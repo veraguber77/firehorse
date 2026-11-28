@@ -8,7 +8,7 @@ const COLORS = ['red', 'orange', 'lightBlue', 'darkBlue', 'cinder', 'cream']
  * or shadow; on hover a glow rises from the bottom edge (see Button.css).
  *
  *   <Button color="red" href="#submit">Submit an entry</Button>
- *   <Button color="cinder" iconEnd={<ArrowDownIcon />}>View categories</Button>
+ *   <Button color="cinder" onClick={...}>View categories<ArrowIcon direction="down" /></Button>
  *   <Button variant="text" to="/faq">See all questions</Button>
  *
  * - `color`: red | orange | lightBlue | darkBlue | cinder | cream (solid only, default red).
@@ -16,31 +16,16 @@ const COLORS = ['red', 'orange', 'lightBlue', 'darkBlue', 'cinder', 'cream']
  * - `variant`: solid (default) | text (an underlined link-style button).
  * - `to` renders a react-router <Link> (internal routes), `href` a plain <a> (#anchors,
  *   external links), neither a <button type="button">. Native attributes pass through.
- * - `icon` / `iconEnd`: optional node before / after the label. Draw it with currentColor so it
- *   follows the label (e.g. <ArrowDownIcon /> rather than a "↓" character, which comes from
- *   another font: thin, and lower than the capitals).
+ * - `icon`: optional node before the label. Draw it with currentColor so it follows the label.
+ *   For a trailing arrow, put <ArrowIcon /> at the end of the label instead of "→" or "↓".
  * - `disabled` also works on links: they get aria-disabled and ignore clicks.
  */
-/**
- * Down arrow drawn to match the label's capitals: their height (the tip overshoots a little, as round letters do), a bold
- * stem's weight, and their vertical position (see .btn__arrow in Button.css).
- */
-export function ArrowDownIcon() {
-  return (
-    <svg className="btn__arrow" width="10" height="10.5" viewBox="0 0 10 10.5" fill="none"
-      stroke="currentColor" strokeWidth="2" focusable="false">
-      <path d="M5 0v9.6M1 5.09l4 4 4-4" />
-    </svg>
-  )
-}
-
 export default function Button({
   color = 'red',
   variant = 'solid',
   to,
   href,
   icon,
-  iconEnd,
   disabled = false,
   className,
   children,
@@ -65,11 +50,6 @@ export default function Button({
         </span>
       )}
       <span className="btn__label">{children}</span>
-      {iconEnd && (
-        <span className="btn__icon" aria-hidden="true">
-          {iconEnd}
-        </span>
-      )}
     </>
   )
 

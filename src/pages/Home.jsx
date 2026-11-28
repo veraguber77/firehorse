@@ -1,5 +1,6 @@
 import { Link } from 'react-router'
-import Button, { ArrowDownIcon } from '../components/Button.jsx'
+import Button from '../components/Button.jsx'
+import ArrowIcon from '../components/ArrowIcon.jsx'
 import Gradient from '../components/Gradient.jsx'
 import { categories, categoryVars, getCategory } from '../categories.js'
 import { stages as milestones } from '../timeline.js'
@@ -102,9 +103,9 @@ export default function Home() {
             color="cinder"
             className="btn-dark-cream"
             href="#open-categories"
-            iconEnd={<ArrowDownIcon />}
           >
             View Categories
+            <ArrowIcon direction="down" />
           </Button>
         </div>
       </section>
@@ -209,7 +210,7 @@ export default function Home() {
                   <span className="home-card__title">{category.briefName ?? category.name}</span>
                   <span className="home-card__tagline">{category.tagline}</span>
                 </span>
-                <span className="home-card__more">Learn more →</span>
+                <span className="home-card__more">Learn more<ArrowIcon /></span>
               </Link>
             </li>
           ))}
@@ -226,7 +227,7 @@ export default function Home() {
                   </span>
                 </span>
               </span>
-              <span className="home-card__more">See all briefs →</span>
+              <span className="home-card__more">See all briefs<ArrowIcon /></span>
             </Link>
           </li>
         </ul>
@@ -284,7 +285,8 @@ export default function Home() {
               working. Entry is free.
             </p>
             <Button color={activeMilestone.buttonColor} className="home-timeline__button" to="/timeline">
-              See the full timeline →
+              See the full timeline
+              <ArrowIcon />
             </Button>
           </div>
           <p className="home-timeline__number" aria-hidden="true">

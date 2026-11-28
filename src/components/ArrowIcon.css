@@ -1,0 +1,11 @@
+/*
+ * A word space after the text, on the baseline (see ArrowIcon.jsx). The brand font's capitals
+ * render half a pixel above the baseline, so the drawing is raised by that much inside the
+ * SVG (the viewBox starts at y 0.5): moving the element itself would snap to whole pixels.
+ */
+.arrow-icon {
+  display: inline;
+  margin-left: 0.4em;
+  overflow: visible;
+  vertical-align: baseline;
+}
