@@ -1,8 +1,8 @@
 import { Link } from 'react-router'
 import './Nav.css'
 import { navLinks } from '../routes.js'
-import logoForLight from '../assets/logo-red-dark.webp'
-import logoForDark from '../assets/logo-red-light.webp'
+import logoForLight from '../assets/logo-red-dark.svg'
+import logoForDark from '../assets/logo-red-light.svg'
 import Button from './Button.jsx'
 
 /** Settings gear (from the Figma Nav), drawn in currentColor so it follows the button label. */

@@ -1,8 +1,8 @@
 import { Link } from 'react-router'
 import Button from './Button.jsx'
 import './Footer.css'
-import logoForLight from '../assets/logo-sky-blue-dark.webp'
-import logoForDark from '../assets/logo-deep-blue-light.webp'
+import logoForLight from '../assets/logo-sky-blue-dark.svg'
+import logoForDark from '../assets/logo-deep-blue-light.svg'
 
 const columns = [
   {

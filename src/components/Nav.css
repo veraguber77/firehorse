@@ -18,7 +18,7 @@
   color: var(--text-brand-primary);
 }
 
-/* Logo — the PNG has transparent padding, cropped as in Figma */
+/* Logo — the SVG has transparent padding, cropped as in Figma */
 .nav__logo {
   position: relative;
   flex: none;
