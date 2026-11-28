@@ -1,25 +1,47 @@
+/* Figma "404 Page" (453:1839 light, 453:1878 dark). Content 118px below the nav, 64px in. */
 .not-found {
+  position: relative;
+  min-height: var(--hero-height);
+  padding: clamp(56px, 9.22vw, 118px) var(--gutter) var(--spacing-96);
+  overflow: clip;
+}
+
+/* The embers SVG is the whole 1280 × 800 Figma frame, nav included: lift it by the nav's 72. */
+.not-found__embers img {
+  position: absolute;
+  top: calc(-72 / 728 * 100%);
+  left: 0;
+  width: 100%;
+  height: calc(800 / 728 * 100%);
+  max-width: none;
+}
+
+.not-found__content {
   position: relative;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  justify-content: flex-end;
-  gap: var(--spacing-24);
-  min-height: var(--hero-height);
-  padding: var(--spacing-96) var(--gutter) 56px;
-  overflow: clip;
+  max-width: 720px;
 }
 
-.not-found > * {
-  position: relative;
+/* Firehorse/Overline. Figma draws it 11px; 12px is the site's smallest size. */
+.not-found__overline {
+  margin-bottom: var(--spacing-16);
+  font-size: var(--fs-caption);
+  font-weight: 500;
+  line-height: normal;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color-inferno-600);
 }
 
-.not-found > .gradient {
-  position: absolute;
+[data-theme='dark'] .not-found__overline {
+  color: var(--color-ember-600);
 }
 
+/* Firehorse/Display: two lines, the second in Inferno. */
 .not-found__title {
-  max-width: 883px;
+  margin-bottom: var(--spacing-24);
   font-family: var(--font-display);
   font-size: var(--fs-display);
   font-weight: 900;
@@ -29,14 +51,23 @@
 }
 
 .not-found__title-accent {
-  color: var(--accent-primary);
+  display: block;
+  color: var(--color-inferno-600);
 }
 
+/* Firehorse/Body Large. Cinder in light; cream at 85% in dark. */
 .not-found__text {
+  max-width: 460px;
+  margin-bottom: 30px;
   font-size: var(--fs-body-lg);
   font-weight: 500;
-  line-height: 1.2222;
-  color: var(--text-secondary);
+  line-height: normal;
+  color: var(--color-cinder-600);
+}
+
+[data-theme='dark'] .not-found__text {
+  color: var(--color-kindling-100);
+  opacity: 0.85;
 }
 
 .not-found__actions {
