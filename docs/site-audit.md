@@ -10,7 +10,7 @@ November 25, 2026. Production build of this branch (started from commit 1621a5b)
 2. Adobe Fonts: done. They load in the background; the page shows resized Arial until every weight has downloaded, then switches once. Mobile medians of 3 are now `/` 86 (70 to 90 across runs on a busy machine), `/categories` 90, `/timeline` 94, `/faq` 96; first paint about 0.9s; CLS 0.000 to 0.003. LCP is 2.7 to 3.6s (target 2.5s). If Adobe's server fails or hangs, the page still shows (tested in Chrome, WebKit, Firefox). The table under Performance is from before this change.
 3. Site address is unknown (none on GitHub, no Vercel config). Set `VITE_SITE_URL` in the host's build settings; canonical, og:url and the sitemap then appear.
 4. The 1200 x 630 social image doesn't exist. Put it in `public/` and set `VITE_SOCIAL_IMAGE=/social.png`.
-5. Favicon: a crop of the horse mark from the logo. Please approve. It's a small bitmap inside the SVG; a vector logo would be sharper.
+5. Favicon: done (Nov 27). The vector horse head: black in a light browser, white in a dark one. The PNG icons are the black horse, on cream for the home-screen icons.
 6. 404 page: new, not in Figma (FAQ header layout and gradient, two-tone title, two buttons). Please approve.
 7. Page titles and descriptions are new copy in `src/pageMeta.js`. Please check.
 8. Placeholder links below need real targets. On `/faq`, the footer's About link jumps to the FAQ topic "About".
@@ -42,7 +42,7 @@ Measured on rendered pixels at 1280 and 390. Body text needs 4.5, large text 3. 
 
 | Where | Theme | Ratio | Suggested fix |
 | --- | --- | --- | --- |
-| `/categories` >= 1280, picker one-liner over the orange art (every selection) | Dark | 1.56 to 2.88 where it crosses the art (median 7.8 to 11) | Move the art, or wrap the line as below 1280 |
+| `/categories` >= 1280, picker one-liner over the orange art (every selection) | Dark | Fixed (Nov 27): two lines at every width, lowest now 6.51 | — |
 | `/categories` "Five", Web App / Mobile App | Light | 2.01 / 2.40 | Ember 700 is 3.09, Blaze 700 3.63 |
 | `/` hero "2026" | Light | 1.89 at the worst | Ember 700 is 3.09 |
 | `/` "Enter with a", 14px Ember | Light | 2.01 | Ember 800 is 5.05 |

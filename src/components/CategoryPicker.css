@@ -162,12 +162,11 @@
   }
 }
 
-/* Laptop and tablet: two short lines keep the one-liner off the gradient. */
-@media (max-width: 1279px) {
-  .picker__readout-tagline {
-    max-width: 240px;
-    text-wrap: balance;
-  }
+/* Two short lines keep the one-liner clear of the gradient, which crosses it in one line
+   (dark theme, 1280 to about 1600px). On phones it runs the full width again (below). */
+.picker__readout-tagline {
+  max-width: 240px;
+  text-wrap: balance;
 }
 
 /* Tablet: no longer one screen tall; the height follows the wheel. */
