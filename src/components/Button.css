@@ -72,6 +72,16 @@
   display: block;
 }
 
+/* An icon after the label sits a word space from it: the gap less the label's trailing tracking. */
+.btn__label + .btn__icon {
+  margin-left: calc(var(--spacing-8) * -1 + 6px - 0.06em);
+}
+
+/* The capitals sit a little above the line box's centre; the arrow follows them. */
+.btn__arrow {
+  transform: translateY(-0.25px);
+}
+
 /* ---------- Colours (fill / label / glow) ---------- */
 .btn--red {
   --btn-fill: var(--color-inferno-600);

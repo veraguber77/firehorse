@@ -4,7 +4,7 @@
  * <Button color="..."> uses primitive colours, so a button looks the same in both themes.
  * Where a Figma screen gives a button a different colour in Dark, add one of these classes:
  *
- *   <Button color="cinder" className="btn-dark-cream">View categories ↓</Button>
+ *   <Button color="cinder" className="btn-dark-cream">View categories</Button>
  *
  * It swaps the button's --btn-fill / --btn-label / --btn-glow (and focus ring) only under
  * <html data-theme="dark">. Pure CSS: it switches with the theme, no re-render.

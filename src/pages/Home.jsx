@@ -1,5 +1,5 @@
 import { Link } from 'react-router'
-import Button from '../components/Button.jsx'
+import Button, { ArrowDownIcon } from '../components/Button.jsx'
 import Gradient from '../components/Gradient.jsx'
 import { categories, categoryVars, getCategory } from '../categories.js'
 import { stages as milestones } from '../timeline.js'
@@ -98,8 +98,13 @@ export default function Home() {
           <Button color="red" href="#submit">
             Submit an Entry
           </Button>
-          <Button color="cinder" className="btn-dark-cream" href="#open-categories">
-            View Categories ↓
+          <Button
+            color="cinder"
+            className="btn-dark-cream"
+            href="#open-categories"
+            iconEnd={<ArrowDownIcon />}
+          >
+            View Categories
           </Button>
         </div>
       </section>
